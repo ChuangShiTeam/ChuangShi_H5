@@ -1,5 +1,6 @@
 import React from 'react';
 import {Router, Route, IndexRedirect} from 'dva/router';
+import Home from './view/Home';
 import Main from './view/Main';
 import Index from './view/Index';
 import Product from './view/Product';
@@ -11,12 +12,9 @@ import MemberAddressDetail from './view/MemberAddressDetail';
 import StockIndex from './view/StockIndex';
 import TradeCheck from './view/TradeCheck';
 
-import wechat from './util/wechat';
-
 function RouterConfig({history}) {
 
     const handleEnter = function (next, replace, callback) {
-        wechat.auth();
 
         callback();
     };
@@ -25,6 +23,7 @@ function RouterConfig({history}) {
         <Router history={history}>
             <Route path="/">
                 <IndexRedirect to="index"/>
+                <Route path="home" component={Home}/>
                 <Route component={Main} onEnter={handleEnter}>
                     <Route path="index" component={Index}/>
                     <Route path="product" component={Product}/>

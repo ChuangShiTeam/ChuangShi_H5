@@ -10,7 +10,6 @@ import storage from '../util/storage';
 import http from '../util/http';
 
 const alert = Modal.alert;
-let WeixinJSBridge;
 
 class TradeCheck extends Component {
     constructor(props) {
@@ -154,22 +153,12 @@ class TradeCheck extends Component {
                 trade_receiver_area: this.state.member_address.member_address_area,
                 trade_receiver_address: this.state.member_address.member_address_address,
                 trade_message: this.props.form.getFieldValue('trade_message'),
-                trade_pay_type: 'WECHAT_PAY',
+                trade_pay_type: 'WECHAT',
                 product_sku_list: product_sku_list,
                 open_id: storage.getOpenId(),
                 pay_type: 'H5',
             },
             success: function (data) {
-                if (typeof WeixinJSBridge === 'undefined') {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(data), false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady(data));
-                        document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady(data));
-                    }
-                } else {
-                    this.onBridgeReady(data);
-                }
 
                 Toast.hide();
             }.bind(this),
@@ -177,35 +166,6 @@ class TradeCheck extends Component {
 
             },
         });
-    }
-
-    onBridgeReady(data) {
-        WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', {
-                appId: data.appId,
-                timeStamp: data.timeStamp,
-                nonceStr: data.nonceStr,
-                package: data.package,
-                signType: data.signType,
-                paySign: data.paySign,
-            },
-            (res) => {
-                storage.setProduct([]);
-                storage.removeDelivery();
-
-                if (res.err_msg == 'get_brand_wcpay_request:ok') {
-                    this.props.dispatch(routerRedux.push({
-                        pathname: '/order/result/check/' + data.orderId,
-                        query: {},
-                    }));
-                } else {
-                    this.props.dispatch(routerRedux.push({
-                        pathname: '/order/detail/ALL/' + data.orderId,
-                        query: {},
-                    }));
-                }
-            },
-        );
     }
 
     handleBack() {
@@ -245,8 +205,7 @@ class TradeCheck extends Component {
                                         key={item.product_sku_id}
                                         extra={'￥' + (item.product_sku_price * item.product_sku_quantity).toFixed(2)}
                                     >
-                                        <img className="product-list-image" src={constant.host + item.product_image}
-                                        />
+                                        <img className="product-list-image" src={constant.host + item.product_image} alt=""/>
                                         <div className="product-list-text">
                                             {item.product_name}
                                             <div>{item.product_sku_price.toFixed(2)} × {item.product_sku_quantity}</div>
@@ -294,4 +253,4 @@ class TradeCheck extends Component {
 
 TradeCheck = createForm()(TradeCheck);
 
-export default connect(({}) => ({}))(TradeCheck);
+export default connect(() => ({}))(TradeCheck);

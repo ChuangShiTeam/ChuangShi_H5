@@ -12,6 +12,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
+const pxtorem = require('postcss-pxtorem');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -82,7 +83,7 @@ module.exports = {
         // We also include JSX as a common component filename extension to support
         // some tools, although we do not recommend using it, see:
         // https://github.com/facebookincubator/create-react-app/issues/290
-        extensions: ['.js', '.json', '.jsx'],
+        extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
         alias: {
 
             // Support React Native Web
@@ -135,6 +136,7 @@ module.exports = {
                     /\.(js|jsx)$/,
                     /\.css$/,
                     /\.less$/,
+                    require.resolve('antd-mobile').replace(/warn.js$/, ''),
                     /\.json$/,
                     /\.bmp$/,
                     /\.gif$/,
@@ -162,12 +164,12 @@ module.exports = {
                 include: paths.appSrc,
                 loader: require.resolve('babel-loader'),
                 options: {
-                    plugins: [
-                        ['import', [{libraryName: 'antd-mobile', style: true}]],
-                    ],
                     // This is a feature of `babel-loader` for webpack (not Babel itself).
                     // It enables caching results in ./node_modules/.cache/babel-loader/
                     // directory for faster rebuilds.
+                    plugins: [
+                        ['import', {libraryName: 'antd-mobile', style: true}],
+                    ],
                     cacheDirectory: true,
                 },
 
@@ -253,7 +255,7 @@ module.exports = {
                     {
                         loader: require.resolve('less-loader'),
                         options: {
-                            modifyVars: {"@brand-primary": "#a72025", "@brand-primary-tap": "#d81920"},
+                            // modifyVars: {"@brand-primary": "#a72025", "@brand-primary-tap": "#d81920"},
                         },
                     },
                 ],
