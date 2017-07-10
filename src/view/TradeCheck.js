@@ -10,6 +10,7 @@ import storage from '../util/storage';
 import http from '../util/http';
 
 const alert = Modal.alert;
+let WeixinJSBridge;
 
 class TradeCheck extends Component {
     constructor(props) {
@@ -86,14 +87,6 @@ class TradeCheck extends Component {
                     member_address = storage.getMemberAddress();
                 }
 
-                for (let i = 0; i < product_sku_list.length; i++) {
-                    let product_sku = product_sku_list[i];
-
-                    let product_amount = product_sku.product_sku_price * product_sku.product_sku_quantity;
-
-                    trade_product_amount += product_amount;
-                }
-
                 trade_amount = parseFloat(trade_product_amount) + parseFloat(trade_express_amount);
 
                 if (!trade_product_amount > 0) {
@@ -140,8 +133,8 @@ class TradeCheck extends Component {
 
         for (let i = 0; i < this.state.product_sku_list.length; i++) {
             product_sku_list.push({
-                sku_id: this.state.product_list[i].sku_id,
-                product_quantity: this.state.product_sku_list[i].product_quantity,
+                product_sku_id: this.state.product_sku_list[i].product_sku_id,
+                product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity,
             });
         }
 
@@ -149,8 +142,10 @@ class TradeCheck extends Component {
             Toast.fail('请选购商品', constant.duration);
         }
 
+        Toast.loading('加载中..', 0);
+
         http.request({
-            url: '/order/save',
+            url: '/trade/save',
             data: {
                 trade_receiver_name: this.state.member_address.member_address_name,
                 trade_receiver_mobile: this.state.member_address.member_address_mobile,
@@ -165,12 +160,52 @@ class TradeCheck extends Component {
                 pay_type: 'H5',
             },
             success: function (data) {
+                if (typeof WeixinJSBridge === 'undefined') {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(data), false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady(data));
+                        document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady(data));
+                    }
+                } else {
+                    this.onBridgeReady(data);
+                }
 
+                Toast.hide();
             }.bind(this),
             complete() {
 
             },
         });
+    }
+
+    onBridgeReady(data) {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                appId: data.appId,
+                timeStamp: data.timeStamp,
+                nonceStr: data.nonceStr,
+                package: data.package,
+                signType: data.signType,
+                paySign: data.paySign,
+            },
+            (res) => {
+                storage.setProduct([]);
+                storage.removeDelivery();
+
+                if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                    this.props.dispatch(routerRedux.push({
+                        pathname: '/order/result/check/' + data.orderId,
+                        query: {},
+                    }));
+                } else {
+                    this.props.dispatch(routerRedux.push({
+                        pathname: '/order/detail/ALL/' + data.orderId,
+                        query: {},
+                    }));
+                }
+            },
+        );
     }
 
     handleBack() {
