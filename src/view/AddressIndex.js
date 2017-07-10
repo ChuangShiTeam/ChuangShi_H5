@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Toast} from 'antd-mobile';
+import {WhiteSpace} from 'antd-mobile';
 
 class AddressIndex extends Component {
     constructor(props) {

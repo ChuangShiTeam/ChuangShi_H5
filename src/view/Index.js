@@ -5,6 +5,8 @@ import {WhiteSpace, List, Toast} from 'antd-mobile';
 
 import http from '../util/http';
 
+import empty from '../assets/svg/empty.svg';
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -82,7 +84,7 @@ class Index extends Component {
 
     handleItem(member_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/team',
+            pathname: '/member/index/' + member_id,
             query: {}
         }));
     }
@@ -98,16 +100,16 @@ class Index extends Component {
                     <List.Item
                         multipleLine
                     >
-                        <div className="list-item">
-                            <div className="list-item-image" onClick={this.handleItem.bind(this, item.member_id)}>
-                                <img src={item.user_avatar}/>
+                        <div className="list-item" onClick={this.handleItem.bind(this, item.member_id)}>
+                            <div className="list-item-image">
+                                <img src={item.user_avatar} alt=""/>
                             </div>
-                            <div className="list-item-text" onClick={this.handleItem.bind(this, item.member_id)}>
+                            <div className="list-item-text">
                                 {item.user_name}
                             </div>
-                            <div className="list-item-brief" onClick={this.handleItem.bind(this, item.member_id)}>
+                            <div className="list-item-brief">
                                 {
-                                    item.member_level_name == '' ?
+                                    item.member_level_name === '' ?
                                         <span style={{color: '#a72025'}}>待审核</span>
                                         :
                                         item.member_level_name
@@ -159,7 +161,7 @@ class Index extends Component {
                 {
                     this.state.is_load && this.props.index.list.length === 0 ?
                         <view className="">
-                            <img src={require('../assets/svg/empty.svg')} className="empty-image"></img>
+                            <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <view className="empty-text">没有数据</view>
                         </view>
                         :

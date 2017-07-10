@@ -22,11 +22,16 @@ class MemberIndex extends Component {
 
     }
 
-    handleAdd() {
-
+    handleMemberLevel() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/level/' + this.props.params.member_id,
+            query: {}
+        }));
     }
 
     render() {
+        const Item = List.Item;
+
         return (
             <div>
                 <WhiteSpace size="lg"/>
@@ -38,9 +43,14 @@ class MemberIndex extends Component {
                     </List.Item>
                 </List>
                 <WhiteSpace size="lg"/>
+                <List>
+                    <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
+                        重设等级
+                    </Item>
+                </List>
             </div>
         );
     }
 }
 
-export default connect(({}) => ({}))(MemberIndex);
+export default connect(() => ({}))(MemberIndex);

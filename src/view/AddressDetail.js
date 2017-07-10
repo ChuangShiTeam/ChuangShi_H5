@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import { createForm } from 'rc-form';
-import {Toast, Modal, WhiteSpace, List, InputItem, Picker, Switch, Button} from 'antd-mobile';
+import {WhiteSpace, List, InputItem, Picker, Switch} from 'antd-mobile';
 
 import china from '../util/china';
 
@@ -28,6 +28,8 @@ class AddressDetail extends Component {
     }
 
     render() {
+        const Item = List.Item;
+
         const {getFieldProps, getFieldError} = this.props.form;
 
         return (
@@ -63,7 +65,7 @@ class AddressDetail extends Component {
                         initialValue: [],
                     })}
                     >
-                        <List.Item arrow="horizontal">省市区:</List.Item>
+                        <Item arrow="horizontal">省市区:</Item>
                     </Picker>
                     <InputItem
                         {...getFieldProps('delivery_street', {
@@ -80,14 +82,14 @@ class AddressDetail extends Component {
                 </List>
                 <WhiteSpace size="lg" />
                 <List>
-                    <List.Item
+                    <Item
                         extra={<Switch
                             {...getFieldProps('delivery_is_default', {
                                 valuePropName: 'checked',
                                 initialValue: true,
                             })}
                         />}
-                    >设为默认地址</List.Item>
+                    >设为默认地址</Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>

@@ -97,6 +97,14 @@
     border-top: 1PX solid #ddd;
 }
 
+.footer2 {
+    position: fixed;
+    left: 0px;
+    bottom: 99px;
+    width: 100%;
+    border-top: 1PX solid #ddd;
+}
+
 .footer-buttom {
     width: 100%;
     height: 100%;
@@ -104,4 +112,70 @@
     line-height: 100px;
     text-align: center;
     background-color: #c81623;
+}
+
+.product-quantity {
+    position: absolute;
+    left: 0.3rem;
+    right: 0.3rem;
+    pointer-events: none;
+}
+
+.product-quantity-number {
+    float: right;
+    width: 36%;
+    text-align: center;
+}
+
+.product-price {
+    color: #c81623;
+    margin-left: -5px;
+}
+
+.product-content {
+    line-height: 0;
+}
+
+.product-content img {
+    width: 100%;
+}
+
+.footer-total {
+    position: relative;
+    float: left;
+    width: 70%;
+    height: 100px;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+.footer-total-text {
+    margin-left: 20px;
+    line-height: 100px;
+}
+
+.footer-buy {
+    float: left;
+    width: 30%;
+    height: 100px;
+    color: #ffffff;
+    line-height: 100px;
+    text-align: center;
+    background-color: #c81623;
+}
+
+.trade-address {
+    font-size: 28px;
+}
+
+.product-list-image {
+    width: 150px !important;
+    height: 150px !important;
+    border: #ddd 1px solid;
+}
+
+.product-list-text {
+    position: absolute;
+    left: 180px;
+    top: 45px;
 }
