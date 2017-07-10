@@ -207,4 +207,4 @@ class MemberAddressDetail extends Component {
 
 MemberAddressDetail = createForm()(MemberAddressDetail);
 
-export default connect(({}) => ({}))(MemberAddressDetail);
+export default connect(() => ({}))(MemberAddressDetail);

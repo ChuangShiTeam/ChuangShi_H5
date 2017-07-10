@@ -130,4 +130,4 @@ class MemberLevel extends Component {
     }
 }
 
-export default connect(({}) => ({}))(MemberLevel);
+export default connect(() => ({}))(MemberLevel);

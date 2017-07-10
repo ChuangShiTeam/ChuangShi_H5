@@ -5,8 +5,6 @@ import {WhiteSpace, List, Toast} from 'antd-mobile';
 
 import http from '../util/http';
 
-import empty from '../assets/svg/empty.svg';
-
 class Index extends Component {
     constructor(props) {
         super(props);

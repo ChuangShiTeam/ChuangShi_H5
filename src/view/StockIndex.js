@@ -57,4 +57,4 @@ class StockIndex extends Component {
     }
 }
 
-export default connect(({}) => ({}))(StockIndex);
+export default connect(() => ({}))(StockIndex);

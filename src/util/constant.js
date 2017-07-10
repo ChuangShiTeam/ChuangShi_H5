@@ -23,6 +23,7 @@ export default {
     detail_width: 1080,
     name: '上海星销信息技术有限公司',
     app_id: 'c1af3f1ae00e4e0da9b20f5bd41b4279',
+    wechat_app_id: 'wx934f793803320ecd',
     index: 'code/index',
     // name: '广汽三菱欧蓝德活动管理后台',
     // app_id: 'b0f1cf1b4705403ea4e2567c7d860f33',
