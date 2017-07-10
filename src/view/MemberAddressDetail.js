@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
-import { createForm } from 'rc-form';
-import {WhiteSpace, List, InputItem, Picker, Switch, Toast} from 'antd-mobile';
-
-import constant from '../util/constant';
-import validate from '../util/validate';
-import china from '../util/china';
-import http from '../util/http';
+import React, {Component} from "react";
+import {connect} from "dva";
+import {routerRedux} from "dva/router";
+import {createForm} from "rc-form";
+import {WhiteSpace, List, InputItem, Picker, Switch, Toast} from "antd-mobile";
+import constant from "../util/constant";
+import validate from "../util/validate";
+import china from "../util/china";
+import http from "../util/http";
 
 class MemberAddressDetail extends Component {
     constructor(props) {
@@ -37,7 +36,41 @@ class MemberAddressDetail extends Component {
                 member_address_id: this.props.params.member_address_id,
             },
             success: function (data) {
-                data.member_address_province_city_area = [data.member_address_province, data.member_address_city, data.member_address_area];
+                let province = '';
+                let city = '';
+                let area = '';
+                let cityList = [];
+                let areaList = [];
+
+                for (let i = 0; i < china.length; i++) {
+                    if (china[i].label === data.member_address_province) {
+                        province = china[i].value;
+
+                        cityList = china[i].children;
+
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < cityList.length; i++) {
+                    if (cityList[i].label === data.member_address_city) {
+                        city = cityList[i].value;
+
+                        areaList = cityList[i].children;
+
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < areaList.length; i++) {
+                    if (areaList[i].label === data.member_address_area) {
+                        area = areaList[i].value;
+
+                        break;
+                    }
+                }
+
+                data.member_address_province_city_area = [province, city, area];
 
                 this.props.form.setFieldsValue(data);
             }.bind(this),
@@ -99,8 +132,11 @@ class MemberAddressDetail extends Component {
                         break;
                     }
                 }
-
-                values.member_address_address = province + city + area + values.address_street;
+                values.member_address_province = province;
+                values.member_address_city = city;
+                values.member_address_area = area;
+                values.member_address_address = values.address_street;
+                delete values.member_address_province_city_area;
 
                 Toast.loading('加载中..', 0);
 

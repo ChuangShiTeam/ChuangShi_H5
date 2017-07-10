@@ -50,7 +50,7 @@ class TradeCheck extends Component {
                 let is_pay = true;
                 let is_address = false;
                 let product_sku_list = data.product_sku_list;
-                let trade_product_amount = 0;
+                let trade_product_amount = data.trade_product_amount;
                 let trade_express_amount = data.trade_express_amount;
                 let trade_amount = 0;
 
