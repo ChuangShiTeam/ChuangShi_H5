@@ -58,7 +58,7 @@ class Index extends Component {
     }
 
     handleButton(member_id) {
-        var list = this.props.index.list;
+        let list = this.props.index.list;
 
         this.handleCheck(list, member_id);
 
@@ -71,7 +71,7 @@ class Index extends Component {
     }
 
     handleCheck(list, member_id) {
-        for (var i = 0; i < list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].member_id === member_id) {
                 list[i].is_show = !list[i].is_show;
             }
@@ -90,10 +90,10 @@ class Index extends Component {
     }
 
     handleGenerate(list) {
-        var html = [];
+        let html = [];
 
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i];
+        for (let i = 0; i < list.length; i++) {
+            let item = list[i];
 
             html.push(
                 <div key={item.member_id}>

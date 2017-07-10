@@ -31,9 +31,9 @@ class My extends Component {
         }));
     }
 
-    handleAddress() {
+    handleMemberAddress() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/address/index',
+            pathname: '/member/address/index/list',
             query: {}
         }));
     }
@@ -107,7 +107,7 @@ class My extends Component {
                     </List.Item>
                     <List.Item
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"
-                        onClick={this.handleAddress.bind(this)}
+                        onClick={this.handleMemberAddress.bind(this)}
                     >
                         我的地址
                     </List.Item>

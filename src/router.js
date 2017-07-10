@@ -6,9 +6,9 @@ import Product from './view/Product';
 import My from './view/My';
 import MemberIndex from './view/MemberIndex';
 import MemberLevel from './view/MemberLevel';
+import MemberAddressIndex from './view/MemberAddressIndex';
+import MemberAddressDetail from './view/MemberAddressDetail';
 import StockIndex from './view/StockIndex';
-import AddressIndex from './view/AddressIndex';
-import AddressDetail from './view/AddressDetail';
 import TradeCheck from './view/TradeCheck';
 
 import wechat from './util/wechat';
@@ -32,9 +32,9 @@ function RouterConfig({history}) {
                 </Route>
                 <Route path="member/index/:member_id" component={MemberIndex}/>
                 <Route path="member/level/:member_id" component={MemberLevel}/>
+                <Route path="member/address/index/:type" component={MemberAddressIndex}/>
+                <Route path="member/address/add" component={MemberAddressDetail}/>
                 <Route path="stock/index" component={StockIndex}/>
-                <Route path="address/index" component={AddressIndex}/>
-                <Route path="address/detail" component={AddressDetail}/>
                 <Route path="trade/check" component={TradeCheck}/>
             </Route>
         </Router>

@@ -1,9 +1,9 @@
 import storage from './storage';
 
 function getQueryString(name) {
-  var url = document.location.href;
-  var reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
-  var r = url.substr(url.indexOf('?') + 1).match(reg);
+  let url = document.location.href;
+  let reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i');
+  let r = url.substr(url.indexOf('?') + 1).match(reg);
   if (r != null) {
     return unescape(r[2]);
   }
@@ -11,7 +11,7 @@ function getQueryString(name) {
 }
 
 function auth() {
-  var token = getQueryString('token');
+  let token = getQueryString('token');
 
   if (token === '') {
       token = storage.getToken();

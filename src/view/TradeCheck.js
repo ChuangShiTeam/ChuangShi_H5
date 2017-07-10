@@ -47,12 +47,12 @@ class TradeCheck extends Component {
                 product_sku_list: storage.getProductSkuList(),
             },
             success: function (data) {
-                var is_pay = true;
-                var is_address = false;
-                var product_sku_list = data.product_sku_list;
-                var trade_product_amount = 0;
-                var trade_express_amount = data.trade_express_amount;
-                var trade_amount = 0;
+                let is_pay = true;
+                let is_address = false;
+                let product_sku_list = data.product_sku_list;
+                let trade_product_amount = 0;
+                let trade_express_amount = data.trade_express_amount;
+                let trade_amount = 0;
 
                 if (data.member_address.member_address_name === '') {
                     is_pay = false;
@@ -68,7 +68,7 @@ class TradeCheck extends Component {
                             text: '确定',
                             onPress: function () {
                                 this.props.dispatch(routerRedux.push({
-                                    pathname: '/address/index',
+                                    pathname: '/member/address/index/select',
                                     query: {},
                                 }));
                             }.bind(this),
@@ -78,7 +78,7 @@ class TradeCheck extends Component {
                     is_address = true;
                 }
 
-                var member_address;
+                let member_address;
 
                 if (storage.getMemberAddress().member_address_name === '') {
                     member_address = data.member_address;
@@ -86,10 +86,10 @@ class TradeCheck extends Component {
                     member_address = storage.getMemberAddress();
                 }
 
-                for (var i = 0; i < product_sku_list.length; i++) {
-                    var product_sku = product_sku_list[i];
+                for (let i = 0; i < product_sku_list.length; i++) {
+                    let product_sku = product_sku_list[i];
 
-                    var product_amount = product_sku.product_sku_price * product_sku.product_sku_quantity;
+                    let product_amount = product_sku.product_sku_price * product_sku.product_sku_quantity;
 
                     trade_product_amount += product_amount;
                 }
@@ -118,13 +118,9 @@ class TradeCheck extends Component {
         });
     }
 
-    handleBack() {
-        this.props.dispatch(routerRedux.goBack());
-    }
-
-    handleDelivery() {
+    handleMemberAddress() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/delivery/index/order_check_' + this.props.params.type,
+            pathname: '/member/address/index/select',
             query: {}
         }));
     }
@@ -140,42 +136,36 @@ class TradeCheck extends Component {
             return;
         }
 
-        const product_list = [];
+        const product_sku_list = [];
 
-        for (var i = 0; i < this.state.product_list.length; i++) {
-            product_list.push({
+        for (let i = 0; i < this.state.product_sku_list.length; i++) {
+            product_sku_list.push({
                 sku_id: this.state.product_list[i].sku_id,
-                product_quantity: this.state.product_list[i].product_quantity,
+                product_quantity: this.state.product_sku_list[i].product_quantity,
             });
         }
 
-        if (product_list.length === 0) {
+        if (product_sku_list.length === 0) {
             Toast.fail('请选购商品', constant.duration);
         }
 
         http.request({
             url: '/order/save',
             data: {
-                order_delivery_name: this.state.delivery.delivery_name,
-                order_delivery_phone: this.state.delivery.delivery_phone,
-                order_delivery_address: this.state.delivery.delivery_address,
-                order_message: this.props.form.getFieldValue('order_message'),
-                order_pay_type: 'WECHAT_PAY',
-                product_list: product_list,
+                trade_receiver_name: this.state.member_address.member_address_name,
+                trade_receiver_mobile: this.state.member_address.member_address_mobile,
+                trade_receiver_province: this.state.member_address.member_address_province,
+                trade_receiver_city: this.state.member_address.member_address_city,
+                trade_receiver_area: this.state.member_address.member_address_area,
+                trade_receiver_address: this.state.member_address.member_address_address,
+                trade_message: this.props.form.getFieldValue('trade_message'),
+                trade_pay_type: 'WECHAT_PAY',
+                product_sku_list: product_sku_list,
                 open_id: storage.getOpenId(),
                 pay_type: 'H5',
             },
             success: function (data) {
-                if (typeof WeixinJSBridge === 'undefined') {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(data), false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady(data));
-                        document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady(data));
-                    }
-                } else {
-                    this.onBridgeReady(data);
-                }
+
             }.bind(this),
             complete() {
 
@@ -183,33 +173,8 @@ class TradeCheck extends Component {
         });
     }
 
-    onBridgeReady(data) {
-        // WeixinJSBridge.invoke(
-        //     'getBrandWCPayRequest', {
-        //         appId: data.appId,
-        //         timeStamp: data.timeStamp,
-        //         nonceStr: data.nonceStr,
-        //         package: data.package,
-        //         signType: data.signType,
-        //         paySign: data.paySign,
-        //     },
-        //     (res) => {
-        //         storage.setProduct([]);
-        //         storage.removeDelivery();
-        //
-        //         if (res.err_msg == 'get_brand_wcpay_request:ok') {
-        //             this.props.dispatch(routerRedux.push({
-        //                 pathname: '/order/result/check/' + data.orderId,
-        //                 query: {},
-        //             }));
-        //         } else {
-        //             this.props.dispatch(routerRedux.push({
-        //                 pathname: '/order/detail/ALL/' + data.orderId,
-        //                 query: {},
-        //             }));
-        //         }
-        //     },
-        // );
+    handleBack() {
+        this.props.dispatch(routerRedux.goBack());
     }
 
     render() {
@@ -221,14 +186,17 @@ class TradeCheck extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item arrow="horizontal" extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''} wrap onClick={this.handleDelivery.bind(this)}>
+                        <Item arrow="horizontal"
+                              extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''}
+                              wrap onClick={this.handleMemberAddress.bind(this)}>
                             {
                                 typeof (this.state.member_address.member_address_name) === 'undefined' ?
                                     '收货地址'
                                     :
                                     <div>
                                         <div>{this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}</div>
-                                        <div className="trade-address">{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</div>
+                                        <div
+                                            className="trade-address">{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</div>
                                     </div>
                             }
                         </Item>
@@ -255,10 +223,10 @@ class TradeCheck extends Component {
                     </List>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={'￥' + this.state.trade_product_amount}>
+                        <Item extra={'￥' + this.state.trade_product_amount.toFixed(2)}>
                             商品金额
                         </Item>
-                        <Item extra={'￥' + this.state.trade_express_amount}>
+                        <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
                             运费
                         </Item>
                     </List>
@@ -266,7 +234,7 @@ class TradeCheck extends Component {
                     <WhiteSpace size="lg"/>
                     <List>
                         <TextareaItem
-                            {...getFieldProps('order_message', {
+                            {...getFieldProps('trade_message', {
                                 initialValue: '',
                             })}
                             placeholder="请输入买家留言"
@@ -277,7 +245,7 @@ class TradeCheck extends Component {
                 </div>
                 <div className="footer">
                     <div className="footer-total">
-                        <span className="footer-total-text">总金额: ￥{this.state.trade_amount}</span>
+                        <span className="footer-total-text">总金额: ￥{this.state.trade_amount.toFixed(2)}</span>
                     </div>
                     <div
                         className="footer-buy" style={{backgroundColor: this.state.is_pay ? '#1AAD19' : '#dddddd'}}

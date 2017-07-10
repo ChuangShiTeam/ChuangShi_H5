@@ -34,8 +34,8 @@ class MemberLevel extends Component {
                 member_id: this.props.params.member_id
             },
             success: function (data) {
-                var member_level_id = '';
-                for (var i = 0; i < data.length; i++) {
+                let member_level_id = '';
+                for (let i = 0; i < data.length; i++) {
                     if (data[i].is_select) {
                         member_level_id = data[i].member_level_id;
                     }

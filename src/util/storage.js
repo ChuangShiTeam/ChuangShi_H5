@@ -1,15 +1,24 @@
 import constant from './constant';
 
+const open_id_key = ('open_id_' + constant.version);
 const token_key = ('token_' + constant.version);
 const product_sku_list_key = ('product_sku_list_' + constant.version);
 const member_address_key = ('member_address_' + constant.version);
+
+function getOpenId() {
+    return localStorage.getItem(open_id_key);
+}
+
+function setOpenId(open_id) {
+    localStorage.setItem(open_id_key, open_id);
+}
 
 function getToken() {
     let token = localStorage.getItem(token_key);
 
     return 'jUCXTzlv8oEQ0t2P7Sl/zol5ee35ge9Vj6WvcRi3HKhErojXtXDsS5J1+eili55vXvadUtpPe7MTaPVvtQwB0rEtUrIObbk47VhO9k3hsBI=';
 
-    if (token == null || typeof (token) === 'undefined') {
+    if (token === null || typeof (token) === 'undefined') {
         return '';
     }
 
@@ -23,9 +32,9 @@ function setToken(token) {
 }
 
 function getProductSkuList() {
-    var product_sku_list = localStorage.getItem(product_sku_list_key);
+    let product_sku_list = localStorage.getItem(product_sku_list_key);
 
-    if (product_sku_list == null) {
+    if (product_sku_list === null) {
         return [];
     }
 
@@ -41,9 +50,9 @@ function removeProductSkuList() {
 }
 
 function getMemberAddress() {
-    var member_address = localStorage.getItem(member_address_key);
+    let member_address = localStorage.getItem(member_address_key);
 
-    if (member_address == null) {
+    if (member_address === null) {
         return {
             member_address_name: '',
             member_address_mobile: '',
@@ -66,6 +75,8 @@ function removeMemberAddress() {
 }
 
 export default {
+    getOpenId: getOpenId,
+    setOpenId: setOpenId,
     getToken: getToken,
     setToken: setToken,
     getProductSkuList: getProductSkuList,
