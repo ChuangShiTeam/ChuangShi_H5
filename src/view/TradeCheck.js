@@ -159,16 +159,28 @@ class TradeCheck extends Component {
                 pay_type: 'H5',
             },
             success: function (data) {
-                if (typeof window.WeixinJSBridge === 'undefined') {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady(data), false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady(data));
-                        document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady(data));
+                window.wx.chooseWXPay({
+                    timestamp: data.timeStamp,
+                    nonceStr: data.nonceStr,
+                    package: data.package,
+                    signType: data.signType,
+                    paySign: data.paySign,
+                    success: function (res) {
+                        console.log(res);
+
+                        // if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                        //     this.props.dispatch(routerRedux.push({
+                        //         pathname: '/order/result/check/' + data.orderId,
+                        //         query: {},
+                        //     }));
+                        // } else {
+                        //     this.props.dispatch(routerRedux.push({
+                        //         pathname: '/order/detail/ALL/' + data.orderId,
+                        //         query: {},
+                        //     }));
+                        // }
                     }
-                } else {
-                    this.onBridgeReady(data);
-                }
+                });
 
                 Toast.hide();
             }.bind(this),
@@ -176,32 +188,6 @@ class TradeCheck extends Component {
 
             },
         });
-    }
-
-    onBridgeReady(data) {
-        window.WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', {
-                appId: data.appId,
-                timeStamp: data.timeStamp,
-                nonceStr: data.nonceStr,
-                package: data.package,
-                signType: data.signType,
-                paySign: data.paySign,
-            },
-            (res) => {
-                if (res.err_msg == 'get_brand_wcpay_request:ok') {
-                    this.props.dispatch(routerRedux.push({
-                        pathname: '/order/result/check/' + data.orderId,
-                        query: {},
-                    }));
-                } else {
-                    this.props.dispatch(routerRedux.push({
-                        pathname: '/order/detail/ALL/' + data.orderId,
-                        query: {},
-                    }));
-                }
-            },
-        );
     }
 
     handleBack() {
