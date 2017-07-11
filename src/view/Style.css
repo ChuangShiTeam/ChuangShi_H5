@@ -1,3 +1,6 @@
+body, html {
+    font-family: PingFang SC,Helvetica Neue,Hiragino Sans GB,Helvetica,Microsoft YaHei,Arial;
+}
 .list-item {
     display: -webkit-box;
     display: flex;

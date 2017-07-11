@@ -22,7 +22,7 @@ function RouterConfig({history}) {
     return (
         <Router history={history}>
             <Route path="/">
-                <IndexRedirect to="index"/>
+                <IndexRedirect to="home"/>
                 <Route path="home" component={Home}/>
                 <Route component={Main} onEnter={handleEnter}>
                     <Route path="index" component={Index}/>

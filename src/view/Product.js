@@ -32,7 +32,7 @@ class Product extends Component {
         http.request({
             url: '/product/find',
             data: {
-                product_id: '3df8039a08254c888354c73762816452',
+                product_id: '76537999b6c6428d9a78d47739c08fa5',
             },
             success: function (data) {
                 let product_sku_id = '';

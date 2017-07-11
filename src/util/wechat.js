@@ -17,19 +17,21 @@ function auth() {
     if (open_id === '') {
         let token = storage.getToken();
         if (token === '') {
-            // window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + constant.wechat_app_id + '&redirect_uri=http%3A%2F%2Fapi.chuangshi.nowui.com%2Fwechat%2Fauth%3Furl%3Dhome%26platform%3D' + constant.platform + '%26version%3D' + constant.version + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+            window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + constant.wechat_app_id + '&redirect_uri=http%3A%2F%2Fapi.xingxiao.nowui.com%2Fwechat%2Fapi%2Fauth%3Furl%3Dhome%26platform%3D' + constant.platform + '%26version%3D' + constant.version + '%26app_id%3D' + constant.app_id + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+
+            return false;
         }
     } else {
         let token = getQueryString('token');
 
-        storage.setOpenId(open_id);
         storage.setToken(token);
+        storage.setOpenId(open_id);
     }
 
     http.request({
         is_toast: false,
         is_response: false,
-        url: '/wechat/init?app_id=' + constant.app_id + '&url=' + document.location.href,
+        url: '/wechat/api/init?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/home',
         data: {
 
         },
@@ -73,6 +75,7 @@ function auth() {
         }
     });
 
+    return true;
 }
 
 export default {

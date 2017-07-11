@@ -46,8 +46,8 @@ class Main extends Component {
                         key="index"
                         icon={require('../assets/svg/friend.svg')}
                         selectedIcon={require('../assets/svg/friend_active.svg')}
-                        selected={this.state.selectedTab === 'index'}
-                        onPress={this.handlePress.bind(this, 'index')}
+                        selected={this.state.selectedTab === 'home'}
+                        onPress={this.handlePress.bind(this, 'home')}
                     />
                     <TabBar.Item
                         title="进货"

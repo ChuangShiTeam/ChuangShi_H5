@@ -1,5 +1,6 @@
 import dva from 'dva';
 import Router from './router';
+import FastClick from 'fastclick';
 
 import './view/Style.css';
 
@@ -9,19 +10,21 @@ import my from './model/my';
 
 import wechat from './util/wechat';
 
-import FastClick from 'fastclick';
-FastClick.attach(document.body);
+let result = wechat.auth();
 
-wechat.auth();
+if (result) {
 
-const app = dva();
+    FastClick.attach(document.body);
 
-app.model(index);
-app.model(product);
-app.model(my);
+    const app = dva();
 
-app.router(Router);
+    app.model(index);
+    app.model(product);
+    app.model(my);
 
-document.getElementById("loading").remove();
+    app.router(Router);
 
-app.start('#root');
+    document.getElementById("loading").remove();
+
+    app.start('#root');
+}
