@@ -196,6 +196,7 @@ class TradeCheck extends Component {
 
     render() {
         const Item = List.Item;
+        const Brief = Item.Brief;
         const {getFieldProps} = this.props.form;
 
         return (
@@ -205,15 +206,15 @@ class TradeCheck extends Component {
                     <List>
                         <Item arrow="horizontal"
                               extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''}
-                              wrap onClick={this.handleMemberAddress.bind(this)}>
+                              wrap
+                              onClick={this.handleMemberAddress.bind(this)}>
                             {
                                 typeof (this.state.member_address.member_address_name) === 'undefined' ?
                                     '收货地址'
                                     :
                                     <div>
-                                        <div>{this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}</div>
-                                        <div
-                                            className="trade-address">{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</div>
+                                        {this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}
+                                        <Brief>{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</Brief>
                                     </div>
                             }
                         </Item>

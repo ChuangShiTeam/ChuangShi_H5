@@ -13,7 +13,7 @@ class StockIndex extends Component {
     }
 
     componentDidMount() {
-        document.title = '我要进货';
+        document.title = '我的发货';
 
         document.body.scrollTop = 0;
     }
@@ -27,31 +27,25 @@ class StockIndex extends Component {
     }
 
     render() {
-        const TabPane = Tabs.TabPane;
+        const Item = List.Item;
 
         return (
             <div>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <List.Item
+                    <Item
                         multipleLine
+                        arrow="horizontal"
                     >
-                        ddd
-                    </List.Item>
+                        <span style={{fontSize: '24px'}}>我的库存：999</span>
+                    </Item>
                 </List>
                 <WhiteSpace size="lg"/>
-                <Tabs defaultActiveKey="1" animated={false}>
-                    <TabPane tab="选项卡一" key="1">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
-                            选项卡一内容
-                        </div>
-                    </TabPane>
-                    <TabPane tab="选项卡二" key="2">
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '5rem', backgroundColor: '#fff' }}>
-                            选项卡二内容
-                        </div>
-                    </TabPane>
-                </Tabs>
+                <List>
+                    <Item arrow="horizontal">
+                        快递单号
+                    </Item>
+                </List>
             </div>
         );
     }

@@ -89,6 +89,7 @@ class MemberAddressIndex extends Component {
 
     render() {
         const Item = List.Item;
+        const Brief = Item.Brief;
         const CheckboxItem = Checkbox.CheckboxItem;
 
         return (
@@ -106,21 +107,18 @@ class MemberAddressIndex extends Component {
                                                 arrow={this.state.is_list ? 'horizontal' : 'empty'} wrap
                                                 onClick={this.handleEdit.bind(this, item.member_address_id)}
                                             >
-                                                <div>{item.member_address_name} {item.member_address_phone}</div>
-                                                <div className="member-address-address">{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</div>
+                                                {item.member_address_name} {item.member_address_mobile}
+                                                <Brief>{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</Brief>
                                             </Item>
                                             :
                                             <CheckboxItem
                                                 key={item.member_address_id}
-                                                wrap
-                                                activeStyle={{
-                                                    backgroundColor: '#ffffff',
-                                                }}
+                                                multipleLine
                                                 checked={this.state.member_address_id === item.member_address_id}
                                                 onChange={this.handleChange.bind(this, item)}
                                             >
-                                                <div>{item.member_address_name} {item.member_address_phone}</div>
-                                                <div className="member-address-address">{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</div>
+                                                {item.member_address_name} {item.member_address_mobile}
+                                                <Brief>{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</Brief>
                                             </CheckboxItem>
                                     );
                                 })

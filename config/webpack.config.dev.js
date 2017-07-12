@@ -245,7 +245,7 @@ module.exports = {
                     {
                         loader: require.resolve('less-loader'),
                         options: {
-                            // modifyVars: {"@primary-color": "#1DA57A"},
+                            modifyVars: {"@brand-primary": "#c81623", "@brand-primary-tap": "#d40c1a"},
                         },
                     },
                 ],

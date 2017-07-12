@@ -11,6 +11,7 @@ import MemberAddressIndex from './view/MemberAddressIndex';
 import MemberAddressDetail from './view/MemberAddressDetail';
 import StockIndex from './view/StockIndex';
 import TradeCheck from './view/TradeCheck';
+import TradeIndex from './view/TradeIndex';
 
 function RouterConfig({history}) {
 
@@ -35,6 +36,7 @@ function RouterConfig({history}) {
                 <Route path="member/address/add" component={MemberAddressDetail}/>
                 <Route path="stock/index" component={StockIndex}/>
                 <Route path="trade/check" component={TradeCheck}/>
+                <Route path="trade/index" component={TradeIndex}/>
             </Route>
         </Router>
     );

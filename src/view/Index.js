@@ -5,6 +5,8 @@ import {WhiteSpace, List, Toast} from 'antd-mobile';
 
 import http from '../util/http';
 
+const Item = List.Item;
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -95,7 +97,7 @@ class Index extends Component {
 
             html.push(
                 <div key={item.member_id}>
-                    <List.Item
+                    <Item
                         multipleLine
                     >
                         <div className="list-item" onClick={this.handleItem.bind(this, item.member_id)}>
@@ -123,7 +125,7 @@ class Index extends Component {
                                     </div>
                             }
                         </div>
-                    </List.Item>
+                    </Item>
                     {
                         typeof (item.children) !== 'undefined' ?
                             <div style={{marginLeft: '25px', display: item.is_show ? 'block' : 'none'}}>

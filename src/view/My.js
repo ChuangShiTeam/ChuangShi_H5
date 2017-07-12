@@ -20,8 +20,11 @@ class My extends Component {
 
     }
 
-    handleOrder(order_status) {
-
+    handleTrade() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/trade/index',
+            query: {}
+        }));
     }
 
     handleStock() {
@@ -43,82 +46,86 @@ class My extends Component {
     }
 
     render() {
+        const Item = List.Item;
+        
         return (
             <div>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <List.Item
+                    <Item
                         multipleLine
+                        arrow="horizontal"
                     >
                         <div className="list-item">
                             <div className="list-item-image">
-
+                                图片
                             </div>
                             <div className="list-item-text">
-
+                                姓名
                             </div>
                             <div className="list-item-brief">
-
+                                等级
                             </div>
                         </div>
-                    </List.Item>
+                    </Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <List.Item
+                    <Item
                         thumb={require('../assets/svg/form.svg')}
-                        extra="查看全部" arrow="horizontal"
-                        onClick={this.handleOrder.bind(this, 'ALL')}
+                        extra="查看全部"
+                        arrow="horizontal"
+                        onClick={this.handleTrade.bind(this, 'ALL')}
                     >
                         我的订单
-                    </List.Item>
-                    <List.Item style={{paddingLeft: '60px'}}>
-                        <div className="order-item" onClick={this.handleOrder.bind(this, 'WAIT_PAY')}>
+                    </Item>
+                    <Item style={{paddingLeft: '60px'}}>
+                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/pay.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">待付款</div>
                         </div>
-                        <div className="order-item" onClick={this.handleOrder.bind(this, 'WAIT_SEND')}>
+                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_SEND')}>
                             <Badge text={this.props.my.member_wait_send}>
                                 <img src={require('../assets/svg/send.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">待发货</div>
                         </div>
-                        <div className="order-item" onClick={this.handleOrder.bind(this, 'WAIT_RECEIVE')}>
+                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_RECEIVE')}>
                             <Badge text={this.props.my.member_wait_receive}>
                                 <img src={require('../assets/svg/deliver.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">待收货</div>
                         </div>
-                        <div className="order-item" onClick={this.handleOrder.bind(this, 'FINISH')}>
+                        <div className="order-item" onClick={this.handleTrade.bind(this, 'FINISH')}>
                             <img src={require('../assets/svg/comment.svg')} alt=""/>
                             <div className="order-item-text">已完成</div>
                         </div>
-                    </List.Item>
+                    </Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <List.Item
+                    <Item
                         thumb={require('../assets/svg/shop.svg')} arrow="horizontal"
                         onClick={this.handleStock.bind(this)}
                     >
-                        我要发货
-                    </List.Item>
-                    <List.Item
+                        我的发货
+                    </Item>
+                    <Item
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"
                         onClick={this.handleMemberAddress.bind(this)}
                     >
                         我的地址
-                    </List.Item>
+                    </Item>
                     {
                         this.props.my.member_status ?
-                            <List.Item
+                            <Item
                                 thumb={require('../assets/svg/qr_code.svg')} arrow="horizontal"
                                 onClick={this.handleQrcode.bind(this)}
                             >
                                 我的二维码
-                            </List.Item>
+                            </Item>
                             :
                             ''
                     }
