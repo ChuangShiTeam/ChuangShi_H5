@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Radio, Toast} from 'antd-mobile';
+import {WhiteSpace, List, Checkbox, Toast} from 'antd-mobile';
 
 import constant from '../util/constant';
 import http from '../util/http';
@@ -21,6 +21,8 @@ class MemberLevel extends Component {
         document.title = '重设等级';
 
         document.body.scrollTop = 0;
+
+        this.handleLoad();
     }
 
     componentWillUnmount() {
@@ -73,7 +75,7 @@ class MemberLevel extends Component {
         }
 
         http.request({
-            url: '/member/member/level/update',
+            url: '/member/team/member/level/update',
             data: {
                 member_id: this.props.params.member_id,
                 member_level_id: this.state.member_level_id
@@ -88,7 +90,7 @@ class MemberLevel extends Component {
     }
 
     render() {
-        const RadioItem = Radio.RadioItem;
+        const CheckboxItem = Checkbox.CheckboxItem;
 
         return (
             <div>
@@ -99,11 +101,11 @@ class MemberLevel extends Component {
                             {
                                 this.state.member_level_list.map((item) => {
                                     return (
-                                        <RadioItem key={item.member_level_id}
+                                        <CheckboxItem key={item.member_level_id}
                                                    checked={item.member_level_id === this.state.member_level_id}
                                                    onChange={this.handleChange.bind(this, item.member_level_id)}>
                                             {item.member_level_name}
-                                        </RadioItem>
+                                        </CheckboxItem>
                                     );
                                 })
                             }
@@ -112,7 +114,7 @@ class MemberLevel extends Component {
                         ''
                 }
                 {
-                    this.state.is_load && this.props.index.list.length === 0 ?
+                    this.state.is_load && this.state.member_level_list.length === 0 ?
                         <view className="">
                             <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <view className="empty-text">没有数据</view>

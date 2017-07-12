@@ -6,6 +6,8 @@ import Index from './view/Index';
 import Product from './view/Product';
 import My from './view/My';
 import MemberIndex from './view/MemberIndex';
+import MemberTradeIndex from './view/MemberTradeIndex';
+import MemberStockIndex from './view/MemberStockIndex';
 import MemberLevel from './view/MemberLevel';
 import MemberAddressIndex from './view/MemberAddressIndex';
 import MemberAddressDetail from './view/MemberAddressDetail';
@@ -31,6 +33,8 @@ function RouterConfig({history}) {
                     <Route path="my" component={My}/>
                 </Route>
                 <Route path="member/index/:member_id" component={MemberIndex}/>
+                <Route path="member/trade/index/:member_id" component={MemberTradeIndex}/>
+                <Route path="member/stock/index/:member_id" component={MemberStockIndex}/>
                 <Route path="member/level/:member_id" component={MemberLevel}/>
                 <Route path="member/address/index/:type" component={MemberAddressIndex}/>
                 <Route path="member/address/add" component={MemberAddressDetail}/>
