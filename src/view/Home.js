@@ -28,9 +28,7 @@ class Home extends Component {
 
     render() {
         return (
-            <view className="">
-                {/*<img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>*/}
-                {/*<view className="empty-text">系统正在维护中</view>*/}
+            <view>
             </view>
         );
     }

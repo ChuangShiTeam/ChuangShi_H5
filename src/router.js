@@ -2,9 +2,12 @@ import React from 'react';
 import {Router, Route, IndexRedirect} from 'dva/router';
 import Home from './view/Home';
 import Main from './view/Main';
+import Index from './view/Index';
 import TeamIndex from './view/TeamIndex';
+import Cart from './view/Cart';
 import ProductDetail from './view/ProductDetail';
 import My from './view/My';
+import Category from './view/Category';
 import MemberIndex from './view/MemberIndex';
 import MemberTradeIndex from './view/MemberTradeIndex';
 import MemberStockIndex from './view/MemberStockIndex';
@@ -33,10 +36,14 @@ function RouterConfig({history}) {
                 <IndexRedirect to={constant.index}/>
                 <Route path="home" component={Home}/>
                 <Route component={Main} onEnter={handleEnter}>
+                    <Route path="index" component={Index}/>
                     <Route path="team/index" component={TeamIndex}/>
-                    <Route path="product/detail/:product_id" component={ProductDetail}/>
+                    <Route path="cart" component={Cart}/>
+                    <Route path="product/:product_id" component={ProductDetail}/>
                     <Route path="my" component={My}/>
                 </Route>
+                <Route path="product/detail/:product_id" component={ProductDetail}/>
+                <Route path="category/:category_id" component={Category} />
                 <Route path="member/index/:member_id" component={MemberIndex}/>
                 <Route path="member/trade/index/:member_id" component={MemberTradeIndex}/>
                 <Route path="member/stock/index/:member_id" component={MemberStockIndex}/>

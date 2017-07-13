@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 
-class MemberBillIndex extends Component {
+class Cart extends Component {
     constructor(props) {
         super(props);
 
@@ -11,7 +11,7 @@ class MemberBillIndex extends Component {
     }
 
     componentDidMount() {
-        document.title = 'TA的订单流水';
+        document.title = '购物车';
 
         document.body.scrollTop = 0;
     }
@@ -32,4 +32,4 @@ class MemberBillIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(MemberBillIndex);
+export default connect(() => ({}))(Cart);

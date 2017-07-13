@@ -115,7 +115,7 @@ class MemberLevel extends Component {
                 }
                 {
                     this.state.is_load && this.state.member_level_list.length === 0 ?
-                        <view className="">
+                        <view>
                             <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <view className="empty-text">没有数据</view>
                         </view>

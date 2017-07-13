@@ -150,7 +150,7 @@ class ProductDetail extends Component {
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
                 <div style={{height: '100px'}}></div>
-                <div className="footer2">
+                <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                     <div className="footer-total">
                         <span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
                     </div>
