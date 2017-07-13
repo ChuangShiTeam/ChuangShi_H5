@@ -29,6 +29,13 @@ class StockIndex extends Component {
         }));
     }
 
+    handleEdit(edit_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/stock/edit/' + edit_id,
+            query: {},
+        }));
+    }
+
     render() {
         const Item = List.Item;
 
@@ -51,6 +58,7 @@ class StockIndex extends Component {
                         extra="签收"
                         arrow="horizontal"
                         className="item-long-text"
+                        onClick={this.handleEdit.bind(this, '123')}
                     >
                         <div>物流公司：德邦</div>
                         <div>快递单号：5277817363</div>

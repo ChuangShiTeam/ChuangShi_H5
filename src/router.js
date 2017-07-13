@@ -46,6 +46,7 @@ function RouterConfig({history}) {
                 <Route path="member/address/add" component={MemberAddressDetail}/>
                 <Route path="stock/index" component={StockIndex}/>
                 <Route path="stock/add" component={StockDetail}/>
+                <Route path="stock/edit/:stock_id" component={StockDetail}/>
                 <Route path="trade/check" component={TradeCheck}/>
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="qrcode" component={Qrcode}/>
