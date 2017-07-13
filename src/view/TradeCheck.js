@@ -207,6 +207,7 @@ class TradeCheck extends Component {
                         <Item arrow="horizontal"
                               extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''}
                               wrap
+                              className="item-long-text"
                               onClick={this.handleMemberAddress.bind(this)}>
                             {
                                 typeof (this.state.member_address.member_address_name) === 'undefined' ?

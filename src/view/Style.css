@@ -19,6 +19,7 @@ body, html {
 
 .list-item-text {
     position: absolute;
+    top: 30px;
     left: 120px;
     right: 160px;
     overflow: hidden;
@@ -29,7 +30,7 @@ body, html {
 
 .list-item-brief {
     position: absolute;
-    top: 75px;
+    top: 82px;
     left: 120px;
     right: 160px;
     overflow: hidden;
@@ -42,7 +43,7 @@ body, html {
 .list-item-button {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 50px;
     bottom: 0px;
 
 }
@@ -185,4 +186,15 @@ body, html {
 
 .member-address-address {
     font-size: 28px;
+}
+
+.item-long-text .am-list-extra {
+    -webkit-flex-basis: 15% !important;
+    flex-basis: 15% !important;
+}
+
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

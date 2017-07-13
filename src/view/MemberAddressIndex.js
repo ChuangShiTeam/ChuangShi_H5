@@ -104,6 +104,7 @@ class MemberAddressIndex extends Component {
                                         this.state.is_list ?
                                             <Item
                                                 key={item.member_address_id}
+                                                className="item-long-text"
                                                 arrow={this.state.is_list ? 'horizontal' : 'empty'} wrap
                                                 onClick={this.handleEdit.bind(this, item.member_address_id)}
                                             >

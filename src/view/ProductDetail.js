@@ -7,7 +7,7 @@ import constant from '../util/constant';
 import storage from '../util/storage';
 import http from '../util/http';
 
-class Product extends Component {
+class ProductDetail extends Component {
     constructor(props) {
         super(props);
 
@@ -15,7 +15,11 @@ class Product extends Component {
     }
 
     componentDidMount() {
-        document.title = '我要进货';
+        if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
+            document.title = '我要进货';
+        } else {
+            document.title = '商品详情';
+        }
 
         document.body.scrollTop = 0;
 
@@ -32,8 +36,7 @@ class Product extends Component {
         http.request({
             url: '/product/find',
             data: {
-                // product_id: '76537999b6c6428d9a78d47739c08fa5',
-                product_id: 'e1f772adf24a433282dbe34de774a5f3',
+                product_id: this.props.params.product_id,
             },
             success: function (data) {
                 let product_sku_id = '';
@@ -158,4 +161,4 @@ class Product extends Component {
     }
 }
 
-export default connect(({product}) => ({product}))(Product);
+export default connect(({product}) => ({product}))(ProductDetail);

@@ -55,13 +55,6 @@ class MemberIndex extends Component {
         });
     }
 
-    handleMemberLevel() {
-        this.props.dispatch(routerRedux.push({
-            pathname: '/member/level/' + this.props.params.member_id,
-            query: {}
-        }));
-    }
-
     handleMemberTrade() {
         this.props.dispatch(routerRedux.push({
             pathname: '/member/trade/index/' + this.props.params.member_id,
@@ -72,6 +65,20 @@ class MemberIndex extends Component {
     handleMemberStock() {
         this.props.dispatch(routerRedux.push({
             pathname: '/member/stock/index/' + this.props.params.member_id,
+            query: {}
+        }));
+    }
+
+    handleMemberBill() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/bill/index/' + this.props.params.member_id,
+            query: {}
+        }));
+    }
+
+    handleMemberLevel() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/level/' + this.props.params.member_id,
             query: {}
         }));
     }
@@ -106,17 +113,20 @@ class MemberIndex extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
-                        重设等级
+                    <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
+                        TA的订单
+                    </Item>
+                    <Item arrow="horizontal" onClick={this.handleMemberStock.bind(this)}>
+                        TA的发货单
+                    </Item>
+                    <Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>
+                        TA的账单流水
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
-                        TA的订单
-                    </Item>
                     <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
-                        TA的发货单
+                        重设等级
                     </Item>
                 </List>
             </div>

@@ -3,6 +3,7 @@ import {connect} from "dva";
 import {routerRedux} from "dva/router";
 import {createForm} from "rc-form";
 import {WhiteSpace, List, InputItem, Picker, Switch, Toast} from "antd-mobile";
+
 import constant from "../util/constant";
 import validate from "../util/validate";
 import china from "../util/china";

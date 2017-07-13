@@ -1,6 +1,6 @@
 export default {
 
-  namespace: 'index',
+  namespace: 'team_index',
 
   state: {
     list: [],

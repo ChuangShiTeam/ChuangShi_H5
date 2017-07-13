@@ -1,28 +1,56 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Badge} from 'antd-mobile';
+import {WhiteSpace, List, Badge, Toast} from 'antd-mobile';
+
+import http from '../util/http';
 
 class My extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            is_load: false
+        }
     }
 
     componentDidMount() {
         document.title = '个人中心';
 
         document.body.scrollTop = 0;
+
+        this.handleLoad();
     }
 
     componentWillUnmount() {
 
     }
 
-    handleTrade() {
+    handleLoad() {
+        Toast.loading('加载中..', 0);
+
+        http.request({
+            url: '/member/my/find',
+            data: {},
+            success: function (data) {
+                this.props.dispatch({
+                    type: 'my/fetch',
+                    data: data
+                });
+
+                Toast.hide();
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
+        });
+    }
+
+    handleTrade(trade_flow) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/trade/index',
+            pathname: '/trade/index/' + trade_flow,
             query: {}
         }));
     }
@@ -42,7 +70,10 @@ class My extends Component {
     }
 
     handleQrcode() {
-
+        this.props.dispatch(routerRedux.push({
+            pathname: '/qrcode',
+            query: {}
+        }));
     }
 
     render() {
@@ -54,17 +85,16 @@ class My extends Component {
                 <List>
                     <Item
                         multipleLine
-                        arrow="horizontal"
                     >
                         <div className="list-item">
                             <div className="list-item-image">
-                                图片
+                                <img src={this.props.my.user_avatar} alt=""/>
                             </div>
                             <div className="list-item-text">
-                                姓名
+                                {this.props.my.user_name}
                             </div>
                             <div className="list-item-brief">
-                                等级
+                                {this.props.my.member_level_name}
                             </div>
                         </div>
                     </Item>
@@ -98,7 +128,7 @@ class My extends Component {
                             </Badge>
                             <div className="order-item-text">待收货</div>
                         </div>
-                        <div className="order-item" onClick={this.handleTrade.bind(this, 'FINISH')}>
+                        <div className="order-item" onClick={this.handleTrade.bind(this, 'COMPLETE')}>
                             <img src={require('../assets/svg/comment.svg')} alt=""/>
                             <div className="order-item-text">已完成</div>
                         </div>

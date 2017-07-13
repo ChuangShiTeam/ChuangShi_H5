@@ -7,7 +7,7 @@ import http from '../util/http';
 
 const Item = List.Item;
 
-class Index extends Component {
+class TeamIndex extends Component {
     constructor(props) {
         super(props);
 
@@ -19,14 +19,14 @@ class Index extends Component {
     componentDidMount() {
         document.title = '我的团队';
 
-        document.body.scrollTop = this.props.index.scroll_top;
+        document.body.scrollTop = this.props.team.scroll_top;
 
         this.handleLoad();
     }
 
     componentWillUnmount() {
         this.props.dispatch({
-            type: 'index/fetch',
+            type: 'team/fetch',
             data: {
                 scroll_top: document.body.scrollTop
             },
@@ -41,7 +41,7 @@ class Index extends Component {
             data: {},
             success: function (data) {
                 this.props.dispatch({
-                    type: 'index/fetch',
+                    type: 'team/fetch',
                     data: {
                         list: data
                     }
@@ -58,12 +58,12 @@ class Index extends Component {
     }
 
     handleButton(member_id) {
-        let list = this.props.index.list;
+        let list = this.props.team.list;
 
         this.handleCheck(list, member_id);
 
         this.props.dispatch({
-            type: 'index/fetch',
+            type: 'team/fetch',
             data: {
                 list: list
             }
@@ -99,6 +99,7 @@ class Index extends Component {
                 <div key={item.member_id}>
                     <Item
                         multipleLine
+                        arrow="horizontal"
                     >
                         <div className="list-item" onClick={this.handleItem.bind(this, item.member_id)}>
                             <div className="list-item-image">
@@ -115,16 +116,16 @@ class Index extends Component {
                                         item.member_level_name
                                 }
                             </div>
-                            {
-                                typeof (item.children) === 'undefined' ?
-                                    ''
-                                    :
-                                    <div className="list-item-button" onClick={this.handleButton.bind(this, item.member_id)}>
-                                        <div className="list-item-button-number">
-                                            {item.is_show ? '-' : '+'} {item.children.length}个下级{item.aaa}</div>
-                                    </div>
-                            }
                         </div>
+                        {
+                            typeof (item.children) === 'undefined' ?
+                                ''
+                                :
+                                <div className="list-item-button" onClick={this.handleButton.bind(this, item.member_id)}>
+                                    <div className="list-item-button-number">
+                                        {item.is_show ? '-' : '+'} {item.children.length}个下级{item.aaa}</div>
+                                </div>
+                        }
                     </Item>
                     {
                         typeof (item.children) !== 'undefined' ?
@@ -149,17 +150,17 @@ class Index extends Component {
             <div>
                 <WhiteSpace size="lg"/>
                 {
-                    this.props.index.list.length > 0 ?
+                    this.props.team.list.length > 0 ?
                         <List>
                             {
-                                this.handleGenerate(this.props.index.list)
+                                this.handleGenerate(this.props.team.list)
                             }
                         </List>
                         :
                         ''
                 }
                 {
-                    this.state.is_load && this.props.index.list.length === 0 ?
+                    this.state.is_load && this.props.team.list.length === 0 ?
                         <view className="">
                             <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <view className="empty-text">没有数据</view>
@@ -174,4 +175,4 @@ class Index extends Component {
     }
 }
 
-export default connect(({index}) => ({index}))(Index);
+export default connect(({team}) => ({team}))(TeamIndex);
