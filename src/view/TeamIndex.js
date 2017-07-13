@@ -105,7 +105,7 @@ class TeamIndex extends Component {
                             <div className="list-item-image">
                                 <img src={item.user_avatar} alt=""/>
                             </div>
-                            <div className="list-item-text">
+                            <div className="list-item-text" style={{right: '100px'}}>
                                 {item.user_name}
                             </div>
                             <div className="list-item-brief">
@@ -121,7 +121,8 @@ class TeamIndex extends Component {
                             typeof (item.children) === 'undefined' ?
                                 ''
                                 :
-                                <div className="list-item-button" onClick={this.handleButton.bind(this, item.member_id)}>
+                                <div className="list-item-button"
+                                     onClick={this.handleButton.bind(this, item.member_id)}>
                                     <div className="list-item-button-number">
                                         {item.is_show ? '-' : '+'} {item.children.length}个下级{item.aaa}</div>
                                 </div>

@@ -41,7 +41,7 @@ class TradeIndex extends Component {
 
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].trade_flow === this.props.params.trade_flow || this.props.params.trade_flow === 'ALL') {
-                    trade_list.push(data[i]);
+                        trade_list.push(data[i]);
                     }
                 }
 
@@ -105,24 +105,25 @@ class TradeIndex extends Component {
                                     {
                                         trade.trade_product_sku_list.map((product_sku) => {
                                             return (
-                                                <Item key={product_sku.product_sku_id} extra={'￥' + product_sku.product_sku_amount.toFixed(2) + ' X ' + product_sku.product_sku_quantity}>
-                                                    <div className="list-item">
-                                                        <div className="list-item-image">
-                                                            <img src={constant.host + product_sku.product_image} alt=""/>
-                                                        </div>
-                                                        <div className="list-item-text" style={{top: '10px'}}>
-                                                            {product_sku.product_name}
-                                                        </div>
-                                                        <div className="list-item-brief" style={{top: '35px'}}>
-                                                            {product_sku.product_name}
-                                                        </div>
+                                                <Item key={product_sku.product_sku_id}
+                                                      extra={'￥' + product_sku.product_sku_amount.toFixed(2) + ' X ' + product_sku.product_sku_quantity}>
+
+                                                    <div className="list-item-image">
+                                                        <img src={constant.host + product_sku.product_image} alt=""/>
+                                                    </div>
+                                                    <div className="list-item-text" style={{top: '10px'}}>
+                                                        {product_sku.product_name}
+                                                    </div>
+                                                    <div className="list-item-brief" style={{top: '35px'}}>
+                                                        {product_sku.product_name}
                                                     </div>
                                                 </Item>
                                             );
                                         })
                                     }
                                     <Item>
-                                        <span style={{fontSize: '14px'}}>共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}</span>
+                                        <span
+                                            style={{fontSize: '14px'}}>共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}</span>
                                     </Item>
                                 </List>
                             </div>

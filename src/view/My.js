@@ -78,7 +78,7 @@ class My extends Component {
 
     render() {
         const Item = List.Item;
-        
+
         return (
             <div>
                 <WhiteSpace size="lg"/>
@@ -86,16 +86,14 @@ class My extends Component {
                     <Item
                         multipleLine
                     >
-                        <div className="list-item">
-                            <div className="list-item-image">
-                                <img src={this.props.my.user_avatar} alt=""/>
-                            </div>
-                            <div className="list-item-text">
-                                {this.props.my.user_name}
-                            </div>
-                            <div className="list-item-brief">
-                                {this.props.my.member_level_name}
-                            </div>
+                        <div className="list-item-image">
+                            <img src={this.props.my.user_avatar} alt=""/>
+                        </div>
+                        <div className="list-item-text">
+                            {this.props.my.user_name}
+                        </div>
+                        <div className="list-item-brief">
+                            {this.props.my.member_level_name}
                         </div>
                     </Item>
                 </List>

@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
+import {routerRedux} from 'dva/router';
+
+import constant from '../util/constant';
 
 class Home extends Component {
     constructor(props) {
@@ -12,6 +15,11 @@ class Home extends Component {
 
     componentDidMount() {
         document.title = '上海星销';
+
+        this.props.dispatch(routerRedux.push({
+            pathname: constant.index,
+            query: {},
+        }));
     }
 
     componentWillUnmount() {
@@ -21,8 +29,8 @@ class Home extends Component {
     render() {
         return (
             <view className="">
-                <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                <view className="empty-text">系统正在维护中</view>
+                {/*<img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>*/}
+                {/*<view className="empty-text">系统正在维护中</view>*/}
             </view>
         );
     }

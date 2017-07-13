@@ -1,6 +1,7 @@
 body, html {
     font-family: PingFang SC,Helvetica Neue,Hiragino Sans GB,Helvetica,Microsoft YaHei,Arial;
 }
+
 .list-item {
     display: -webkit-box;
     display: flex;
@@ -13,15 +14,15 @@ body, html {
 }
 
 .list-item-image img {
-    width: 100%;
-    height: 100%;
+    width: 100px !important;
+    height: 100px !important;
 }
 
 .list-item-text {
     position: absolute;
     top: 30px;
     left: 120px;
-    right: 160px;
+    right: 60px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -32,7 +33,7 @@ body, html {
     position: absolute;
     top: 82px;
     left: 120px;
-    right: 160px;
+    right: 60px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

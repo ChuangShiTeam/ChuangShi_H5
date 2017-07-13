@@ -93,21 +93,19 @@ class MemberIndex extends Component {
                     <List.Item
                         multipleLine
                     >
-                        <div className="list-item">
-                            <div className="list-item-image">
-                                <img src={this.state.user_avatar} alt=""/>
-                            </div>
-                            <div className="list-item-text">
-                                {this.state.user_name}
-                            </div>
-                            <div className="list-item-brief">
-                                {
-                                    this.state.member_level_name === '' ?
-                                        <span style={{color: '#a72025'}}>待审核</span>
-                                        :
-                                        this.state.member_level_name
-                                }
-                            </div>
+                        <div className="list-item-image">
+                            <img src={this.state.user_avatar} alt=""/>
+                        </div>
+                        <div className="list-item-text">
+                            {this.state.user_name}
+                        </div>
+                        <div className="list-item-brief">
+                            {
+                                this.state.member_level_name === '' ?
+                                    <span style={{color: '#a72025'}}>待审核</span>
+                                    :
+                                    this.state.member_level_name
+                            }
                         </div>
                     </List.Item>
                 </List>
