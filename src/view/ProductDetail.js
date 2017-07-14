@@ -149,13 +149,13 @@ class ProductDetail extends Component {
                     className="product-content"
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
-                <div style={{height: '100px'}}></div>
-                <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
-                    <div className="footer-total">
-                        <span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
-                    </div>
-                    <div className="footer-buy" onClick={this.handleBuy.bind(this)}>立即进货</div>
-                </div>
+                {/*<div style={{height: '100px'}}></div>*/}
+                {/*<div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>*/}
+                    {/*<div className="footer-total">*/}
+                        {/*<span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>*/}
+                    {/*</div>*/}
+                    {/*<div className="footer-buy" onClick={this.handleBuy.bind(this)}>立即进货</div>*/}
+                {/*</div>*/}
             </div>
         );
     }
