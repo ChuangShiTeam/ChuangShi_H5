@@ -99,7 +99,12 @@ class TradeIndex extends Component {
                             <div key={trade.trade_id}>
                                 <WhiteSpace size="lg"/>
                                 <List>
-                                    <Item extra={trade.trade_flow}>
+                                    <Item extra={
+                                        trade.trade_flow=="WAIT_PAY"?"代付款":
+                                        trade.trade_flow=="WAIT_SEND"?"代发货":
+                                        trade.trade_flow=="WAIT_RECEIVE"?"代收货":
+                                        trade.trade_flow=="COMPLETE"?"已完成":""
+                                    }>
                                         {trade.trade_number}
                                     </Item>
                                     {

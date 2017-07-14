@@ -165,9 +165,9 @@ class StockDetail extends Component {
                         <Item>
                             <WhiteSpace size="lg"/>
                             <Steps size="small" current={1}>
-                                <Step title="Finished" description="This is description" />
-                                <Step title="In Progress" description="This is description" />
-                                <Step title="Waiting" description="This is description" />
+                                <Step title="Finished" description="This is description"/>
+                                <Step title="In Progress" description="This is description"/>
+                                <Step title="Waiting" description="This is description"/>
                             </Steps>
                         </Item>
                     </List>
