@@ -93,7 +93,12 @@ class My extends Component {
                             {this.props.my.user_name}
                         </div>
                         <div className="list-item-brief">
-                            {this.props.my.member_level_name}
+                            {
+                                this.props.my.member_level_name === '' ?
+                                    <span style={{color: '#a72025'}}>待审核</span>
+                                    :
+                                    this.props.my.member_level_name
+                            }
                         </div>
                     </Item>
                 </List>

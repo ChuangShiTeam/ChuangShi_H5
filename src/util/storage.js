@@ -16,7 +16,9 @@ function setOpenId(open_id) {
 function getToken() {
     let token = localStorage.getItem(token_key);
 
-    // token = 'jUCXTzlv8oEQ0t2P7Sl/zol5ee35ge9Vj6WvcRi3HKhErojXtXDsS5J1+eili55vXvadUtpPe7MTaPVvtQwB0rEtUrIObbk47VhO9k3hsBI=';
+    if (constant.is_test) {
+        token = 'jUCXTzlv8oEQ0t2P7Sl/zol5ee35ge9Vj6WvcRi3HKhErojXtXDsS5J1+eili55vXvadUtpPe7MTaPVvtQwB0rEtUrIObbk47VhO9k3hsBI=';
+    }
 
     if (token === null) {
         return '';

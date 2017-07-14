@@ -14,6 +14,7 @@ class MemberIndex extends Component {
                 user_name: '',
                 user_avatar: '',
                 member_level_name: '',
+                member_status: false
             }
         }
     }
@@ -42,7 +43,8 @@ class MemberIndex extends Component {
                 this.setState({
                     user_name: data.user_name,
                     user_avatar: data.user_avatar,
-                    member_level_name: data.member_level_name
+                    member_level_name: data.member_level_name,
+                    member_status: data.member_status
                 });
 
                 Toast.hide();
@@ -122,11 +124,16 @@ class MemberIndex extends Component {
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
-                <List>
-                    <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
-                        重设等级
-                    </Item>
-                </List>
+                {
+                    this.state.member.member_status ?
+                        <List>
+                            <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
+                                重设等级
+                            </Item>
+                        </List>
+                        :
+                        ''
+                }
             </div>
         );
     }

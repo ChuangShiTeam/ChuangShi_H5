@@ -20,7 +20,7 @@ class StockIndex extends Component {
 
         document.body.scrollTop = 0;
 
-        this.handleLoad();
+        // this.handleLoad();
     }
 
     componentWillUnmount() {
@@ -32,7 +32,10 @@ class StockIndex extends Component {
 
         http.request({
             url: '/member/stock/list',
-            data: {},
+            data: {
+                page_index: 1,
+                page_size: 100
+            },
             success: function (data) {
 
                 this.setState({

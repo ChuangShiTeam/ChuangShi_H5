@@ -39,21 +39,6 @@ class ProductDetail extends Component {
                 product_id: this.props.params.product_id,
             },
             success: function (data) {
-                let product_sku_id = '';
-                let product_sku_price = 0;
-                let product_sku_quantity = data.product_sku_quantity;
-                let product_sku_total_price = 0;
-                for (let i = 0; i < data.product_sku_list.length; i++) {
-                    let product_sku = data.product_sku_list[i];
-
-                    if (product_sku.product_sku_is_default) {
-                        product_sku_id = product_sku.product_sku_id;
-                        product_sku_price = product_sku.product_sku_price;
-                        product_sku_total_price = product_sku.product_sku_price * product_sku_quantity;
-                    }
-                }
-
-
                 this.props.dispatch({
                     type: 'product/fetch',
                     data: {
@@ -62,10 +47,10 @@ class ProductDetail extends Component {
                         product_name: data.product_name,
                         product_image: data.product_image,
                         product_content: data.product_content,
-                        product_sku_id: product_sku_id,
-                        product_sku_price: product_sku_price,
-                        product_sku_quantity: product_sku_quantity,
-                        product_sku_total_price: product_sku_total_price
+                        product_sku_id: data.product_sku_id,
+                        product_sku_price: data.product_sku_price,
+                        product_sku_quantity: data.product_sku_quantity,
+                        product_sku_total_price: data.product_sku_price * data.product_sku_quantity
                     },
                 });
 
@@ -118,7 +103,7 @@ class ProductDetail extends Component {
                     <Item>
                         {this.props.product.product_name}
                         <br />
-                        <span className="product-price">￥{this.props.product.product_sku_price.toFixed(2)}</span>
+                        <span className="product-price">￥{this.props.product.product_sku_price}</span>
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
@@ -149,13 +134,13 @@ class ProductDetail extends Component {
                     className="product-content"
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
-                {/*<div style={{height: '100px'}}></div>*/}
-                {/*<div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>*/}
-                    {/*<div className="footer-total">*/}
-                        {/*<span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>*/}
-                    {/*</div>*/}
-                    {/*<div className="footer-buy" onClick={this.handleBuy.bind(this)}>立即进货</div>*/}
-                {/*</div>*/}
+                <div style={{height: '100px'}}></div>
+                <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
+                    <div className="footer-total">
+                        <span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
+                    </div>
+                    <div className="footer-buy" onClick={this.handleBuy.bind(this)}>立即进货</div>
+                </div>
             </div>
         );
     }
