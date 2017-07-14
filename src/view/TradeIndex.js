@@ -84,11 +84,11 @@ class TradeIndex extends Component {
                 <Tabs activeKey={this.state.trade_flow} animated={false} onTabClick={this.handleTab.bind(this)}>
                     <TabPane tab="全部" key="ALL">
                     </TabPane>
-                    <TabPane tab="代付款" key="WAIT_PAY">
+                    <TabPane tab="待付款" key="WAIT_PAY">
                     </TabPane>
-                    <TabPane tab="代发货" key="WAIT_SEND">
+                    <TabPane tab="待发货" key="WAIT_SEND">
                     </TabPane>
-                    <TabPane tab="代收货" key="WAIT_RECEIVE">
+                    <TabPane tab="待收货" key="WAIT_RECEIVE">
                     </TabPane>
                     <TabPane tab="已完成" key="COMPLETE">
                     </TabPane>
@@ -100,9 +100,9 @@ class TradeIndex extends Component {
                                 <WhiteSpace size="lg"/>
                                 <List>
                                     <Item extra={
-                                        trade.trade_flow=="WAIT_PAY"?"代付款":
-                                        trade.trade_flow=="WAIT_SEND"?"代发货":
-                                        trade.trade_flow=="WAIT_RECEIVE"?"代收货":
+                                        trade.trade_flow=="WAIT_PAY"?"待付款":
+                                        trade.trade_flow=="WAIT_SEND"?"待发货":
+                                        trade.trade_flow=="WAIT_RECEIVE"?"待收货":
                                         trade.trade_flow=="COMPLETE"?"已完成":""
                                     }>
                                         {trade.trade_number}
