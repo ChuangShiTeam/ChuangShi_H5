@@ -20,7 +20,7 @@ class Index extends Component {
 
         document.body.scrollTop = this.props.index.scroll_top;
 
-        if (this.props.index.list.length == 0) {
+        if (this.props.index.list.length === 0) {
             this.handleLoad();
         }
     }

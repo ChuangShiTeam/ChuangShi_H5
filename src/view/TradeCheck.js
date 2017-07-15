@@ -166,19 +166,17 @@ class TradeCheck extends Component {
                     signType: data.signType,
                     paySign: data.paySign,
                     success: function (res) {
-                        console.log(res);
-
-                        // if (res.err_msg == 'get_brand_wcpay_request:ok') {
-                        //     this.props.dispatch(routerRedux.push({
-                        //         pathname: '/order/result/check/' + data.orderId,
-                        //         query: {},
-                        //     }));
-                        // } else {
-                        //     this.props.dispatch(routerRedux.push({
-                        //         pathname: '/order/detail/ALL/' + data.orderId,
-                        //         query: {},
-                        //     }));
-                        // }
+                        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/trade/confirm/' + data.orderId,
+                                query: {},
+                            }));
+                        } else {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: 'trade/index/ALL',
+                                query: {},
+                            }));
+                        }
                     }
                 });
 

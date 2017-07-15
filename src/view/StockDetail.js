@@ -45,7 +45,7 @@ class StockDetail extends Component {
         const {getFieldProps, getFieldError} = this.props.form;
 
         return (
-            this.state.action == 'save' ?
+            this.state.action === 'save' ?
                 <div>
                     <WhiteSpace size="lg"/>
 
