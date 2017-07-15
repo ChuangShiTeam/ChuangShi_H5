@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Tabs, Toast} from 'antd-mobile';
+import {WhiteSpace, List, Toast} from 'antd-mobile';
 
-import constant from "../util/constant";
 import http from '../util/http';
 
 class StockIndex extends Component {

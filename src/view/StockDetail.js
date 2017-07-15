@@ -4,10 +4,7 @@ import {routerRedux} from 'dva/router';
 import {createForm} from "rc-form";
 import {WhiteSpace, List, InputItem, Picker, Steps} from 'antd-mobile';
 
-import constant from "../util/constant";
-import validate from "../util/validate";
 import china from "../util/china";
-import http from "../util/http";
 
 class StockDetail extends Component {
     constructor(props) {

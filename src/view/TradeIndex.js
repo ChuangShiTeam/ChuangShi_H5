@@ -100,10 +100,10 @@ class TradeIndex extends Component {
                                 <WhiteSpace size="lg"/>
                                 <List>
                                     <Item extra={
-                                        trade.trade_flow=="WAIT_PAY"?"待付款":
-                                        trade.trade_flow=="WAIT_SEND"?"待发货":
-                                        trade.trade_flow=="WAIT_RECEIVE"?"待收货":
-                                        trade.trade_flow=="COMPLETE"?"已完成":""
+                                        trade.trade_flow === "WAIT_PAY" ? "待付款" :
+                                            trade.trade_flow === "WAIT_SEND" ? "待发货" :
+                                                trade.trade_flow === "WAIT_RECEIVE" ? "待收货" :
+                                                    trade.trade_flow === "COMPLETE" ? "已完成" : ""
                                     }>
                                         {trade.trade_number}
                                     </Item>

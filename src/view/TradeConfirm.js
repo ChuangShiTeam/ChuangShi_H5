@@ -90,7 +90,7 @@ class TradeConfirm extends Component {
                 {
                     this.state.result === 'confirm' ?
                         <Result
-                            img={<img src={require('../assets/svg/waiting.svg')} style={{ width: '1.2rem', height: '1.2rem' }} />}
+                            img={<img src={require('../assets/svg/waiting.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
                             title="等待确认"
                             message="已支付成功，等待平台确认"
                         />
@@ -103,6 +103,7 @@ class TradeConfirm extends Component {
                             img={<Icon
                                 type="check-circle"
                                 style={{ fill: '#1F90E6', width: '1.2rem', height: '1.2rem' }}
+                                alt=""
                             />}
                             title="订单确认成功"
                             message={<div>
@@ -123,7 +124,7 @@ class TradeConfirm extends Component {
                 {
                     this.state.result === 'error' ?
                         <Result
-                            img={<img src={require('../assets/svg/notice.svg')} style={{ width: '1.2rem', height: '1.2rem' }} />}
+                            img={<img src={require('../assets/svg/notice.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
                             title="网络异常"
                             message="请与平台工作人员确认"
                         />

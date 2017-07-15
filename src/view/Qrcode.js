@@ -55,6 +55,7 @@ class Qrcode extends Component {
                       src={this.state.qrcode} style={{
                       width: '100%',
                   }}
+                      alt=""
                   />
           }
           {
@@ -73,4 +74,4 @@ class Qrcode extends Component {
 
 Qrcode.propTypes = {};
 
-export default connect(({}) => ({}))(Qrcode);
+export default connect(() => ({}))(Qrcode);

@@ -181,7 +181,7 @@ class TradeCheck extends Component {
                 });
 
                 Toast.hide();
-            }.bind(this),
+            },
             complete() {
 
             },
