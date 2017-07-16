@@ -275,7 +275,7 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.express_flow}>
+                        <Item extra={this.state.stock.express_flow ? "暂无" : this.state.stock.express_flow}>
                             物流状态
                         </Item>
                     </List>
@@ -297,7 +297,7 @@ class StockDetail extends Component {
                             手机号码
                         </Item>
                         <Item
-                            extra={this.state.stock.stock_receiver_province + this.state.stock.stock_receiver_city + this.state.stock_receiver_area + this.state.stock_receiver_address}>
+                            extra={this.state.stock.stock_receiver_province + this.state.stock.stock_receiver_city + this.state.stock.stock_receiver_area + this.state.stock.stock_receiver_address}>
                             详细地址
                         </Item>
                     </List>

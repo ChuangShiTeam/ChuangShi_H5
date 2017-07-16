@@ -77,7 +77,6 @@ class StockIndex extends Component {
                     <Item
                         multipleLine
                         extra={this.state.stock_quantity}
-                        arrow="horizontal"
                     >
                         我的库存
                     </Item>
@@ -95,7 +94,8 @@ class StockIndex extends Component {
                                         className="item-long-text"
                                         onClick={this.handleEdit.bind(this, item.stock_id)}
                                     >
-                                        <div>快递单号：{item.express_shipper_code} {item.express_no}</div>
+                                        <div>
+                                            快递单号：{item.express_shipper_code == null ? "暂无" : item.express_shipper_code} {item.express_no}</div>
                                         <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
                                         <div className="text-ellipsis">
                                             收货地址：{item.stock_receiver_province + item.stock_receiver_city + item.stock_receiver_city + item.stock_receiver_area + item.stock_receiver_address}</div>
