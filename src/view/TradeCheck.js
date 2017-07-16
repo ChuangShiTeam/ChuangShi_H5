@@ -166,22 +166,36 @@ class TradeCheck extends Component {
                     signType: data.signType,
                     paySign: data.paySign,
                     success: function (res) {
-                        if (res.err_msg === 'get_brand_wcpay_request:ok') {
+                        if (res.errMsg == "chooseWXPay:ok") {
+                            //支付成功
                             this.props.dispatch(routerRedux.push({
-                                pathname: '/trade/confirm/' + data.orderId,
+                                pathname: '/trade/confirm/' + data.trade_id,
                                 query: {},
                             }));
                         } else {
+                            //支付失败
                             this.props.dispatch(routerRedux.push({
                                 pathname: 'trade/index/ALL',
                                 query: {},
                             }));
                         }
-                    }
+                    }.bind(this),
+                    fail: function (res) {
+                        this.props.dispatch(routerRedux.push({
+                            pathname: 'trade/index/ALL',
+                            query: {},
+                        }));
+                    }.bind(this),
+                    cancel: function (res) {
+                        this.props.dispatch(routerRedux.push({
+                            pathname: 'trade/index/ALL',
+                            query: {},
+                        }));
+                    }.bind(this)
                 });
 
                 Toast.hide();
-            },
+            }.bind(this),
             complete() {
 
             },
@@ -227,7 +241,8 @@ class TradeCheck extends Component {
                                         key={item.product_sku_id}
                                         extra={'￥' + (item.product_sku_price * item.product_sku_quantity).toFixed(2)}
                                     >
-                                        <img className="product-list-image" src={constant.host + item.product_image} alt=""/>
+                                        <img className="product-list-image" src={constant.host + item.product_image}
+                                             alt=""/>
                                         <div className="product-list-text">
                                             {item.product_name}
                                             <div>{item.product_sku_price.toFixed(2)} × {item.product_sku_quantity}</div>

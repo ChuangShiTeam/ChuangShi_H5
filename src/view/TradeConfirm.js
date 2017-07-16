@@ -15,7 +15,7 @@ class TradeConfirm extends Component {
             result: 'confirm',
             is_pay: false,
             is_error: false,
-            order_amount: 0
+            trade_amount: 0
         }
     }
 
@@ -35,15 +35,15 @@ class TradeConfirm extends Component {
         Toast.loading('加载中..', 0);
 
         http.request({
-            url: '/order/confirm',
+            url: '/trade/confirm',
             data: {
-                order_id: this.props.params.order_id,
+                trade_id: this.props.params.trade_id,
             },
             success: function (data) {
-                if (data.order_is_pay) {
+                if (data.trade_is_pay) {
                     this.setState({
                         result: 'success',
-                        order: data
+                        trade_amount: data.trade_amount
                     });
                 } else if (this.state.count < 2) {
                     this.setState({
@@ -76,7 +76,7 @@ class TradeConfirm extends Component {
         }));
     }
 
-    handleOrder() {
+    handleTrade() {
         this.props.dispatch(routerRedux.push({
             pathname: 'trade/index/ALL',
             query: {},
@@ -114,7 +114,7 @@ class TradeConfirm extends Component {
                                         lineHeight: 1,
                                     }}
                                 >
-                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.order_amount).toFixed(2)}
+                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.trade_amount).toFixed(2)}
                                 </div>
                             </div>}
                         />
@@ -136,7 +136,7 @@ class TradeConfirm extends Component {
                 </div>
                 <WhiteSpace size="lg"/>
                 <div style={{ margin: '0px 10px 0px 10px' }}>
-                    <Button onClick={this.handleOrder.bind(this)}>查看订单</Button>
+                    <Button onClick={this.handleTrade.bind(this)}>查看订单</Button>
                 </div>
             </div>
         );

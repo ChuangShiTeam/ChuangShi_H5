@@ -27,8 +27,7 @@ import constant from './util/constant';
 function RouterConfig({history}) {
 
     const handleEnter = function (next, replace, callback) {
-
-        callback();
+           callback();
     };
 
     return (

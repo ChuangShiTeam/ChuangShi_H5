@@ -6,6 +6,9 @@ const product_sku_list_key = ('product_sku_list_' + constant.version);
 const member_address_key = ('member_address_' + constant.version);
 
 function getOpenId() {
+    if (constant.is_test) {
+        return 'oqvzXv4c-FY2-cGh9U-RA4JIrZoc';
+    }
     return localStorage.getItem(open_id_key);
 }
 
