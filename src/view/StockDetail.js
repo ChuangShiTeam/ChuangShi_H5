@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from "rc-form";
-import {WhiteSpace, List, InputItem, Picker, Steps} from 'antd-mobile';
+import {WhiteSpace, List, InputItem, Picker, Steps, Toast} from 'antd-mobile';
 
+import constant from "../util/constant";
+import validate from "../util/validate";
 import china from "../util/china";
+import http from "../util/http";
 
 class StockDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            action: 'save'
+            action: 'save',
+            product_sku_id: ''
         }
     }
 
@@ -25,14 +29,134 @@ class StockDetail extends Component {
                 action: 'update'
             });
         }
+
+        this.handleLoad();
     }
 
     componentWillUnmount() {
 
     }
 
-    handleAdd() {
+    handleLoad() {
+        Toast.loading('加载中..', 0);
 
+        http.request({
+            url: '/product/find',
+            data: {
+                product_id: "76537999b6c6428d9a78d47739c08fa5",
+            },
+            success: function (data) {
+                this.props.dispatch({
+                    type: 'product/fetch',
+                    data: {
+                        product_sku_id: data.product_sku_id
+                    },
+                });
+
+                Toast.hide();
+            }.bind(this),
+            complete() {
+
+            },
+        });
+    }
+
+    handleAdd() {
+        this.props.form.validateFields((errors, values) => {
+            if (!errors) {
+                if (!validate.isMobile(values.member_address_mobile)) {
+                    Toast.fail('手机号码格式不对', constant.duration);
+
+                    return;
+                }
+
+                if (values.member_address_province_city_area.length === 0) {
+                    Toast.fail('请选择省市区', constant.duration);
+
+                    return;
+                }
+
+                values.stock_receiver_province = values.member_address_province_city_area[0];
+                values.stock_receiver_city = values.member_address_province_city_area[1];
+                values.stock_receiver_area = values.member_address_province_city_area[2];
+
+                let province = '';
+                let city = '';
+                let area = '';
+                let cityList = [];
+                let areaList = [];
+
+                for (let i = 0; i < china.length; i++) {
+                    if (china[i].value === values.stock_receiver_province) {
+                        province = china[i].label;
+
+                        cityList = china[i].children;
+
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < cityList.length; i++) {
+                    if (cityList[i].value === values.stock_receiver_city) {
+                        city = cityList[i].label;
+
+                        areaList = cityList[i].children;
+
+                        break;
+                    }
+                }
+
+                for (let i = 0; i < areaList.length; i++) {
+                    if (areaList[i].value === values.stock_receiver_area) {
+                        area = areaList[i].label;
+
+                        break;
+                    }
+                }
+                values.stock_receiver_province = province;
+                values.stock_receiver_city = city;
+                values.stock_receiver_area = area;
+                delete values.member_address_province_city_area;
+
+                var stock_product_sku_list = [];
+                var map = {};
+                map.product_sku_quantity = values.product_sku_quantity;
+                map.product_sku_id = this.state.product_sku_id;
+                stock_product_sku_list.push(map);
+                values.stock_product_sku_list = stock_product_sku_list;
+                delete values.product_sku_quantity;
+
+                values.stock_express_pay_way = values.stock_express_pay_way[0];
+
+                Toast.loading('加载中..', 0);
+
+                let action = 'save';
+                if (this.props.route.path.indexOf('/edit/') > -1) {
+                    action = 'update';
+
+                    values.stock_id = this.props.params.stock_id;
+                }
+
+                http.request({
+                    url: '/member/send',
+                    data: values,
+                    success: function (data) {
+                        Toast.hide();
+
+                        if (data) {
+                            this.handleBack();
+                        }
+                    }.bind(this),
+                    complete() {
+
+                    },
+                });
+            }
+        });
+    }
+
+    handleBack() {
+        this.props.dispatch(routerRedux.goBack());
     }
 
     render() {
@@ -45,7 +169,6 @@ class StockDetail extends Component {
             this.state.action === 'save' ?
                 <div>
                     <WhiteSpace size="lg"/>
-
                     <List>
                         <InputItem
                             {...getFieldProps('product_sku_quantity', {
@@ -69,7 +192,7 @@ class StockDetail extends Component {
                                     label: '自己付',
                                     value: '自己付',
                                 },
-                            ]} {...getFieldProps('stock_pay_type', {
+                            ]} {...getFieldProps('stock_express_pay_way', {
                             initialValue: [],
                         })}
                         >
@@ -79,26 +202,26 @@ class StockDetail extends Component {
                     <WhiteSpace size="lg"/>
                     <List>
                         <InputItem
-                            {...getFieldProps('member_address_name', {
+                            {...getFieldProps('stock_receiver_name', {
                                 rules: [{
                                     required: true,
                                     message: '请输入收货人',
                                 }],
                                 initialValue: '',
                             })}
-                            error={!!getFieldError('member_address_name')}
+                            error={!!getFieldError('stock_receiver_name')}
                             clear
                             placeholder="请输入收货人"
                         >收货人:</InputItem>
                         <InputItem
-                            {...getFieldProps('member_address_mobile', {
+                            {...getFieldProps('stock_receiver_mobile', {
                                 rules: [{
                                     required: true,
                                     message: '请输入手机号码',
                                 }],
                                 initialValue: '',
                             })}
-                            error={!!getFieldError('member_address_mobile')}
+                            error={!!getFieldError('stock_receiver_mobile')}
                             clear
                             placeholder="请输入手机号码"
                         >手机号码:</InputItem>
@@ -110,14 +233,14 @@ class StockDetail extends Component {
                             <Item arrow="horizontal">省市区:</Item>
                         </Picker>
                         <InputItem
-                            {...getFieldProps('address_street', {
+                            {...getFieldProps('stock_receiver_address', {
                                 rules: [{
                                     required: true,
                                     message: '请输入详细地址',
                                 }],
                                 initialValue: '',
                             })}
-                            error={!!getFieldError('address_street')}
+                            error={!!getFieldError('stock_receiver_address')}
                             clear
                             placeholder="请输入详细地址"
                         >详细地址:</InputItem>

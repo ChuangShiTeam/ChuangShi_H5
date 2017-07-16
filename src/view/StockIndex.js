@@ -10,7 +10,8 @@ class StockIndex extends Component {
         super(props);
 
         this.state = {
-            stock_list: []
+            stock_list: [],
+            stock_quantity: 0
         }
     }
 
@@ -19,7 +20,7 @@ class StockIndex extends Component {
 
         document.body.scrollTop = 0;
 
-        // this.handleLoad();
+        this.handleLoad();
     }
 
     componentWillUnmount() {
@@ -30,7 +31,7 @@ class StockIndex extends Component {
         Toast.loading('加载中..', 0);
 
         http.request({
-            url: '/member/stock/list',
+            url: '/member/send/detail',
             data: {
                 page_index: 1,
                 page_size: 100
@@ -39,7 +40,7 @@ class StockIndex extends Component {
 
                 this.setState({
                     stock_list: data.stock_list,
-                    stock: data.stock
+                    stock_quantity: data.stock_quantity
                 });
 
                 Toast.hide();
@@ -75,29 +76,13 @@ class StockIndex extends Component {
                 <List>
                     <Item
                         multipleLine
-                        extra="999"
+                        extra={this.state.stock_quantity}
                         arrow="horizontal"
                     >
                         我的库存
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
-                <div>
-                    <List>
-                        <Item
-                            multipleLine
-                            extra="签收"
-                            arrow="horizontal"
-                            className="item-long-text"
-                            onClick={this.handleEdit.bind(this, '123')}
-                        >
-                            <div>快递单号：德邦 5277817363</div>
-                            <div>收货人：xxx 1111111</div>
-                            <div className="text-ellipsis">收货地址：北京北京市朝阳区朝阳北路八里庄北里公园1872，3号楼405</div>
-                        </Item>
-                    </List>
-                    <WhiteSpace size="lg"/>
-                </div>
                 {
                     this.state.stock_list.map((item) => {
                         return (
@@ -105,14 +90,15 @@ class StockIndex extends Component {
                                 <List>
                                     <Item
                                         multipleLine
-                                        extra="签收"
+                                        extra={item.express_flow}
                                         arrow="horizontal"
                                         className="item-long-text"
-                                        onClick={this.handleEdit.bind(this, '123')}
+                                        onClick={this.handleEdit.bind(this, item.stock_id)}
                                     >
-                                        <div>快递单号：德邦 5277817363</div>
-                                        <div>收货人：xxx 1111111</div>
-                                        <div className="text-ellipsis">收货地址：北京北京市朝阳区朝阳北路八里庄北里公园1872，3号楼405</div>
+                                        <div>快递单号：{item.express_shipper_code} {item.express_no}</div>
+                                        <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
+                                        <div className="text-ellipsis">
+                                            收货地址：{item.stock_receiver_province + item.stock_receiver_city + item.stock_receiver_city + item.stock_receiver_area + item.stock_receiver_address}</div>
                                     </Item>
                                 </List>
                                 <WhiteSpace size="lg"/>
