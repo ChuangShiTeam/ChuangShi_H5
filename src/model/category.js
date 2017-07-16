@@ -1,11 +1,10 @@
 export default {
 
-    namespace: 'index',
+    namespace: 'category',
 
     state: {
         category_list: [],
-        product_list: [],
-        scroll_top: 0,
+        product_list: []
     },
 
     reducers: {

@@ -20,7 +20,18 @@ class Index extends Component {
 
         document.body.scrollTop = this.props.index.scroll_top;
 
-        if (this.props.index.list.length === 0) {
+        if (this.props.index.product_list.length === 0) {
+            var category_list = constant.category.concat();
+            category_list.splice(0, 1);
+            category_list.push(constant.category[0]);
+
+            this.props.dispatch({
+                type: 'index/fetch',
+                data: {
+                    category_list: category_list
+                }
+            });
+
             this.handleLoad();
         }
     }
@@ -44,7 +55,7 @@ class Index extends Component {
                 this.props.dispatch({
                     type: 'index/fetch',
                     data: {
-                        list: data
+                        product_list: data
                     }
                 });
 
@@ -79,56 +90,24 @@ class Index extends Component {
                     <img src={require('../assets/image/banner.jpg')} style={{width: '100%'}} alt=""/>
                 </div>
                 <div className='index-category'>
-                    <div className='index-category-item'
-                         onClick={this.handleCategory.bind(this, '146474b15ba545d9b9717cf8b5a6c3f5')}>
-                        <div className='index-category-item-icon' style={{background: '#73b4ef'}}>
-                            <img className='index-category-item-icon-image' src={require('../assets/svg/discover.svg')}
-                                 alt=""/>
-                        </div>
-                        肠内营养
-                    </div>
-                    <div className='index-category-item'
-                         onClick={this.handleCategory.bind(this, '9ed6cb3551fb4bfaabfeee89cc63f9b4')}>
-                        <div className='index-category-item-icon' style={{background: '#e78ab0'}}>
-                            <img className='index-category-item-icon-image' src={require('../assets/svg/ticket.svg')}
-                                 alt=""/>
-                        </div>
-                        快康系列
-                    </div>
-                    <div className='index-category-item'
-                         onClick={this.handleCategory.bind(this, '34fb354194e0409e8a80a4382a7fa18d')}>
-                        <div className='index-category-item-icon' style={{background: '#7acfa6'}}>
-                            <img className='index-category-item-icon-image' src={require('../assets/svg/present.svg')}
-                                 alt=""/>
-                        </div>
-                        特殊奶粉
-                    </div>
-                    <div className='index-category-item'
-                         onClick={this.handleCategory.bind(this, '26ef74aa1bb242479df5305478f31b08')}>
-                        <div className='index-category-item-icon' style={{background: '#ffcb63'}}>
-                            <img className='index-category-item-icon-image' src={require('../assets/svg/punch.svg')}
-                                 alt=""/>
-                        </div>
-                        理疗辅助
-                    </div>
-                    <div className='index-category-item'
-                         onClick={this.handleCategory.bind(this, '45ac41e5c3334439a6ac45abdea31a30')}>
-                        <div className='index-category-item-icon' style={{background: '#9f8bea'}}>
-                            <img className='index-category-item-icon-image' src={require('../assets/svg/apps.svg')}
-                                 alt=""/>
-                        </div>
-                        补血系列
-                    </div>
-                    <div className='index-category-item' onClick={this.handleCategory.bind(this, '0')}>
-                        <div className='index-category-item-icon' style={{background: '#fd666b'}}>
-                            <img className='index-category-item-icon-image'
-                                 src={require('../assets/svg/cart_white.svg')} alt=""/>
-                        </div>
-                        所有商品
-                    </div>
+                    {
+                        this.props.index.category_list.map((item) => {
+                            return (
+                                <div
+                                    key={item.category_id}
+                                    className='index-category-item'
+                                     onClick={this.handleCategory.bind(this, item.category_id)}>
+                                    <div className='index-category-item-icon' style={{background: item.category_color}}>
+                                        <img className='index-category-item-icon-image' src={require('../assets/svg/' + item.category_image)} alt=""/>
+                                    </div>
+                                    {item.category_name}
+                                </div>
+                            );
+                        })
+                    }
                 </div>
                 {
-                    this.props.index.list.map((item) => {
+                    this.props.index.product_list.map((item) => {
                         return (
                             <div
                                 className='index-product-item'

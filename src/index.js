@@ -5,6 +5,7 @@ import FastClick from 'fastclick';
 import './view/Style.css';
 
 import index from './model/index';
+import category from './model/category';
 import team from './model/team';
 import product from './model/product';
 import my from './model/my';
@@ -20,6 +21,7 @@ if (result) {
     const app = dva();
 
     app.model(index);
+    app.model(category);
     app.model(team);
     app.model(product);
     app.model(my);
