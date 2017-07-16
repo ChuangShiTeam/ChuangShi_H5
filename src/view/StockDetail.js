@@ -29,9 +29,9 @@ class StockDetail extends Component {
             this.setState({
                 action: 'update'
             });
+            this.handleLoadStock();
         }
 
-        this.handleLoadStock();
         this.handleLoadProduct();
     }
 
