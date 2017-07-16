@@ -84,7 +84,7 @@ class StockDetail extends Component {
     handleAdd() {
         this.props.form.validateFields((errors, values) => {
             if (!errors) {
-                if (!validate.isMobile(values.member_address_mobile)) {
+                if (!validate.isMobile(values.stock_receiver_mobile)) {
                     Toast.fail('手机号码格式不对', constant.duration);
 
                     return;
