@@ -60,9 +60,9 @@ class StockIndex extends Component {
         }));
     }
 
-    handleEdit(edit_id) {
+    handleEdit(stock_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/stock/edit/' + edit_id,
+            pathname: '/stock/edit/' + stock_id,
             query: {},
         }));
     }

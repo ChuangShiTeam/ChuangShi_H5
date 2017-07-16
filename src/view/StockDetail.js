@@ -15,7 +15,8 @@ class StockDetail extends Component {
 
         this.state = {
             action: 'save',
-            product_sku_id: ''
+            product_sku_id: '',
+            stock: {}
         }
     }
 
@@ -30,14 +31,36 @@ class StockDetail extends Component {
             });
         }
 
-        this.handleLoad();
+        this.handleLoadStock();
+        this.handleLoadProduct();
     }
 
     componentWillUnmount() {
 
     }
 
-    handleLoad() {
+    handleLoadStock() {
+        Toast.loading('加载中..', 0);
+
+        http.request({
+            url: '/member/stock/find',
+            data: {
+                stock_id: this.props.params.stock_id,
+            },
+            success: function (data) {
+                this.setState({
+                    stock: data
+                });
+
+                Toast.hide();
+            }.bind(this),
+            complete() {
+
+            },
+        });
+    }
+
+    handleLoadProduct() {
         Toast.loading('加载中..', 0);
 
         http.request({
@@ -46,11 +69,8 @@ class StockDetail extends Component {
                 product_id: "76537999b6c6428d9a78d47739c08fa5",
             },
             success: function (data) {
-                this.props.dispatch({
-                    type: 'product/fetch',
-                    data: {
-                        product_sku_id: data.product_sku_id
-                    },
+                this.setState({
+                    product_sku_id: data.product_sku_id
                 });
 
                 Toast.hide();
@@ -255,28 +275,29 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra="签收">
+                        <Item extra={this.state.stock.express_flow}>
                             物流状态
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra="123">
+                        <Item extra={this.state.stock.stock_quantity}>
                             爆水丸数量
                         </Item>
-                        <Item extra="到付">
+                        <Item extra={this.state.stock.stock_express_pay_way}>
                             支付方式
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra="zyq">
+                        <Item extra={this.state.stock.stock_receiver_name}>
                             收货人
                         </Item>
-                        <Item extra="13162999586">
+                        <Item extra={this.state.stock.stock_receiver_mobile}>
                             手机号码
                         </Item>
-                        <Item extra="13162999586">
+                        <Item
+                            extra={this.state.stock.stock_receiver_province + this.state.stock.stock_receiver_city + this.state.stock_receiver_area + this.state.stock_receiver_address}>
                             详细地址
                         </Item>
                     </List>
