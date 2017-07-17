@@ -15,7 +15,7 @@ class TradeConfirm extends Component {
             result: 'confirm',
             is_pay: false,
             is_error: false,
-            trade_amount: 0
+            trade_total_amount: 0
         }
     }
 
@@ -24,7 +24,7 @@ class TradeConfirm extends Component {
 
         document.body.scrollTop = 0;
 
-        // this.handleLoad();
+        this.handleLoad();
     }
 
     componentWillUnmount() {
@@ -33,17 +33,17 @@ class TradeConfirm extends Component {
 
     handleLoad() {
         Toast.loading('加载中..', 0);
-
+        var trade_id = this.props.params.trade_id;
         http.request({
             url: '/trade/confirm',
             data: {
-                trade_id: this.props.params.trade_id,
+                trade_id: trade_id
             },
             success: function (data) {
                 if (data.trade_is_pay) {
                     this.setState({
                         result: 'success',
-                        trade_amount: data.trade_amount
+                        trade_total_amount: data.trade_total_amount
                     });
                 } else if (this.state.count < 2) {
                     this.setState({
@@ -114,7 +114,7 @@ class TradeConfirm extends Component {
                                         lineHeight: 1,
                                     }}
                                 >
-                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.trade_amount).toFixed(2)}
+                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.trade_total_amount).toFixed(2)}
                                 </div>
                             </div>}
                         />
