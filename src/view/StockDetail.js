@@ -8,6 +8,7 @@ import constant from "../util/constant";
 import validate from "../util/validate";
 import china from "../util/china";
 import http from "../util/http";
+import storage from '../util/storage';
 
 class StockDetail extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class StockDetail extends Component {
         this.state = {
             action: 'save',
             product_sku_id: '',
-            stock: {}
+            stock: {},
+            member_address: {}
         }
     }
 
@@ -70,9 +72,9 @@ class StockDetail extends Component {
             },
             success: function (data) {
                 this.setState({
+                    member_address: storage.getMemberAddress(),
                     product_sku_id: data.product_sku_id
                 });
-
                 Toast.hide();
             }.bind(this),
             complete() {
@@ -84,59 +86,24 @@ class StockDetail extends Component {
     handleAdd() {
         this.props.form.validateFields((errors, values) => {
             if (!errors) {
-                if (!validate.isMobile(values.stock_receiver_mobile)) {
+                if (typeof (this.state.member_address.member_address_name) === 'undefined') {
+                    Toast.fail('请选择收货地址', constant.duration);
+
+                    return;
+                }
+
+                if (!validate.isMobile(this.state.member_address.member_address_mobile)) {
                     Toast.fail('手机号码格式不对', constant.duration);
 
                     return;
                 }
 
-                if (values.member_address_province_city_area.length === 0) {
-                    Toast.fail('请选择省市区', constant.duration);
-
-                    return;
-                }
-
-                values.stock_receiver_province = values.member_address_province_city_area[0];
-                values.stock_receiver_city = values.member_address_province_city_area[1];
-                values.stock_receiver_area = values.member_address_province_city_area[2];
-
-                let province = '';
-                let city = '';
-                let area = '';
-                let cityList = [];
-                let areaList = [];
-
-                for (let i = 0; i < china.length; i++) {
-                    if (china[i].value === values.stock_receiver_province) {
-                        province = china[i].label;
-
-                        cityList = china[i].children;
-
-                        break;
-                    }
-                }
-
-                for (let i = 0; i < cityList.length; i++) {
-                    if (cityList[i].value === values.stock_receiver_city) {
-                        city = cityList[i].label;
-
-                        areaList = cityList[i].children;
-
-                        break;
-                    }
-                }
-
-                for (let i = 0; i < areaList.length; i++) {
-                    if (areaList[i].value === values.stock_receiver_area) {
-                        area = areaList[i].label;
-
-                        break;
-                    }
-                }
-                values.stock_receiver_province = province;
-                values.stock_receiver_city = city;
-                values.stock_receiver_area = area;
-                delete values.member_address_province_city_area;
+                values.stock_receiver_name = this.state.member_address.member_address_name;
+                values.stock_receiver_mobile = this.state.member_address.member_address_mobile;
+                values.stock_receiver_province = this.state.member_address.member_address_province;
+                values.stock_receiver_city = this.state.member_address.member_address_city;
+                values.stock_receiver_area = this.state.member_address.member_address_area;
+                values.stock_receiver_address = this.state.member_address.member_address_address;
 
                 var stock_product_sku_list = [];
                 var map = {};
@@ -162,14 +129,14 @@ class StockDetail extends Component {
                     data: values,
                     success: function (data) {
                         Toast.hide();
-
                         if (data) {
+                            storage.removeMemberAddress();
                             this.handleBack();
                         }
                     }.bind(this),
                     complete() {
 
-                    },
+                    }
                 });
             }
         });
@@ -179,15 +146,40 @@ class StockDetail extends Component {
         this.props.dispatch(routerRedux.goBack());
     }
 
+    handleMemberAddress() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/address/index/select',
+            query: {}
+        }));
+    }
+
     render() {
         const Item = List.Item;
         const Step = Steps.Step;
+        const Brief = Item.Brief;
 
         const {getFieldProps, getFieldError} = this.props.form;
 
         return (
             this.state.action === 'save' ?
                 <div>
+                    <List>
+                        <Item arrow="horizontal"
+                              extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''}
+                              wrap
+                              className="item-long-text"
+                              onClick={this.handleMemberAddress.bind(this)}>
+                            {
+                                typeof (this.state.member_address.member_address_name) === 'undefined' ?
+                                    '收货地址'
+                                    :
+                                    <div>
+                                        {this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}
+                                        <Brief>{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</Brief>
+                                    </div>
+                            }
+                        </Item>
+                    </List>
                     <WhiteSpace size="lg"/>
                     <List>
                         <InputItem
@@ -220,52 +212,6 @@ class StockDetail extends Component {
                         </Picker>
                     </List>
                     <WhiteSpace size="lg"/>
-                    <List>
-                        <InputItem
-                            {...getFieldProps('stock_receiver_name', {
-                                rules: [{
-                                    required: true,
-                                    message: '请输入收货人',
-                                }],
-                                initialValue: '',
-                            })}
-                            error={!!getFieldError('stock_receiver_name')}
-                            clear
-                            placeholder="请输入收货人"
-                        >收货人:</InputItem>
-                        <InputItem
-                            {...getFieldProps('stock_receiver_mobile', {
-                                rules: [{
-                                    required: true,
-                                    message: '请输入手机号码',
-                                }],
-                                initialValue: '',
-                            })}
-                            error={!!getFieldError('stock_receiver_mobile')}
-                            clear
-                            placeholder="请输入手机号码"
-                        >手机号码:</InputItem>
-                        <Picker
-                            data={china} {...getFieldProps('member_address_province_city_area', {
-                            initialValue: [],
-                        })}
-                        >
-                            <Item arrow="horizontal">省市区:</Item>
-                        </Picker>
-                        <InputItem
-                            {...getFieldProps('stock_receiver_address', {
-                                rules: [{
-                                    required: true,
-                                    message: '请输入详细地址',
-                                }],
-                                initialValue: '',
-                            })}
-                            error={!!getFieldError('stock_receiver_address')}
-                            clear
-                            placeholder="请输入详细地址"
-                        >详细地址:</InputItem>
-                    </List>
-                    <WhiteSpace size="lg"/>
                     <div style={{height: '100px'}}></div>
                     <div className="footer">
                         <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>提交</div>
@@ -275,7 +221,7 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.express_flow ? "暂无" : this.state.stock.express_flow}>
+                        <Item extra={this.state.stock.express_flow == null ? "暂无" : this.state.stock.express_flow}>
                             物流状态
                         </Item>
                     </List>
@@ -296,8 +242,12 @@ class StockDetail extends Component {
                         <Item extra={this.state.stock.stock_receiver_mobile}>
                             手机号码
                         </Item>
-                        <Item
-                            extra={this.state.stock.stock_receiver_province + this.state.stock.stock_receiver_city + this.state.stock.stock_receiver_area + this.state.stock.stock_receiver_address}>
+                        <Item multipleLine="true"
+                              wrap="true"
+                              extra={this.state.stock.stock_receiver_province
+                                    + this.state.stock.stock_receiver_city
+                                    + this.state.stock.stock_receiver_area
+                                    + this.state.stock.stock_receiver_address}>
                             详细地址
                         </Item>
                     </List>

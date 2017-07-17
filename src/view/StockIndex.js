@@ -98,7 +98,12 @@ class StockIndex extends Component {
                                             快递单号：{item.express_shipper_code == null ? "暂无" : item.express_shipper_code} {item.express_no}</div>
                                         <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
                                         <div className="text-ellipsis">
-                                            收货地址：{item.stock_receiver_province + item.stock_receiver_city + item.stock_receiver_city + item.stock_receiver_area + item.stock_receiver_address}</div>
+                                            收货地址：
+                                            {item.stock_receiver_province
+                                            + item.stock_receiver_city
+                                            + item.stock_receiver_area
+                                            + item.stock_receiver_address}
+                                        </div>
                                     </Item>
                                 </List>
                                 <WhiteSpace size="lg"/>

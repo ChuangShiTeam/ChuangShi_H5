@@ -42,7 +42,7 @@ class MemberAddressIndex extends Component {
             url: '/member/address/list',
             data: {
                 page_index: 1,
-                page_size: 10,
+                page_size: 100,
             },
             success: function (data) {
                 this.setState({
