@@ -51,6 +51,7 @@ function RouterConfig({history}) {
                 <Route path="member/level/:member_id" component={MemberLevel}/>
                 <Route path="member/address/index/:type" component={MemberAddressIndex}/>
                 <Route path="member/address/add" component={MemberAddressDetail}/>
+                <Route path="member/address/edit/:member_address_id" component={MemberAddressDetail}/>
                 <Route path="stock/index" component={StockIndex}/>
                 <Route path="stock/add" component={StockDetail}/>
                 <Route path="stock/edit/:stock_id" component={StockDetail}/>

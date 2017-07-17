@@ -13,7 +13,9 @@ class MemberAddressDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+            member_address_id: ""
+        }
     }
 
     componentDidMount() {
@@ -221,7 +223,7 @@ class MemberAddressDetail extends Component {
                         placeholder="请输入详细地址"
                     >详细地址:</InputItem>
                 </List>
-                <WhiteSpace size="lg" />
+                <WhiteSpace size="lg"/>
                 <List>
                     <Item
                         extra={<Switch

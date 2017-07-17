@@ -70,7 +70,7 @@ class MemberAddressIndex extends Component {
 
     handleEdit(member_address_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/address/edit/' + this.props.params.type + '/' + member_address_id,
+            pathname: '/member/address/edit/' + member_address_id,
             query: {},
         }));
     }
@@ -109,7 +109,12 @@ class MemberAddressIndex extends Component {
                                                 onClick={this.handleEdit.bind(this, item.member_address_id)}
                                             >
                                                 {item.member_address_name} {item.member_address_mobile}
-                                                <Brief>{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</Brief>
+                                                <Brief>
+                                                    {item.member_address_province
+                                                        + item.member_address_city
+                                                        + item.member_address_area
+                                                        + item.member_address_address}
+                                                </Brief>
                                             </Item>
                                             :
                                             <CheckboxItem
