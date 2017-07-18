@@ -10,12 +10,11 @@ class MemberIndex extends Component {
         super(props);
 
         this.state = {
-            member: {
-                user_name: '',
-                user_avatar: '',
-                member_level_name: '',
-                member_status: false
-            }
+            user_name: '',
+            user_avatar: '',
+            member_level_name: '',
+            member_status: false,
+            is_children: false
         }
     }
 
@@ -44,7 +43,8 @@ class MemberIndex extends Component {
                     user_name: data.user_name,
                     user_avatar: data.user_avatar,
                     member_level_name: data.member_level_name,
-                    member_status: data.member_status
+                    member_status: data.member_status,
+                    is_children: data.is_children
                 });
 
                 Toast.hide();
@@ -103,10 +103,10 @@ class MemberIndex extends Component {
                         </div>
                         <div className="list-item-brief">
                             {
-                                this.state.member_level_name === '' ?
-                                    <span style={{color: '#a72025'}}>待审核</span>
-                                    :
+                                this.state.member_status ?
                                     this.state.member_level_name
+                                    :
+                                    <span style={{color: '#a72025'}}>待审核</span>
                             }
                         </div>
                     </List.Item>
@@ -125,7 +125,7 @@ class MemberIndex extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 {
-                    this.state.member.member_status ?
+                    this.state.is_children ?
                         <List>
                             <Item arrow="horizontal" onClick={this.handleMemberLevel.bind(this)}>
                                 重设等级
