@@ -123,11 +123,11 @@ class Index extends Component {
                                         width: (document.documentElement.clientWidth - 25) / 2 + 'px',
                                         height: (document.documentElement.clientWidth - 25) / 2 + 'px',
                                     }}
-                                    src={item.product_image}
+                                    src={constant.host + item.product_image}
                                     alt=""
                                 />
                                 <div className='index-product-item-name'>{item.product_name}</div>
-                                <div className='index-product-item-price'>¥{item.product_sku_price}</div>
+                                <div className='index-product-item-price'>¥{item.product_sku_price.toFixed(2)}</div>
                             </div>
                         );
                     })

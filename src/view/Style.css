@@ -252,7 +252,6 @@ body, html {
     margin-top: 10px;
     padding-left: 20px;
     margin-bottom: 10px;
-    font-size: 24px;
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -263,7 +262,6 @@ body, html {
     padding-left: 20px;
     margin-bottom: 10px;
     font-weight: 700;
-    font-size: 24px;
     color: #c81623;
 }
 
