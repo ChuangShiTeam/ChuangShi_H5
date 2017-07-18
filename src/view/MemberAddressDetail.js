@@ -14,7 +14,7 @@ class MemberAddressDetail extends Component {
         super(props);
 
         this.state = {
-            member_address_id: ""
+            member_address: {}
         }
     }
 
@@ -36,7 +36,7 @@ class MemberAddressDetail extends Component {
         http.request({
             url: '/member/address/find',
             data: {
-                member_address_id: this.props.params.member_address_id,
+                member_address_id: this.props.params.member_address_id
             },
             success: function (data) {
                 let province = '';
@@ -76,6 +76,10 @@ class MemberAddressDetail extends Component {
                 data.member_address_province_city_area = [province, city, area];
 
                 this.props.form.setFieldsValue(data);
+
+                this.setState({
+                    member_address: data
+                });
             }.bind(this),
             complete() {
 
@@ -138,7 +142,6 @@ class MemberAddressDetail extends Component {
                 values.member_address_province = province;
                 values.member_address_city = city;
                 values.member_address_area = area;
-                values.member_address_address = values.address_street;
                 delete values.member_address_province_city_area;
 
                 Toast.loading('加载中..', 0);
@@ -148,6 +151,7 @@ class MemberAddressDetail extends Component {
                     action = 'update';
 
                     values.member_address_id = this.props.params.member_address_id;
+                    values.system_version = this.state.member_address.system_version;
                 }
 
                 http.request({
@@ -172,7 +176,6 @@ class MemberAddressDetail extends Component {
 
     render() {
         const Item = List.Item;
-
         const {getFieldProps, getFieldError} = this.props.form;
 
         return (
@@ -211,14 +214,14 @@ class MemberAddressDetail extends Component {
                         <Item arrow="horizontal">省市区:</Item>
                     </Picker>
                     <InputItem
-                        {...getFieldProps('address_street', {
+                        {...getFieldProps('member_address_address', {
                             rules: [{
                                 required: true,
                                 message: '请输入详细地址',
                             }],
                             initialValue: '',
                         })}
-                        error={!!getFieldError('address_street')}
+                        error={!!getFieldError('member_address_address')}
                         clear
                         placeholder="请输入详细地址"
                     >详细地址:</InputItem>
@@ -227,11 +230,11 @@ class MemberAddressDetail extends Component {
                 <List>
                     <Item
                         extra={<Switch
-                            {...getFieldProps('address_is_default', {
-                                valuePropName: 'checked',
-                                initialValue: false,
-                            })}
-                        />}
+                    {...getFieldProps('address_is_default', {
+                        valuePropName: 'checked',
+                        initialValue: false,
+                    })}
+                    />}
                     >设为默认地址</Item>
                 </List>
                 <WhiteSpace size="lg"/>

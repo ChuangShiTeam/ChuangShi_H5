@@ -26,7 +26,7 @@ class MemberAddressIndex extends Component {
 
         if (this.props.params.type === 'list') {
             this.setState({
-                is_list: true,
+                is_list: true
             });
         }
 
@@ -111,9 +111,12 @@ class MemberAddressIndex extends Component {
                                                 {item.member_address_name} {item.member_address_mobile}
                                                 <Brief>
                                                     {item.member_address_province
-                                                        + item.member_address_city
-                                                        + item.member_address_area
-                                                        + item.member_address_address}
+                                                    + item.member_address_city
+                                                    + item.member_address_area
+                                                    + item.member_address_address}
+                                                </Brief>
+                                                <Brief style={{color:'#FF5501'}}>
+                                                    {item.address_is_default ? "默认地址" : ""}
                                                 </Brief>
                                             </Item>
                                             :
@@ -124,7 +127,15 @@ class MemberAddressIndex extends Component {
                                                 onChange={this.handleChange.bind(this, item)}
                                             >
                                                 {item.member_address_name} {item.member_address_mobile}
-                                                <Brief>{item.member_address_province + item.member_address_city + item.member_address_area + item.member_address_address}</Brief>
+                                                <Brief>
+                                                    {item.member_address_province
+                                                    + item.member_address_city
+                                                    + item.member_address_area
+                                                    + item.member_address_address}
+                                                </Brief>
+                                                <Brief style={{color:'#FF5501'}}>
+                                                    {item.address_is_default ? "默认地址" : ""}
+                                                </Brief>
                                             </CheckboxItem>
                                     );
                                 })
@@ -145,7 +156,9 @@ class MemberAddressIndex extends Component {
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
                 <div className="footer">
-                    <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>新建收货地址</div>
+                    <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>
+                        新建收货地址
+                    </div>
                 </div>
             </div>
         );

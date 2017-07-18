@@ -19,6 +19,7 @@ import StockIndex from './view/StockIndex';
 import StockDetail from './view/StockDetail';
 import TradeCheck from './view/TradeCheck';
 import TradeIndex from './view/TradeIndex';
+import TradeDetail from './view/TradeDetail';
 import TradeConfirm from './view/TradeConfirm';
 import Qrcode from './view/Qrcode';
 
@@ -57,6 +58,7 @@ function RouterConfig({history}) {
                 <Route path="stock/edit/:stock_id" component={StockDetail}/>
                 <Route path="trade/check" component={TradeCheck}/>
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>
+                <Route path="trade/edit/:trade_id" component={TradeDetail}/>
                 <Route path="trade/confirm/:trade_id" component={TradeConfirm}/>
                 <Route path="qrcode" component={Qrcode}/>
             </Route>

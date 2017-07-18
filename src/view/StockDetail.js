@@ -18,7 +18,8 @@ class StockDetail extends Component {
             action: 'save',
             product_sku_id: '',
             stock: {},
-            member_address: {}
+            member_address: {},
+            express_traces: []
         }
     }
 
@@ -47,18 +48,24 @@ class StockDetail extends Component {
         http.request({
             url: '/member/stock/find',
             data: {
-                stock_id: this.props.params.stock_id,
+                stock_id: this.props.params.stock_id
             },
             success: function (data) {
                 this.setState({
                     stock: data
                 });
 
+                if (data.express_traces !== null) {
+                    this.setState({
+                        express_traces: data.express_traces
+                    });
+                }
+
                 Toast.hide();
             }.bind(this),
             complete() {
 
-            },
+            }
         });
     }
 
@@ -68,7 +75,7 @@ class StockDetail extends Component {
         http.request({
             url: '/product/find',
             data: {
-                product_id: "76537999b6c6428d9a78d47739c08fa5",
+                product_id: "76537999b6c6428d9a78d47739c08fa5"
             },
             success: function (data) {
                 this.setState({
@@ -79,7 +86,7 @@ class StockDetail extends Component {
             }.bind(this),
             complete() {
 
-            },
+            }
         });
     }
 
@@ -254,12 +261,27 @@ class StockDetail extends Component {
                     <WhiteSpace size="lg"/>
                     <List>
                         <Item>
-                            <WhiteSpace size="lg"/>
-                            <Steps size="small" current={1}>
-                                <Step title="Finished" description="This is description"/>
-                                <Step title="In Progress" description="This is description"/>
-                                <Step title="Waiting" description="This is description"/>
-                            </Steps>
+                            {this.state.express_traces.length === 0 ?
+                                "暂无物流信息"
+                                :
+                                <Steps>
+                                    {
+                                        this.state.express_traces.map((item, index) => {
+                                            return (
+                                                <Step
+                                                    key={index}
+                                                    icon={index === 0 ? "check-circle-o":""}
+                                                    title={
+                                                    <div className="traces-item-content">
+                                                        {item.AcceptStation}
+                                                    </div>
+                                                }
+                                                    description={item.AcceptTime}
+                                                />
+                                            );
+                                        })
+                                    }
+                                </Steps>}
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>

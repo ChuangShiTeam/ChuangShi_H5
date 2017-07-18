@@ -85,11 +85,11 @@ class StockIndex extends Component {
                 {
                     this.state.stock_list.map((item) => {
                         return (
-                            <div>
+                            <div key={item.stock_id}>
                                 <List>
                                     <Item
                                         multipleLine
-                                        extra={item.express_flow}
+                                        extra={item.express_flow === null ? "暂无物流信息" : item.express_flow}
                                         arrow="horizontal"
                                         className="item-long-text"
                                         onClick={this.handleEdit.bind(this, item.stock_id)}

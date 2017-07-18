@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Tabs, Toast} from 'antd-mobile';
+import {WhiteSpace, List, Tabs, Toast, Button} from 'antd-mobile';
 
-import constant from "../util/constant";
+import constant from '../util/constant';
+import storage from '../util/storage';
 import http from '../util/http';
 
 class TradeIndex extends Component {
@@ -75,6 +76,55 @@ class TradeIndex extends Component {
         });
     }
 
+    handlePay(trade_id) {
+        Toast.loading('加载中..', 0);
+
+        http.request({
+            url: '/trade/pay',
+            data: {
+                trade_id: trade_id,
+                open_id: storage.getOpenId(),
+                pay_type: 'WX'
+            },
+            success: function (data) {
+                window.wx.chooseWXPay({
+                    timestamp: data.timeStamp,
+                    nonceStr: data.nonceStr,
+                    package: data.package,
+                    signType: data.signType,
+                    paySign: data.paySign,
+                    success: function (res) {
+                        if (res.errMsg == "chooseWXPay:ok") {
+                            //支付成功
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/trade/confirm/' + data.trade_id,
+                                query: {}
+                            }));
+                        } else {
+                            //支付失败
+                        }
+                    }.bind(this),
+                    fail: function (res) {
+                    }.bind(this),
+                    cancel: function (res) {
+                    }.bind(this)
+                });
+
+                Toast.hide();
+            }.bind(this),
+            complete() {
+
+            }
+        });
+    }
+
+    handleEdit(trade_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: 'trade/edit/' + trade_id,
+            query: {}
+        }));
+    }
+
     render() {
         const Item = List.Item;
         const TabPane = Tabs.TabPane;
@@ -110,7 +160,8 @@ class TradeIndex extends Component {
                                     {
                                         trade.trade_product_sku_list.map((product_sku) => {
                                             return (
-                                                <Item key={product_sku.product_sku_id}
+                                                <Item onClick={this.handleEdit.bind(this,trade.trade_id)}
+                                                      key={product_sku.product_sku_id}
                                                       extra={'￥' + product_sku.product_sku_amount.toFixed(2) + ' X ' + product_sku.product_sku_quantity}>
 
                                                     <div className="list-item-image">
@@ -127,9 +178,39 @@ class TradeIndex extends Component {
                                         })
                                     }
                                     <Item>
-                                        <span
-                                            style={{fontSize: '14px'}}>共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}</span>
+                                        <span style={{fontSize: '14px'}}>
+                                            共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}
+                                        </span>
                                     </Item>
+                                    {trade.trade_flow === "WAIT_SEND" ?
+                                        ""
+                                        :
+                                        <Item>
+                                            {
+                                                (trade.trade_flow === "WAIT_RECEIVE" || trade.trade_flow === "COMPLETE") ?
+                                                    <Button style={{ marginRight: '0.08rem' }}
+                                                            type="ghost"
+                                                            size="small"
+                                                            inline>
+                                                        查看物流
+                                                    </Button>
+                                                    :
+                                                    ""
+                                            }
+                                            {
+                                                trade.trade_flow === "WAIT_PAY" ?
+                                                    <Button style={{ marginRight: '0.08rem' }}
+                                                            type="primary"
+                                                            size="small"
+                                                            inline
+                                                            onClick={this.handlePay.bind(this,trade.trade_id)}>
+                                                        立即付款
+                                                    </Button>
+                                                    :
+                                                    ""
+                                            }
+                                        </Item>
+                                    }
                                 </List>
                             </div>
                         );
