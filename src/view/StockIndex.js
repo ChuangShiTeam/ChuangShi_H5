@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Toast} from 'antd-mobile';
+import {WhiteSpace, List, Toast, Flex} from 'antd-mobile';
 
 import http from '../util/http';
+import constant from '../util/constant';
 
 class StockIndex extends Component {
     constructor(props) {
@@ -89,13 +90,12 @@ class StockIndex extends Component {
                                 <List>
                                     <Item
                                         multipleLine
-                                        extra={item.express_flow === null ? "暂无物流信息" : item.express_flow}
                                         arrow="horizontal"
                                         className="item-long-text"
                                         onClick={this.handleEdit.bind(this, item.stock_id)}
                                     >
                                         <div>
-                                            快递单号：{item.express_shipper_code == null ? "暂无" : item.express_shipper_code} {item.express_no}</div>
+                                            快递单号：{item.express_shipper_code == null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
                                         <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
                                         <div className="text-ellipsis">
                                             收货地址：
@@ -104,6 +104,29 @@ class StockIndex extends Component {
                                             + item.stock_receiver_area
                                             + item.stock_receiver_address}
                                         </div>
+                                        {item.express_flow === null ?
+                                            ""
+                                            :
+                                            <Flex justify="center" className="item-flow-text">
+                                                <Flex.Item>
+                                                    {constant.name}
+                                                    <div className="item-flow-province">
+                                                        上海
+                                                    </div>
+                                                </Flex.Item>
+                                                <Flex.Item/>
+                                                <Flex.Item>
+                                                    {item.express_flow}
+                                                </Flex.Item>
+                                                <Flex.Item/>
+                                                <Flex.Item>
+                                                    {item.stock_receiver_name}
+                                                    <div className="item-flow-province">
+                                                        {item.stock_receiver_province}
+                                                    </div>
+                                                </Flex.Item>
+                                            </Flex>
+                                        }
                                     </Item>
                                 </List>
                                 <WhiteSpace size="lg"/>

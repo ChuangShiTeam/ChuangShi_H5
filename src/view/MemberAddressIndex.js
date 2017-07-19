@@ -105,7 +105,8 @@ class MemberAddressIndex extends Component {
                                             <Item
                                                 key={item.member_address_id}
                                                 className="item-long-text"
-                                                arrow={this.state.is_list ? 'horizontal' : 'empty'} wrap
+                                                arrow={this.state.is_list ? 'horizontal' : 'empty'}
+                                                wrap
                                                 onClick={this.handleEdit.bind(this, item.member_address_id)}
                                             >
                                                 {item.member_address_name} {item.member_address_mobile}
@@ -124,18 +125,19 @@ class MemberAddressIndex extends Component {
                                                 key={item.member_address_id}
                                                 multipleLine
                                                 checked={this.state.member_address_id === item.member_address_id}
-                                                onChange={this.handleChange.bind(this, item)}
-                                            >
-                                                {item.member_address_name} {item.member_address_mobile}
-                                                <Brief>
-                                                    {item.member_address_province
-                                                    + item.member_address_city
-                                                    + item.member_address_area
-                                                    + item.member_address_address}
-                                                </Brief>
-                                                <Brief style={{color:'#FF5501'}}>
-                                                    {item.address_is_default ? "默认地址" : ""}
-                                                </Brief>
+                                                onChange={this.handleChange.bind(this, item)}>
+                                                <span onClick={this.handleEdit.bind(this, item.member_address_id)}>
+                                                    {item.member_address_name} {item.member_address_mobile}
+                                                    <Brief>
+                                                        {item.member_address_province
+                                                        + item.member_address_city
+                                                        + item.member_address_area
+                                                        + item.member_address_address}
+                                                    </Brief>
+                                                    <Brief className="orange-color">
+                                                        {item.address_is_default ? "默认地址" : ""}
+                                                    </Brief>
+                                                </span>
                                             </CheckboxItem>
                                     );
                                 })
