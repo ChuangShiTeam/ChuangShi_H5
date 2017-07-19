@@ -11,7 +11,8 @@ class Index extends Component {
         super(props);
 
         this.state = {
-            is_load: false
+            is_load: false,
+            carousel_list: ['00', '01', '02', '03']
         }
     }
 
@@ -19,6 +20,10 @@ class Index extends Component {
         document.title = constant.name;
 
         document.body.scrollTop = this.props.index.scroll_top;
+
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 0);
 
         if (this.props.index.product_list.length === 0) {
             var category_list = constant.category.concat();
@@ -90,10 +95,13 @@ class Index extends Component {
             <view>
                 <div style={{height: document.documentElement.clientWidth * 0.4 + 'px'}}>
                     <Carousel autoplay infinite>
-                        <img src={require('../assets/image/00.jpg')} style={{width: '100%'}} alt=""/>
-                        <img src={require('../assets/image/01.jpg')} style={{width: '100%'}} alt=""/>
-                        <img src={require('../assets/image/02.jpg')} style={{width: '100%'}} alt=""/>
-                        <img src={require('../assets/image/03.jpg')} style={{width: '100%'}} alt=""/>
+                        {
+                            this.state.carousel_list.map((item, index) => {
+                                return (
+                                    <img key={index} src={require('../assets/image/' + item + '.jpg')} style={{width: document.documentElement.clientWidth, height: document.documentElement.clientWidth * 0.4 + 'px'}} alt=""/>
+                                );
+                            })
+                        }
                     </Carousel>
                 </div>
                 <div className='index-category'>

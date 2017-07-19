@@ -27,7 +27,26 @@ class ProductDetail extends Component {
     }
 
     componentWillUnmount() {
-
+        if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
+            
+        } else {
+            this.props.dispatch({
+                type: 'product/fetch',
+                data: {
+                    is_load: false,
+                    product_total: 0,
+                    product_id: '',
+                    product_name: '',
+                    product_image: '',
+                    product_content: '',
+                    product_sku_id: '',
+                    product_sku_price: 0,
+                    product_sku_total_price: 0,
+                    product_sku_quantity: 0,
+                    product_sku_min_quantity: 10
+                },
+            });
+        }
     }
 
     handleLoad() {
