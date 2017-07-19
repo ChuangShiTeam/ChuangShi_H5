@@ -80,11 +80,6 @@ class Manage extends Component {
     render() {
         const Item = List.Item;
 
-        const data = Array.from(new Array(4)).map((_val, i) => ({
-            icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
-            text: `name${i}`,
-        }));
-
         return (
             <div>
                 <div className="manage-member">
@@ -94,33 +89,34 @@ class Manage extends Component {
                     <div className="manage-member-name">
                         {this.props.my.user_name}
                     </div>
+                    <div className="manage-member-price">
+                        保证金: ￥0.00
+                    </div>
                 </div>
                 <List className="no-padding-list">
-                    <Item
-                    >
+                    <Item multipleLine>
                         <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
-                                <img src={require('../assets/svg/pay.svg')} alt=""/>
+                                <img src={require('../assets/svg/form.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">订单管理</div>
                         </div>
-                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
-                                <img src={require('../assets/svg/pay.svg')} alt=""/>
+                                <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">发货管理</div>
                         </div>
                     </Item>
-                    <Item
-                    >
+                    <Item multipleLine>
                         <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
-                                <img src={require('../assets/svg/pay.svg')} alt=""/>
+                                <img src={require('../assets/svg/friend_normal.svg')} alt=""/>
                             </Badge>
                             <div className="order-item-text">我的代理</div>
                         </div>
-                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
-                            <img src={require('../assets/svg/pay.svg')} alt=""/>
+                        <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                            <img src={require('../assets/svg/medal.svg')} alt=""/>
                             <div className="order-item-text">授权书</div>
                         </div>
                     </Item>
@@ -131,7 +127,13 @@ class Manage extends Component {
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"
                         onClick={this.handleMemberAddress.bind(this)}
                     >
-                        我的地址
+                        收货地址
+                    </Item>
+                    <Item
+                        thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
+                        onClick={this.handleMemberAddress.bind(this)}
+                    >
+                        直属代理
                     </Item>
                     {
                         this.props.my.member_status ?

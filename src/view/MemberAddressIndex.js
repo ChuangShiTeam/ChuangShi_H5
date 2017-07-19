@@ -20,7 +20,7 @@ class MemberAddressIndex extends Component {
     }
 
     componentDidMount() {
-        document.title = '我的地址';
+        document.title = '收货地址';
 
         document.body.scrollTop = 0;
 

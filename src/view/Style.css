@@ -303,7 +303,7 @@ body, html {
 
 .manage-member {
     width: 100%;
-    height: 275px;
+    height: 320px;
     background: #fff;
 }
 
@@ -331,10 +331,21 @@ body, html {
     text-align: center;
 }
 
+.manage-member-price {
+    position: absolute;
+    width: 100%;
+    top: 250px;
+    text-align: center;
+}
+
 .manage-item {
     float: left;
-    width: 50%;
+    width: 49%;
     text-align: center;
+}
+
+.manage-item-left {
+    border-left: 1px solid #d9d9d9;
 }
 
 .no-padding-list .am-list-item {
@@ -392,4 +403,10 @@ body, html {
 
 .orange-color {
     color: #FF5501;
+}
+
+.province-city-area .am-list-extra {
+    -webkit-flex-basis: 65% !important;
+    flex-basis: 65% !important;
+    color: #000 !important;
 }

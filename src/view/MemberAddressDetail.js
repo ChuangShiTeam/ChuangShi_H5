@@ -19,7 +19,7 @@ class MemberAddressDetail extends Component {
     }
 
     componentDidMount() {
-        document.title = '我的地址';
+        document.title = '收货地址';
 
         document.body.scrollTop = 0;
 
@@ -208,10 +208,10 @@ class MemberAddressDetail extends Component {
                     >手机号码:</InputItem>
                     <Picker
                         data={china} {...getFieldProps('member_address_province_city_area', {
-                        initialValue: [],
+                        initialValue: []
                     })}
                     >
-                        <Item arrow="horizontal">省市区:</Item>
+                        <Item arrow="horizontal" className="province-city-area">省市区:</Item>
                     </Picker>
                     <InputItem
                         {...getFieldProps('member_address_address', {
