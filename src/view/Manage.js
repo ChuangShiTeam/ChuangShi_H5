@@ -89,6 +89,14 @@ class Manage extends Component {
                     <div className="manage-member-name">
                         {this.props.my.user_name}
                     </div>
+                    <div className="manage-member-level">
+                        {
+                            this.props.my.member_level_name === '' ?
+                                <span style={{color: '#a72025'}}>待审核</span>
+                                :
+                                <span>等级: {this.props.my.member_level_name}</span>
+                        }
+                    </div>
                     <div className="manage-member-price">
                         保证金: ￥0.00
                     </div>
@@ -99,13 +107,13 @@ class Manage extends Component {
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/form.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">订单管理</div>
+                            <div className="manage-item-text">订单管理</div>
                         </div>
                         <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">发货管理</div>
+                            <div className="manage-item-text">发货管理</div>
                         </div>
                     </Item>
                     <Item multipleLine>
@@ -113,11 +121,11 @@ class Manage extends Component {
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/friend_normal.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">我的代理</div>
+                            <div className="manage-item-text">我的代理</div>
                         </div>
                         <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <img src={require('../assets/svg/medal.svg')} alt=""/>
-                            <div className="order-item-text">授权书</div>
+                            <div className="manage-item-text">我的授权书</div>
                         </div>
                     </Item>
                 </List>

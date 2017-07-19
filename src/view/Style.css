@@ -303,7 +303,7 @@ body, html {
 
 .manage-member {
     width: 100%;
-    height: 320px;
+    height: 370px;
     background: #fff;
 }
 
@@ -331,10 +331,17 @@ body, html {
     text-align: center;
 }
 
-.manage-member-price {
+.manage-member-level {
     position: absolute;
     width: 100%;
     top: 250px;
+    text-align: center;
+}
+
+.manage-member-price {
+    position: absolute;
+    width: 100%;
+    top: 300px;
     text-align: center;
 }
 
@@ -346,6 +353,10 @@ body, html {
 
 .manage-item-left {
     border-left: 1px solid #d9d9d9;
+}
+
+.manage-item-text {
+    margin-top: 15px;
 }
 
 .no-padding-list .am-list-item {
