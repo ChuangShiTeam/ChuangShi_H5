@@ -6,7 +6,6 @@ import {WhiteSpace, List, InputItem, Picker, Steps, Toast} from 'antd-mobile';
 
 import constant from "../util/constant";
 import validate from "../util/validate";
-import china from "../util/china";
 import http from "../util/http";
 import storage from '../util/storage';
 
@@ -56,8 +55,14 @@ class StockDetail extends Component {
                 });
 
                 if (data.express_traces !== null) {
+                    var express_traces = data.express_traces;
+                    var temp = [];
+                    for (let i = 0; i < express_traces.length; i++) {
+                        temp.push(express_traces[express_traces.length - 1 - i]);
+                    }
+
                     this.setState({
-                        express_traces: data.express_traces
+                        express_traces: temp
                     });
                 }
 
@@ -124,10 +129,7 @@ class StockDetail extends Component {
 
                 Toast.loading('加载中..', 0);
 
-                let action = 'save';
                 if (this.props.route.path.indexOf('/edit/') > -1) {
-                    action = 'update';
-
                     values.stock_id = this.props.params.stock_id;
                 }
 
@@ -228,7 +230,7 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.express_flow == null ? "暂无" : this.state.stock.express_flow}>
+                        <Item extra={this.state.stock.express_flow == null ? "暂无物流信息" : this.state.stock.express_flow}>
                             物流状态
                         </Item>
                     </List>
@@ -259,11 +261,11 @@ class StockDetail extends Component {
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
-                    <List>
-                        <Item>
-                            {this.state.express_traces.length === 0 ?
-                                "暂无物流信息"
-                                :
+                    {this.state.express_traces.length === 0 ?
+                        ""
+                        :
+                        <List>
+                            <Item>
                                 <Steps>
                                     {
                                         this.state.express_traces.map((item, index) => {
@@ -281,9 +283,9 @@ class StockDetail extends Component {
                                             );
                                         })
                                     }
-                                </Steps>}
-                        </Item>
-                    </List>
+                                </Steps>
+                            </Item>
+                        </List>}
                     <WhiteSpace size="lg"/>
                 </div>
         );

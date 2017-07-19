@@ -3,13 +3,11 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from 'rc-form';
 
-import {WhiteSpace, List, TextareaItem, Modal, Toast} from 'antd-mobile';
+import {WhiteSpace, List, TextareaItem, Toast} from 'antd-mobile';
 
 import constant from '../util/constant';
 import storage from '../util/storage';
 import http from '../util/http';
-
-const alert = Modal.alert;
 
 class TradeDetail extends Component {
     constructor(props) {
@@ -27,7 +25,7 @@ class TradeDetail extends Component {
     }
 
     componentDidMount() {
-        document.title = '填写订单';
+        document.title = '订单详情';
 
         document.body.scrollTop = 0;
 
@@ -56,24 +54,6 @@ class TradeDetail extends Component {
 
                 if (typeof (data.member_address.member_address_name) === 'undefined') {
                     is_pay = false;
-
-                    alert('提示', '您还没有收货地址，是否新建一个？', [
-                        {
-                            text: '取消',
-                            onPress() {
-
-                            },
-                        },
-                        {
-                            text: '确定',
-                            onPress: function () {
-                                this.props.dispatch(routerRedux.push({
-                                    pathname: '/member/address/index/select',
-                                    query: {},
-                                }));
-                            }.bind(this),
-                        },
-                    ]);
                 } else {
                     is_address = true;
                 }
@@ -110,53 +90,15 @@ class TradeDetail extends Component {
         });
     }
 
-    handleMemberAddress() {
-        this.props.dispatch(routerRedux.push({
-            pathname: '/member/address/index/select',
-            query: {}
-        }));
-    }
-
     handlePay() {
-        if (!this.state.is_pay) {
-            return;
-        }
-
-        if (typeof (this.state.member_address.member_address_name) === 'undefined') {
-            Toast.fail('请选择收货地址', constant.duration);
-
-            return;
-        }
-
-        const product_sku_list = [];
-
-        for (let i = 0; i < this.state.product_sku_list.length; i++) {
-            product_sku_list.push({
-                product_sku_id: this.state.product_sku_list[i].product_sku_id,
-                product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity,
-            });
-        }
-
-        if (product_sku_list.length === 0) {
-            Toast.fail('请选购商品', constant.duration);
-        }
-
         Toast.loading('加载中..', 0);
 
         http.request({
-            url: '/trade/save',
+            url: '/trade/pay',
             data: {
-                trade_receiver_name: this.state.member_address.member_address_name,
-                trade_receiver_mobile: this.state.member_address.member_address_mobile,
-                trade_receiver_province: this.state.member_address.member_address_province,
-                trade_receiver_city: this.state.member_address.member_address_city,
-                trade_receiver_area: this.state.member_address.member_address_area,
-                trade_receiver_address: this.state.member_address.member_address_address,
-                trade_message: this.props.form.getFieldValue('trade_message'),
-                trade_pay_type: 'WECHAT',
-                product_sku_list: product_sku_list,
+                trade_id: this.props.params.trade_id,
                 open_id: storage.getOpenId(),
-                pay_type: 'H5',
+                pay_type: 'WX'
             },
             success: function (data) {
                 window.wx.chooseWXPay({
@@ -166,39 +108,26 @@ class TradeDetail extends Component {
                     signType: data.signType,
                     paySign: data.paySign,
                     success: function (res) {
-                        if (res.errMsg == "chooseWXPay:ok") {
+                        if (res.errMsg === "chooseWXPay:ok") {
                             //支付成功
                             this.props.dispatch(routerRedux.push({
                                 pathname: '/trade/confirm/' + data.trade_id,
-                                query: {},
+                                query: {}
                             }));
                         } else {
                             //支付失败
-                            this.props.dispatch(routerRedux.push({
-                                pathname: 'trade/index/ALL',
-                                query: {},
-                            }));
                         }
                     }.bind(this),
                     fail: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: 'trade/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this),
+                    },
                     cancel: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: 'trade/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this)
+                    }
                 });
 
                 Toast.hide();
             }.bind(this),
             complete() {
-
-            },
+            }
         });
     }
 
@@ -208,7 +137,6 @@ class TradeDetail extends Component {
 
     render() {
         const Item = List.Item;
-        const Brief = Item.Brief;
         const {getFieldProps} = this.props.form;
 
         return (
@@ -216,20 +144,16 @@ class TradeDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item arrow="horizontal"
-                              extra={typeof (this.state.member_address.member_address_name) === 'undefined' ? '请选择' : ''}
-                              wrap
-                              className="item-long-text"
-                              onClick={this.handleMemberAddress.bind(this)}>
-                            {
-                                typeof (this.state.member_address.member_address_name) === 'undefined' ?
-                                    '收货地址'
-                                    :
-                                    <div>
-                                        {this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}
-                                        <Brief>{this.state.member_address.member_address_province + this.state.member_address.member_address_city + this.state.member_address.member_address_area + this.state.member_address.member_address_address}</Brief>
-                                    </div>
-                            }
+                        <Item wrap className="item-long-text">
+                            <div>
+                                收货人：{this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}
+                                <div>
+                                    收货地址：{this.state.member_address.member_address_province
+                                + " " + this.state.member_address.member_address_city
+                                + " " + this.state.member_address.member_address_area
+                                + " " + this.state.member_address.member_address_address}
+                                </div>
+                            </div>
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>

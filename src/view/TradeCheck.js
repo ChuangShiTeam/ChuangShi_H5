@@ -166,7 +166,7 @@ class TradeCheck extends Component {
                     signType: data.signType,
                     paySign: data.paySign,
                     success: function (res) {
-                        if (res.errMsg == "chooseWXPay:ok") {
+                        if (res.errMsg === "chooseWXPay:ok") {
                             //支付成功
                             this.props.dispatch(routerRedux.push({
                                 pathname: '/trade/confirm/' + data.trade_id,

@@ -46,12 +46,10 @@ body, html {
     top: 0px;
     right: 50px;
     bottom: 0px;
-
 }
 
 .list-item-button-number {
     float: right;
-    width: 70px;
     background-color: #a72025;
     font-size: 24px;
     margin-top: 45px;
@@ -207,6 +205,7 @@ body, html {
 .item-long-text .am-list-extra {
     -webkit-flex-basis: 15% !important;
     flex-basis: 15% !important;
+    font-size: 10px;
 }
 
 .text-ellipsis {
@@ -378,4 +377,19 @@ body, html {
     width: 180px;
     top: 15px;
     right: 0
+}
+
+.item-flow-text {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    border-top: 1px solid #d9d9d9;
+    text-align: center;
+}
+
+.item-flow-province {
+    padding-top: 10px;
+}
+
+.orange-color {
+    color: #FF5501;
 }
