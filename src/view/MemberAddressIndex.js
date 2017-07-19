@@ -116,7 +116,7 @@ class MemberAddressIndex extends Component {
                                                     + item.member_address_area
                                                     + item.member_address_address}
                                                 </Brief>
-                                                <Brief style={{color:'#FF5501'}}>
+                                                <Brief className="orange-color">
                                                     {item.address_is_default ? "默认地址" : ""}
                                                 </Brief>
                                             </Item>
