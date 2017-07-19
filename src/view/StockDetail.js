@@ -254,9 +254,9 @@ class StockDetail extends Component {
                         <Item multipleLine="true"
                               wrap="true"
                               extra={this.state.stock.stock_receiver_province
-                                    + this.state.stock.stock_receiver_city
-                                    + this.state.stock.stock_receiver_area
-                                    + this.state.stock.stock_receiver_address}>
+                              + this.state.stock.stock_receiver_city
+                              + this.state.stock.stock_receiver_area
+                              + this.state.stock.stock_receiver_address}>
                             详细地址
                         </Item>
                     </List>
@@ -272,13 +272,13 @@ class StockDetail extends Component {
                                             return (
                                                 <Step
                                                     key={index}
-                                                    icon={index === 0 ? "check-circle-o":""}
+                                                    icon={index === 0 ? "check-circle-o" : ""}
                                                     title={
-                                                    <div className="traces-item-content">
-                                                        {item.AcceptStation}
-                                                    </div>
-                                                }
-                                                    description={item.AcceptTime}
+                                                        <div className="traces-item-content">
+                                                            <div>{item.AcceptStation}</div>
+                                                            <div>{item.AcceptTime}</div>
+                                                        </div>
+                                                    }
                                                 />
                                             );
                                         })

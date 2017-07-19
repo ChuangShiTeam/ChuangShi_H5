@@ -146,7 +146,7 @@ class TradeDetail extends Component {
                         <div>
                             <WhiteSpace size="lg"/>
                             <List>
-                                <Item wrap className="item-long-text">
+                                <Item wrap multipleLine className="item-long-text">
                                     <div className="orange-color">
                                         订单状态： {this.state.trade_flow === "WAIT_PAY" ? "待付款" :
                                         this.state.trade_flow === "WAIT_SEND" ? "待发货" :
@@ -158,18 +158,20 @@ class TradeDetail extends Component {
                             {this.state.trade_flow === "WAIT_RECEIVE" || this.state.trade_flow === "COMPLETE" ?
                                 <div>
                                     <WhiteSpace size="lg"/>
-                                    {this.state.express_trade_id_list.length === 0 ?
+                                    {this.state.express_trade_id_list.length > 0 ?
                                         <List>
                                             {
-                                                this.state.express_trade_id_list.map((item) => {
+                                                this.state.express_trade_id_list.map((item, index) => {
                                                     return (
-                                                        <Item arrow="horizontal"
-                                                              wrap className="item-long-text"
-                                                              onClick={this.handleTraces.bind(this,item.express_id)}>
+                                                        <Item
+                                                            key={index}
+                                                            arrow="horizontal"
+                                                            wrap className="item-long-text"
+                                                            onClick={this.handleTraces.bind(this, item.express_id)}>
                                                             <div className="green-color">
-                                                                [{item.express_flow}]{item.AcceptStation}
+                                                                [{item.express_flow}]{item.express_traces.AcceptStation}
                                                                 <Brief>
-                                                                    {item.AcceptTime}
+                                                                    {item.express_traces.AcceptTime}
                                                                 </Brief>
                                                             </div>
                                                         </Item>
@@ -207,10 +209,10 @@ class TradeDetail extends Component {
                             <WhiteSpace size="lg"/>
                             <List>
                                 {
-                                    this.state.trade_product_sku_list.map((item) => {
+                                    this.state.trade_product_sku_list.map((item, index) => {
                                         return (
                                             <Item
-                                                key={item.product_sku_id}
+                                                key={index}
                                                 extra={'￥' + (item.product_sku_amount).toFixed(2)}
                                             >
                                                 <img className="product-list-image"
@@ -257,6 +259,7 @@ class TradeDetail extends Component {
                                     </Brief>
                                 </Item>
                             </List>
+                            <WhiteSpace size="lg"/>
                         </div>
                         {this.state.trade_flow === "WAIT_PAY" ?
                             <div className="footer">

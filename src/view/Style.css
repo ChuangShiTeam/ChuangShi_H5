@@ -290,11 +290,14 @@ body, html {
 }
 
 .traces-item-content {
-    word-wrap: break-word;
-    display: block;
-    white-space: nowrap;
+    /*font-size: 14px;*/
+    color: #000;
+    line-height: 1.5;
+    text-align: left;
+    width: auto;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .manage-member {
@@ -392,7 +395,7 @@ body, html {
     border-top: 2px solid #d9d9d9;
     display: block;
     position: absolute;
-    width:180px;
+    width: 180px;
     top: 15px;
     left: 0;
 }
@@ -419,11 +422,27 @@ body, html {
 }
 
 .orange-color {
-    color: #FF5501;
+    color: #FF5501!important;
 }
 
 .green-color {
-    color: green;
+    color: green!important;
+}
+
+.express-traces-image {
+    width: 150px !important;
+    height: 150px !important;
+    border: #ddd 1px solid;
+}
+
+.express-traces-text {
+    position: absolute;
+    left: 180px;
+    top: 12px;
+}
+
+.font-size-14px {
+    font-size: 14px;
 }
 
 .province-city-area .am-list-extra {
