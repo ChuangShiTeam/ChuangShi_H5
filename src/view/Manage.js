@@ -6,7 +6,7 @@ import {WhiteSpace, List, Badge, Toast} from 'antd-mobile';
 import http from '../util/http';
 import constant from "../util/constant";
 
-class My extends Component {
+class Manage extends Component {
     constructor(props) {
         super(props);
 
@@ -16,7 +16,7 @@ class My extends Component {
     }
 
     componentDidMount() {
-        document.title = '个人中心';
+        document.title = '管理中心';
 
         document.body.scrollTop = 0;
 
@@ -80,72 +80,53 @@ class My extends Component {
     render() {
         const Item = List.Item;
 
+        const data = Array.from(new Array(4)).map((_val, i) => ({
+            icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+            text: `name${i}`,
+        }));
+
         return (
             <div>
-                <WhiteSpace size="lg"/>
-                <List>
+                <div className="manage-member">
+                    <div className="manage-member-avatar">
+                        <img src={this.props.my.user_avatar} alt=""/>
+                    </div>
+                    <div className="manage-member-name">
+                        {this.props.my.user_name}
+                    </div>
+                </div>
+                <List className="no-padding-list">
                     <Item
-                        multipleLine
                     >
-                        <div className="list-item-image">
-                            <img src={this.props.my.user_avatar} alt=""/>
-                        </div>
-                        <div className="list-item-text">
-                            {this.props.my.user_name}
-                        </div>
-                        <div className="list-item-brief">
-                            {
-                                this.props.my.member_level_name === '' ?
-                                    <span style={{color: '#a72025'}}>待审核</span>
-                                    :
-                                    this.props.my.member_level_name
-                            }
-                        </div>
-                    </Item>
-                </List>
-                <WhiteSpace size="lg"/>
-                <List>
-                    <Item
-                        thumb={require('../assets/svg/form.svg')}
-                        extra="查看全部"
-                        arrow="horizontal"
-                        onClick={this.handleTrade.bind(this, 'ALL')}
-                    >
-                        我的订单
-                    </Item>
-                    <Item style={{paddingLeft: '60px'}}>
-                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/pay.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">待付款</div>
+                            <div className="order-item-text">订单管理</div>
                         </div>
-                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_SEND')}>
-                            <Badge text={this.props.my.member_wait_send}>
-                                <img src={require('../assets/svg/send.svg')} alt=""/>
+                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                            <Badge text={this.props.my.member_wait_pay}>
+                                <img src={require('../assets/svg/pay.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">待发货</div>
+                            <div className="order-item-text">发货管理</div>
                         </div>
-                        <div className="order-item" onClick={this.handleTrade.bind(this, 'WAIT_RECEIVE')}>
-                            <Badge text={this.props.my.member_wait_receive}>
-                                <img src={require('../assets/svg/deliver.svg')} alt=""/>
+                    </Item>
+                    <Item
+                    >
+                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                            <Badge text={this.props.my.member_wait_pay}>
+                                <img src={require('../assets/svg/pay.svg')} alt=""/>
                             </Badge>
-                            <div className="order-item-text">待收货</div>
+                            <div className="order-item-text">我的代理</div>
                         </div>
-                        <div className="order-item" onClick={this.handleTrade.bind(this, 'COMPLETE')}>
-                            <img src={require('../assets/svg/comment.svg')} alt=""/>
-                            <div className="order-item-text">已完成</div>
+                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                            <img src={require('../assets/svg/pay.svg')} alt=""/>
+                            <div className="order-item-text">授权书</div>
                         </div>
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
-                    <Item
-                        thumb={require('../assets/svg/shop.svg')} arrow="horizontal"
-                        onClick={this.handleStock.bind(this)}
-                    >
-                        我的发货
-                    </Item>
                     <Item
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"
                         onClick={this.handleMemberAddress.bind(this)}
@@ -164,9 +145,10 @@ class My extends Component {
                             ''
                     }
                 </List>
+                <WhiteSpace size="lg"/>
             </div>
         );
     }
 }
 
-export default connect(({my}) => ({my}))(My);
+export default connect(({my}) => ({my}))(Manage);

@@ -116,12 +116,12 @@ class MemberIndex extends Component {
                     <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
                         TA的订单
                     </Item>
-                    <Item arrow="horizontal" onClick={this.handleMemberStock.bind(this)}>
-                        TA的发货单
-                    </Item>
-                    <Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>
-                        TA的账单流水
-                    </Item>
+                    {/*<Item arrow="horizontal" onClick={this.handleMemberStock.bind(this)}>*/}
+                        {/*TA的发货单*/}
+                    {/*</Item>*/}
+                    {/*<Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>*/}
+                        {/*TA的账单流水*/}
+                    {/*</Item>*/}
                 </List>
                 <WhiteSpace size="lg"/>
                 {

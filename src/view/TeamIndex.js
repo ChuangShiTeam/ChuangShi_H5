@@ -17,7 +17,7 @@ class TeamIndex extends Component {
     }
 
     componentDidMount() {
-        document.title = '我的团队';
+        document.title = '我的代理';
 
         document.body.scrollTop = this.props.team.scroll_top;
 
@@ -34,7 +34,9 @@ class TeamIndex extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
+        if (this.props.team.list.length === 0) {
+            Toast.loading('加载中..', 0);
+        }
 
         http.request({
             url: '/member/team/list',
@@ -89,7 +91,7 @@ class TeamIndex extends Component {
         }));
     }
 
-    handleGenerate(list) {
+    handleGenerate(list, index) {
         let html = [];
 
         for (let i = 0; i < list.length; i++) {
@@ -105,15 +107,23 @@ class TeamIndex extends Component {
                             <div className="list-item-image">
                                 <img src={item.user_avatar} alt=""/>
                             </div>
-                            <div className="list-item-text" style={{right: '100px'}}>
+                            <div className="list-item-text" style={{right: '80px'}}>
                                 {item.user_name}
                             </div>
                             <div className="list-item-brief">
                                 {
-                                    item.member_level_name === '' ?
-                                        <span style={{color: '#a72025'}}>待审核</span>
+                                    item.member_status ?
+                                        <span>
+                                            {item.member_level_name}
+                                            {
+                                                index == 0 ?
+                                                    <span style={{with: '50px', backgroundColor: '#a72025', color: '#ffffff', marginLeft: '10px', paddingLeft: '10px', paddingRight: '10px', fontSize: '10px'}}>直属</span>
+                                                    :
+                                                    ''
+                                            }
+                                        </span>
                                         :
-                                        item.member_level_name
+                                        <span style={{color: '#a72025'}}>待审核</span>
                                 }
                             </div>
                         </div>
@@ -124,7 +134,7 @@ class TeamIndex extends Component {
                                 <div className="list-item-button"
                                      onClick={this.handleButton.bind(this, item.member_id)}>
                                     <div className="list-item-button-number">
-                                        {item.is_show ? '-' : '+'} {item.children.length}个下级{item.aaa}</div>
+                                        {item.is_show ? '-' : '+'} {item.is_show ? '' : item.children.length}</div>
                                 </div>
                         }
                     </Item>
@@ -132,7 +142,7 @@ class TeamIndex extends Component {
                         typeof (item.children) !== 'undefined' ?
                             <div style={{marginLeft: '25px', display: item.is_show ? 'block' : 'none'}}>
                                 {
-                                    this.handleGenerate(item.children)
+                                    this.handleGenerate(item.children, 1)
                                 }
                             </div>
                             :
@@ -154,7 +164,7 @@ class TeamIndex extends Component {
                     this.props.team.list.length > 0 ?
                         <List>
                             {
-                                this.handleGenerate(this.props.team.list)
+                                this.handleGenerate(this.props.team.list, 0)
                             }
                         </List>
                         :

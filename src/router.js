@@ -6,7 +6,9 @@ import Index from './view/Index';
 import TeamIndex from './view/TeamIndex';
 import Cart from './view/Cart';
 import ProductDetail from './view/ProductDetail';
+import Article from './view/Article';
 import My from './view/My';
+import Manage from './view/Manage';
 import Category from './view/Category';
 import MemberIndex from './view/MemberIndex';
 import MemberTradeIndex from './view/MemberTradeIndex';
@@ -41,7 +43,9 @@ function RouterConfig({history}) {
                     <Route path="team/index" component={TeamIndex}/>
                     <Route path="cart" component={Cart}/>
                     <Route path="product/:product_id" component={ProductDetail}/>
+                    <Route path="article" component={Article}/>
                     <Route path="my" component={My}/>
+                    <Route path="manage" component={Manage}/>
                 </Route>
                 <Route path="product/detail/:product_id" component={ProductDetail}/>
                 <Route path="category/:category_id" component={Category} />

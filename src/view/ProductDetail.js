@@ -101,9 +101,14 @@ class ProductDetail extends Component {
                 </div>
                 <List>
                     <Item>
-                        {this.props.product.product_name}
-                        <br />
-                        <span className="product-price">￥{this.props.product.product_sku_price}</span>
+                        <div>{this.props.product.product_name}</div>
+                        <div className="product-price">
+                            ￥{this.props.product.product_sku_price.toFixed(2)}
+                            <span className="product-tag">
+                                <img src={require('../assets/svg/round_check.svg')} alt=""/>正品保证
+                                <img src={require('../assets/svg/round_check.svg')} style={{marginLeft: '10px'}} alt=""/>全场包邮
+                            </span>
+                        </div>
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
@@ -125,7 +130,7 @@ class ProductDetail extends Component {
                         购买数量
                     </Item>
                 </List>
-                <div className="product-quantity" style={{top: (document.documentElement.clientWidth + 142) + 'px'}}>
+                <div className="product-quantity" style={{top: (document.documentElement.clientWidth + 146) + 'px'}}>
                     <div
                         className="product-quantity-number">{this.props.product.product_sku_quantity}</div>
                 </div>
@@ -134,7 +139,7 @@ class ProductDetail extends Component {
                     className="product-content"
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
-                <div style={{height: '100px'}}></div>
+                <div style={{height: '50px'}}></div>
                 <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                     <div className="footer-total">
                         <span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>

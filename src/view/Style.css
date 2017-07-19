@@ -51,6 +51,7 @@ body, html {
 
 .list-item-button-number {
     float: right;
+    width: 70px;
     background-color: #a72025;
     font-size: 24px;
     margin-top: 45px;
@@ -135,6 +136,20 @@ body, html {
 .product-price {
     color: #c81623;
     margin-left: -5px;
+    font-size: 40px;
+}
+
+.product-tag {
+    float: right;
+    color: #949494;
+    font-size: 10px;
+    margin-top: 12px;
+}
+
+.product-tag img {
+    width: 30px;
+    height: 30px;
+    margin-top: -4px;
 }
 
 .product-content {
@@ -265,10 +280,102 @@ body, html {
     color: #c81623;
 }
 
+.index-product-tag {
+    float: right;
+    color: #949494;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.index-product-tag img {
+    width: 30px;
+    height: 30px;
+    margin-top: -4px;
+    margin-right: 15px;
+}
+
 .traces-item-content {
     word-wrap: break-word;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.manage-member {
+    width: 100%;
+    height: 275px;
+    background: #fff;
+}
+
+.manage-member-avatar {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -70px;
+    width: 140px;
+    height: 140px;
+    border-radius: 120px;
+    overflow: hidden;
+    border: 1px solid #d9d9d9;
+}
+
+.manage-member-avatar img {
+    width: 140px;
+    height: 140px;
+}
+
+.manage-member-name {
+    position: absolute;
+    width: 100%;
+    top: 200px;
+    text-align: center;
+}
+
+.manage-item {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.no-padding-list .am-list-item {
+    padding-left: 0px !important;
+}
+
+.hot {
+    width: 30px;
+    color: #ffffff;
+    font-size: 8px !important;
+    padding: 0 10px 0 10px;
+    margin-right: 10px;
+    background-color: #c81623;
+}
+
+.with-line {
+    width: 600px;
+    font-size: 26px;
+    color: #999;
+    margin: 17px auto 5px;
+    position: relative;
+    text-align: center
+}
+
+.with-line:before {
+    content: "";
+    border-top: 1px solid #d9d9d9;
+    display: block;
+    position: absolute;
+    width:180px;
+    top: 15px;
+    left: 0
+}
+
+.with-line:after {
+    content: "";
+    border-top: 1px solid #d9d9d9;
+    display: block;
+    position: absolute;
+    width: 180px;
+    top: 15px;
+    right: 0
 }

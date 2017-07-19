@@ -25,7 +25,6 @@ class Main extends Component {
     }
 
     handleMenu() {
-        console.log(this.props.routes)
         for (let i = 0; i < this.state.menu.length; i++) {
             if ('/' + this.props.routes[2].path === this.state.menu[i].path) {
                 this.setState({

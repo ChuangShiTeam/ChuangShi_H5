@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {Toast} from 'antd-mobile';
+import {Carousel, Toast} from 'antd-mobile';
 
 import constant from '../util/constant';
 import http from '../util/http';
@@ -46,7 +46,9 @@ class Index extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
+        if (this.props.index.product_list.length === 0) {
+            Toast.loading('加载中..', 0);
+        }
 
         http.request({
             url: '/product/all/list',
@@ -86,8 +88,13 @@ class Index extends Component {
     render() {
         return (
             <view>
-                <div style={{height: document.documentElement.clientWidth * 0.3125 + 'px'}}>
-                    <img src={require('../assets/image/banner.jpg')} style={{width: '100%'}} alt=""/>
+                <div style={{height: document.documentElement.clientWidth * 0.4 + 'px'}}>
+                    <Carousel autoplay infinite>
+                        <img src={require('../assets/image/00.jpg')} style={{width: '100%'}} alt=""/>
+                        <img src={require('../assets/image/01.jpg')} style={{width: '100%'}} alt=""/>
+                        <img src={require('../assets/image/02.jpg')} style={{width: '100%'}} alt=""/>
+                        <img src={require('../assets/image/03.jpg')} style={{width: '100%'}} alt=""/>
+                    </Carousel>
                 </div>
                 <div className='index-category'>
                     {
@@ -96,15 +103,19 @@ class Index extends Component {
                                 <div
                                     key={item.category_id}
                                     className='index-category-item'
-                                     onClick={this.handleCategory.bind(this, item.category_id)}>
+                                    onClick={this.handleCategory.bind(this, item.category_id)}>
                                     <div className='index-category-item-icon' style={{background: item.category_color}}>
-                                        <img className='index-category-item-icon-image' src={require('../assets/svg/' + item.category_image)} alt=""/>
+                                        <img className='index-category-item-icon-image'
+                                             src={require('../assets/svg/' + item.category_image)} alt=""/>
                                     </div>
                                     {item.category_name}
                                 </div>
                             );
                         })
                     }
+                </div>
+                <div className="with-line">
+                    <span className="hot">HOT</span>热卖商品
                 </div>
                 {
                     this.props.index.product_list.map((item) => {
@@ -127,7 +138,13 @@ class Index extends Component {
                                     alt=""
                                 />
                                 <div className='index-product-item-name'>{item.product_name}</div>
-                                <div className='index-product-item-price'>¥{item.product_sku_price.toFixed(2)}</div>
+                                <div className='index-product-item-price'>
+                                    ¥{item.product_sku_price.toFixed(2)}
+                                    <span className="index-product-tag">
+                                        <img src={require('../assets/svg/like.svg')} alt=""/>
+                                        <img src={require('../assets/svg/appreciate.svg')} alt=""/>
+                                    </span>
+                                </div>
                             </div>
                         );
                     })
