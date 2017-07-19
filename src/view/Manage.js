@@ -4,7 +4,6 @@ import {routerRedux} from 'dva/router';
 import {WhiteSpace, List, Badge, Toast} from 'antd-mobile';
 
 import http from '../util/http';
-import constant from "../util/constant";
 
 class Manage extends Component {
     constructor(props) {

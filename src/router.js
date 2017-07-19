@@ -23,6 +23,7 @@ import TradeCheck from './view/TradeCheck';
 import TradeIndex from './view/TradeIndex';
 import TradeDetail from './view/TradeDetail';
 import TradeConfirm from './view/TradeConfirm';
+import ExpressIndex from './view/ExpressIndex';
 import Qrcode from './view/Qrcode';
 
 import constant from './util/constant';
@@ -64,6 +65,7 @@ function RouterConfig({history}) {
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="trade/edit/:trade_id" component={TradeDetail}/>
                 <Route path="trade/confirm/:trade_id" component={TradeConfirm}/>
+                <Route path="express/index/:express_id" component={ExpressIndex}/>
                 <Route path="qrcode" component={Qrcode}/>
             </Route>
         </Router>
