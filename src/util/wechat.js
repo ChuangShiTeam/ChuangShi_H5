@@ -29,7 +29,8 @@ function auth() {
     }
 
     http.request({
-        url: '/wechat/config?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/index',
+        // url: '/wechat/config?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/index',
+        url: '/wechat/config?app_id=' + constant.app_id + '&url=' + document.location.href,
         data: {
 
         },

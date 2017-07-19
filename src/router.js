@@ -24,6 +24,7 @@ import TradeIndex from './view/TradeIndex';
 import TradeDetail from './view/TradeDetail';
 import TradeConfirm from './view/TradeConfirm';
 import Qrcode from './view/Qrcode';
+import Certificate from './view/Certificate';
 
 import constant from './util/constant';
 
@@ -40,7 +41,7 @@ function RouterConfig({history}) {
                 <Route path="home" component={Home}/>
                 <Route component={Main} onEnter={handleEnter}>
                     <Route path="index" component={Index}/>
-                    <Route path="team/index" component={TeamIndex}/>
+                    <Route path="team" component={TeamIndex}/>
                     <Route path="cart" component={Cart}/>
                     <Route path="product/:product_id" component={ProductDetail}/>
                     <Route path="article" component={Article}/>
@@ -65,6 +66,8 @@ function RouterConfig({history}) {
                 <Route path="trade/edit/:trade_id" component={TradeDetail}/>
                 <Route path="trade/confirm/:trade_id" component={TradeConfirm}/>
                 <Route path="qrcode" component={Qrcode}/>
+                <Route path="certificate" component={Certificate}/>
+                <Route path="team/index" component={TeamIndex}/>
             </Route>
         </Router>
     );

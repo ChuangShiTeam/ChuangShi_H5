@@ -92,12 +92,15 @@ class ProductDetail extends Component {
         return (
             <div>
                 <div style={{height: document.documentElement.clientWidth + 'px'}}>
-                {
-                    this.props.product.is_load ?
-                        <img style={{width: document.documentElement.clientWidth + 'px', height: document.documentElement.clientWidth + 'px'}} src={constant.host + this.props.product.product_image} alt=""/>
-                        :
-                        ''
-                }
+                    {
+                        this.props.product.is_load ?
+                            <img style={{
+                                width: document.documentElement.clientWidth + 'px',
+                                height: document.documentElement.clientWidth + 'px'
+                            }} src={constant.host + this.props.product.product_image} alt=""/>
+                            :
+                            ''
+                    }
                 </div>
                 <List>
                     <Item>
@@ -106,7 +109,8 @@ class ProductDetail extends Component {
                             ￥{this.props.product.product_sku_price.toFixed(2)}
                             <span className="product-tag">
                                 <img src={require('../assets/svg/round_check.svg')} alt=""/>正品保证
-                                <img src={require('../assets/svg/round_check.svg')} style={{marginLeft: '10px'}} alt=""/>全场包邮
+                                <img src={require('../assets/svg/round_check.svg')} style={{marginLeft: '10px'}}
+                                     alt=""/>全场包邮
                             </span>
                         </div>
                     </Item>
@@ -124,7 +128,6 @@ class ProductDetail extends Component {
                             min={1}
                             value={this.props.product.product_sku_quantity}
                             onChange={this.handleChange.bind(this)}
-                            useTouch={!window.isPC}
                         />}
                     >
                         购买数量
@@ -139,12 +142,25 @@ class ProductDetail extends Component {
                     className="product-content"
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
-                <div style={{height: '50px'}}></div>
+                {
+                    constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                        <div style={{height: '100px'}}></div>
+                        :
+                        <div style={{height: '50px'}}></div>
+                }
                 <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                     <div className="footer-total">
-                        <span className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
+                        <span
+                            className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
                     </div>
-                    <div className="footer-buy" onClick={this.handleBuy.bind(this)}>立即进货</div>
+                    <div className="footer-buy" onClick={this.handleBuy.bind(this)}>
+                        {
+                            constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                                '立即进货'
+                                :
+                                '立即购买'
+                        }
+                    </div>
                 </div>
             </div>
         );

@@ -230,7 +230,7 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.express_flow == null ? "暂无物流信息" : this.state.stock.express_flow}>
+                        <Item extra={this.state.stock.express_flow === null ? "暂无物流信息" : this.state.stock.express_flow}>
                             物流状态
                         </Item>
                     </List>

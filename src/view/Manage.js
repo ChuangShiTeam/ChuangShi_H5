@@ -4,7 +4,6 @@ import {routerRedux} from 'dva/router';
 import {WhiteSpace, List, Badge, Toast} from 'antd-mobile';
 
 import http from '../util/http';
-import constant from "../util/constant";
 
 class Manage extends Component {
     constructor(props) {
@@ -63,6 +62,20 @@ class Manage extends Component {
         }));
     }
 
+    handleTeam() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/team/index',
+            query: {}
+        }));
+    }
+
+    handleCertificate() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/certificate',
+            query: {}
+        }));
+    }
+
     handleMemberAddress() {
         this.props.dispatch(routerRedux.push({
             pathname: '/member/address/index/list',
@@ -101,15 +114,16 @@ class Manage extends Component {
                         保证金: ￥0.00
                     </div>
                 </div>
+                <WhiteSpace size="lg"/>
                 <List className="no-padding-list">
                     <Item multipleLine>
-                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'ALL')}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/form.svg')} alt=""/>
                             </Badge>
                             <div className="manage-item-text">订单管理</div>
                         </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item manage-item-left" onClick={this.handleStock.bind(this)}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>
@@ -117,13 +131,13 @@ class Manage extends Component {
                         </div>
                     </Item>
                     <Item multipleLine>
-                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item" onClick={this.handleTeam.bind(this)}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/friend_normal.svg')} alt=""/>
                             </Badge>
                             <div className="manage-item-text">我的代理</div>
                         </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleTrade.bind(this, 'WAIT_PAY')}>
+                        <div className="manage-item manage-item-left" onClick={this.handleCertificate.bind(this)}>
                             <img src={require('../assets/svg/medal.svg')} alt=""/>
                             <div className="manage-item-text">我的授权书</div>
                         </div>
@@ -139,7 +153,7 @@ class Manage extends Component {
                     </Item>
                     <Item
                         thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
-                        onClick={this.handleMemberAddress.bind(this)}
+                        onClick={this.handleTeam.bind(this)}
                     >
                         直属代理
                     </Item>
@@ -156,6 +170,7 @@ class Manage extends Component {
                     }
                 </List>
                 <WhiteSpace size="lg"/>
+                <div style={{height: '50px'}}></div>
             </div>
         );
     }

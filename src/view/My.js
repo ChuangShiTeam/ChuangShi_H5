@@ -56,9 +56,9 @@ class My extends Component {
         }));
     }
 
-    handleStock() {
+    handleTeam() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/stock/index',
+            pathname: '/team/index',
             query: {}
         }));
     }
@@ -94,12 +94,7 @@ class My extends Component {
                             {this.props.my.user_name}
                         </div>
                         <div className="list-item-brief">
-                            {
-                                this.props.my.member_level_name === '' ?
-                                    <span style={{color: '#a72025'}}>待审核</span>
-                                    :
-                                    this.props.my.member_level_name
-                            }
+                            会员
                         </div>
                     </Item>
                 </List>
@@ -141,10 +136,10 @@ class My extends Component {
                 <WhiteSpace size="lg"/>
                 <List>
                     <Item
-                        thumb={require('../assets/svg/shop.svg')} arrow="horizontal"
-                        onClick={this.handleStock.bind(this)}
+                        thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
+                        onClick={this.handleTeam.bind(this)}
                     >
-                        我的发货
+                        我的团队
                     </Item>
                     <Item
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"
@@ -164,6 +159,8 @@ class My extends Component {
                             ''
                     }
                 </List>
+                <WhiteSpace size="lg"/>
+                <div style={{height: '50px'}}></div>
             </div>
         );
     }

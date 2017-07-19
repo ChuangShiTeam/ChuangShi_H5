@@ -7,7 +7,11 @@ const member_address_key = ('member_address_' + constant.version);
 
 function getOpenId() {
     if (constant.is_test) {
-        return 'oqvzXv4c-FY2-cGh9U-RA4JIrZoc';
+        if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
+            return 'oqvzXv4c-FY2-cGh9U-RA4JIrZoc';
+        } else {
+            return 'oXxTjwoBVyBquUAAx3RaFow62zjA';
+        }
     }
     return localStorage.getItem(open_id_key);
 }
@@ -20,7 +24,11 @@ function getToken() {
     let token = localStorage.getItem(token_key);
 
     if (constant.is_test) {
-        token = 'jUCXTzlv8oEQ0t2P7Sl/zol5ee35ge9Vj6WvcRi3HKhErojXtXDsS5J1+eili55vXvadUtpPe7MTaPVvtQwB0rEtUrIObbk47VhO9k3hsBI=';
+        if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
+            token = 'jUCXTzlv8oEQ0t2P7Sl/zol5ee35ge9Vj6WvcRi3HKhErojXtXDsS5J1+eili55vXvadUtpPe7MTaPVvtQwB0rEtUrIObbk47VhO9k3hsBI=';
+        } else {
+            token = 'eGxQXLg8tF6pnkrWKDZtQYx66pZZVT7coqSE1UnwrdFaSxYn7vSUK0gatjD0XDdAfebepk0PIxJGZXWWcSiCPTEW98BsEe3j8pce1qW012o=';
+        }
     }
 
     if (token === null) {

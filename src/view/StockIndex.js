@@ -95,7 +95,7 @@ class StockIndex extends Component {
                                         onClick={this.handleEdit.bind(this, item.stock_id)}
                                     >
                                         <div>
-                                            快递单号：{item.express_shipper_code == null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
+                                            快递单号：{item.express_shipper_code === null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
                                         <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
                                         <div className="text-ellipsis">
                                             收货地址：
