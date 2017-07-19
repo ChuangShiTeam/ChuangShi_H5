@@ -422,6 +422,10 @@ body, html {
     color: #FF5501;
 }
 
+.green-color {
+    color: green;
+}
+
 .province-city-area .am-list-extra {
     -webkit-flex-basis: 65% !important;
     flex-basis: 65% !important;

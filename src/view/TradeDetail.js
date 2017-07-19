@@ -14,13 +14,23 @@ class TradeDetail extends Component {
         super(props);
 
         this.state = {
-            is_pay: false,
-            is_address: false,
-            member_address: {},
-            product_sku_list: [],
-            trade_product_amount: 0,
-            trade_express_amount: 0,
-            trade_amount: 0,
+            trade_number: '',
+            trade_receiver_name: '',
+            trade_receiver_mobile: '',
+            trade_receiver_province: '',
+            trade_receiver_city: '',
+            trade_receiver_area: '',
+            trade_receiver_address: '',
+            trade_message: '',
+            trade_product_quantity: 0,
+            trade_product_amount: 0.00,
+            trade_express_amount: 0.00,
+            trade_discount_amount: 0.00,
+            trade_total_amount: 0.00,
+            trade_flow: '',
+            system_create_time: '',
+            trade_product_sku_list: [],
+            express_trade_id_list: []
         };
     }
 
@@ -40,53 +50,36 @@ class TradeDetail extends Component {
         Toast.loading('加载中..', 0);
 
         http.request({
-            url: '/trade/check',
+            url: '/trade/find',
             data: {
-                product_sku_list: storage.getProductSkuList(),
+                trade_id: this.props.params.trade_id
             },
             success: function (data) {
-                let is_pay = true;
-                let is_address = false;
-                let product_sku_list = data.product_sku_list;
-                let trade_product_amount = data.trade_product_amount;
-                let trade_express_amount = data.trade_express_amount;
-                let trade_amount = 0;
-
-                if (typeof (data.member_address.member_address_name) === 'undefined') {
-                    is_pay = false;
-                } else {
-                    is_address = true;
-                }
-
-                let member_address;
-
-                if (storage.getMemberAddress().member_address_name === '') {
-                    member_address = data.member_address;
-                } else {
-                    member_address = storage.getMemberAddress();
-                }
-
-                trade_amount = parseFloat(trade_product_amount) + parseFloat(trade_express_amount);
-
-                if (!trade_product_amount > 0) {
-                    is_pay = false;
-                }
-
                 this.setState({
-                    is_pay: is_pay,
-                    is_address: is_address,
-                    member_address: member_address,
-                    product_sku_list: product_sku_list,
-                    trade_product_amount: trade_product_amount,
-                    trade_express_amount: trade_express_amount,
-                    trade_amount: trade_amount
+                    trade_number: data.trade_number,
+                    trade_receiver_name: data.trade_receiver_name,
+                    trade_receiver_mobile: data.trade_receiver_mobile,
+                    trade_receiver_province: data.trade_receiver_province,
+                    trade_receiver_city: data.trade_receiver_city,
+                    trade_receiver_area: data.trade_receiver_area,
+                    trade_receiver_address: data.trade_receiver_address,
+                    trade_message: data.trade_message,
+                    trade_product_quantity: data.trade_product_quantity,
+                    trade_product_amount: data.trade_product_amount,
+                    trade_express_amount: data.trade_express_amount,
+                    trade_discount_amount: data.trade_discount_amount,
+                    trade_total_amount: data.trade_total_amount,
+                    trade_flow: data.trade_flow,
+                    system_create_time: data.system_create_time,
+                    trade_product_sku_list: data.trade_product_sku_list,
+                    express_trade_id_list: data.express_trade_id_list
                 });
 
                 Toast.hide();
             }.bind(this),
             complete() {
 
-            },
+            }
         });
     }
 
@@ -131,83 +124,163 @@ class TradeDetail extends Component {
         });
     }
 
+    handleTraces(express_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/express/index/' + express_id,
+            query: {}
+        }));
+    }
+
     handleBack() {
         this.props.dispatch(routerRedux.goBack());
     }
 
     render() {
         const Item = List.Item;
-        const {getFieldProps} = this.props.form;
+        const Brief = Item.Brief;
 
         return (
             <div>
-                <div>
-                    <WhiteSpace size="lg"/>
-                    <List>
-                        <Item wrap className="item-long-text">
-                            <div>
-                                收货人：{this.state.member_address.member_address_name} {this.state.member_address.member_address_mobile}
+                {this.state.trade !== {} ?
+                    <div>
+                        <div>
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                <Item wrap className="item-long-text">
+                                    <div className="orange-color">
+                                        订单状态： {this.state.trade_flow === "WAIT_PAY" ? "待付款" :
+                                        this.state.trade_flow === "WAIT_SEND" ? "待发货" :
+                                            this.state.trade_flow === "WAIT_RECEIVE" ? "待收货" :
+                                                this.state.trade_flow === "COMPLETE" ? "已完成" : ""}
+                                    </div>
+                                </Item>
+                            </List>
+                            {this.state.trade_flow === "WAIT_RECEIVE" || this.state.trade_flow === "COMPLETE" ?
                                 <div>
-                                    收货地址：{this.state.member_address.member_address_province
-                                + " " + this.state.member_address.member_address_city
-                                + " " + this.state.member_address.member_address_area
-                                + " " + this.state.member_address.member_address_address}
+                                    <WhiteSpace size="lg"/>
+                                    {this.state.express_trade_id_list.length === 0 ?
+                                        <List>
+                                            {
+                                                this.state.express_trade_id_list.map((item) => {
+                                                    return (
+                                                        <Item arrow="horizontal"
+                                                              wrap className="item-long-text"
+                                                              onClick={this.handleTraces.bind(this,item.express_id)}>
+                                                            <div className="green-color">
+                                                                [{item.express_flow}]{item.AcceptStation}
+                                                                <Brief>
+                                                                    {item.AcceptTime}
+                                                                </Brief>
+                                                            </div>
+                                                        </Item>
+                                                    );
+                                                })
+                                            }
+                                        </List>
+                                        :
+                                        <List>
+                                            <Item>
+                                                <Brief>
+                                                    暂无物流信息
+                                                </Brief>
+                                            </Item>
+                                        </List>
+                                    }
+                                </div>
+                                :
+                                ""
+                            }
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                <Item wrap className="item-long-text">
+                                    <div>
+                                        收货人：{this.state.trade_receiver_name} {this.state.trade_receiver_mobile}
+                                        <div>
+                                            收货地址：{this.state.trade_receiver_province
+                                        + " " + this.state.trade_receiver_city
+                                        + " " + this.state.trade_receiver_area
+                                        + " " + this.state.trade_receiver_address}
+                                        </div>
+                                    </div>
+                                </Item>
+                            </List>
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                {
+                                    this.state.trade_product_sku_list.map((item) => {
+                                        return (
+                                            <Item
+                                                key={item.product_sku_id}
+                                                extra={'￥' + (item.product_sku_amount).toFixed(2)}
+                                            >
+                                                <img className="product-list-image"
+                                                     src={constant.host + item.product_image} alt=""/>
+                                                <div className="product-list-text">
+                                                    {item.product_name}
+                                                    <div>{(item.product_sku_amount / item.product_sku_quantity).toFixed(2)}
+                                                        × {item.product_sku_quantity}</div>
+                                                </div>
+                                            </Item>
+                                        );
+                                    })
+                                }
+                            </List>
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                <Item extra={'￥' + this.state.trade_product_amount.toFixed(2)}>
+                                    商品金额
+                                </Item>
+                                <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
+                                    运费
+                                </Item>
+                                <Item extra={'￥' + this.state.trade_discount_amount.toFixed(2)}>
+                                    折扣
+                                </Item>
+                            </List>
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                <TextareaItem
+                                    title="留言"
+                                    placeholder={this.state.trade_message}
+                                    editable={false}
+                                    rows="3"
+                                />
+                            </List>
+                            <WhiteSpace size="lg"/>
+                            <List>
+                                <Item wrap className="item-long-text">
+                                    <Brief>
+                                        订单编号：{this.state.trade_number}
+                                    </Brief>
+                                    <Brief>
+                                        创建时间：{this.state.system_create_time}
+                                    </Brief>
+                                </Item>
+                            </List>
+                        </div>
+                        {this.state.trade_flow === "WAIT_PAY" ?
+                            <div className="footer">
+                                <div className="footer-total">
+                                    <span className="footer-total-text">
+                                        总金额: ￥{this.state.trade_total_amount.toFixed(2)}
+                                    </span>
+                                </div>
+                                <div
+                                    className="footer-buy"
+                                    style={{backgroundColor: '#1AAD19'}}
+                                    onClick={this.handlePay.bind(this)}>
+                                    立刻支付
                                 </div>
                             </div>
-                        </Item>
-                    </List>
-                    <WhiteSpace size="lg"/>
-                    <List>
-                        {
-                            this.state.product_sku_list.map((item) => {
-                                return (
-                                    <Item
-                                        key={item.product_sku_id}
-                                        extra={'￥' + (item.product_sku_price * item.product_sku_quantity).toFixed(2)}
-                                    >
-                                        <img className="product-list-image" src={constant.host + item.product_image}
-                                             alt=""/>
-                                        <div className="product-list-text">
-                                            {item.product_name}
-                                            <div>{item.product_sku_price.toFixed(2)} × {item.product_sku_quantity}</div>
-                                        </div>
-                                    </Item>
-                                );
-                            })
+                            :
+                            ""
                         }
-                    </List>
-                    <WhiteSpace size="lg"/>
-                    <List>
-                        <Item extra={'￥' + this.state.trade_product_amount.toFixed(2)}>
-                            商品金额
-                        </Item>
-                        <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
-                            运费
-                        </Item>
-                    </List>
-
-                    <WhiteSpace size="lg"/>
-                    <List>
-                        <TextareaItem
-                            {...getFieldProps('trade_message', {
-                                initialValue: '',
-                            })}
-                            placeholder="请输入买家留言"
-                            rows={3}
-                            count={100}
-                        />
-                    </List>
-                </div>
-                <div className="footer">
-                    <div className="footer-total">
-                        <span className="footer-total-text">总金额: ￥{this.state.trade_amount.toFixed(2)}</span>
                     </div>
-                    <div
-                        className="footer-buy" style={{backgroundColor: this.state.is_pay ? '#1AAD19' : '#dddddd'}}
-                        onClick={this.handlePay.bind(this)}>立刻支付
-                    </div>
-                </div>
+                    :
+                    ""
+                }
             </div>
+
         );
     }
 }
