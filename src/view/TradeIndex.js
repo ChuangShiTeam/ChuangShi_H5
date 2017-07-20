@@ -180,23 +180,10 @@ class TradeIndex extends Component {
                                             共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}
                                         </span>
                                     </Item>
-                                    {(trade.trade_flow === "WAIT_SEND" || trade.trade_flow === "COMPLETE") ?
-                                        ""
-                                        :
+                                    {(trade.trade_flow === "WAIT_PAY") ?
                                         <Item
                                             extra={
                                                 <div>
-                                                    {
-                                                        trade.trade_flow === "WAIT_RECEIVE" ?
-                                                            <Button style={{ marginRight: '0.08rem' }}
-                                                                    type="ghost"
-                                                                    size="small"
-                                                                    inline>
-                                                                查看物流
-                                                            </Button>
-                                                            :
-                                                            ""
-                                                    }
                                                     {
                                                         trade.trade_flow === "WAIT_PAY" ?
                                                             <Button style={{ marginRight: '0.08rem' }}
@@ -214,6 +201,8 @@ class TradeIndex extends Component {
                                         >
                                             {""}
                                         </Item>
+                                        :
+                                        ""
                                     }
                                 </List>
                             </div>
