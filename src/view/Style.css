@@ -429,6 +429,18 @@ body, html {
     color: green!important;
 }
 
+.list-line{
+     display: block;
+     position: absolute;
+     content: '';
+     left: 0;
+     bottom: 0;
+     right: auto;
+     top: auto;
+     width: 100%;
+     border-bottom: 1PX solid #ddd;
+ }
+
 .express-traces-image {
     width: 150px !important;
     height: 150px !important;
