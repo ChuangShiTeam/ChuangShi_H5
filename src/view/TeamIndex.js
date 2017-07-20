@@ -117,7 +117,7 @@ class TeamIndex extends Component {
                                             {item.member_level_name}
                                             {
                                                 index === 0 ?
-                                                    <span style={{with: '50px', backgroundColor: '#a72025', color: '#ffffff', marginLeft: '10px', paddingLeft: '10px', paddingRight: '10px', fontSize: '10px'}}>直属</span>
+                                                    <span style={{with: '100px', backgroundColor: '#a72025', color: '#ffffff', marginLeft: '20px', paddingLeft: '20px', paddingRight: '20px', fontSize: '28px'}}>直属</span>
                                                     :
                                                     ''
                                             }
@@ -180,7 +180,7 @@ class TeamIndex extends Component {
                         ''
                 }
                 <WhiteSpace size="lg"/>
-                <div style={{height: '50px'}}></div>
+                <div style={{height: '100px'}}></div>
             </div>
         );
     }

@@ -131,16 +131,16 @@ class Index extends Component {
                             <div
                                 className='index-product-item'
                                 style={{
-                                    width: (document.documentElement.clientWidth - 25) / 2 + 'px',
-                                    margin: '7px 0 0 7px'
+                                    width: (document.documentElement.clientWidth - 50) / 2 + 'px',
+                                    margin: '15px 0 0 15px'
                                 }}
                                 key={item.product_id}
                                 onClick={this.handleProduct.bind(this, item.product_id)}
                             >
                                 <img
                                     style={{
-                                        width: (document.documentElement.clientWidth - 25) / 2 + 'px',
-                                        height: (document.documentElement.clientWidth - 25) / 2 + 'px',
+                                        width: (document.documentElement.clientWidth - 50) / 2 + 'px',
+                                        height: (document.documentElement.clientWidth - 50) / 2 + 'px',
                                     }}
                                     src={constant.host + item.product_image}
                                     alt=""
@@ -157,7 +157,7 @@ class Index extends Component {
                         );
                     })
                 }
-                <div style={{float: 'left', width: '100%', height: '57px'}}/>
+                <div style={{float: 'left', width: '100%', height: '115px'}}/>
             </view>
         );
     }

@@ -156,7 +156,7 @@ class MemberAddressIndex extends Component {
                         ''
                 }
                 <WhiteSpace size="lg"/>
-                <div style={{height: '100px'}}></div>
+                <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>
                         新建收货地址

@@ -241,8 +241,7 @@ class TradeCheck extends Component {
                                         key={item.product_sku_id}
                                         extra={'￥' + (item.product_sku_price * item.product_sku_quantity).toFixed(2)}
                                     >
-                                        <img className="product-list-image" src={constant.host + item.product_image}
-                                             alt=""/>
+                                        <img className="product-list-image" src={constant.host + item.product_image} alt=""/>
                                         <div className="product-list-text">
                                             {item.product_name}
                                             <div>{item.product_sku_price.toFixed(2)} × {item.product_sku_quantity}</div>

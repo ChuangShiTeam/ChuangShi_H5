@@ -221,7 +221,7 @@ class StockDetail extends Component {
                         </Picker>
                     </List>
                     <WhiteSpace size="lg"/>
-                    <div style={{height: '100px'}}></div>
+                    <div style={{height: '200px'}}></div>
                     <div className="footer">
                         <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>提交</div>
                     </div>
