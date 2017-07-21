@@ -148,10 +148,10 @@ class MemberAddressIndex extends Component {
                 }
                 {
                     this.state.is_load && this.state.list.length === 0 ?
-                        <view>
+                        <div>
                             <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                            <view className="empty-text">没有数据</view>
-                        </view>
+                            <div className="empty-text">没有数据</div>
+                        </div>
                         :
                         ''
                 }

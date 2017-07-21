@@ -23,10 +23,10 @@ class MemberStockIndex extends Component {
     render() {
         return (
             <div>
-                <view>
+                <div>
                     <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                    <view className="empty-text">没有数据</view>
-                </view>
+                    <div className="empty-text">没有数据</div>
+                </div>
             </div>
         );
     }

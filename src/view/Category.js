@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
+import {routerRedux} from 'dva/router';
 import {Toast} from 'antd-mobile';
 
 import constant from '../util/constant';
@@ -10,9 +11,7 @@ class Category extends Component {
         super(props);
 
         this.state = {
-            category_id: '0',
-            category_list: [],
-            product_list: [],
+            category_id: ''
         }
     }
 
@@ -25,11 +24,31 @@ class Category extends Component {
             this.props.dispatch({
                 type: 'category/fetch',
                 data: {
-                    category_list: constant.category
+                    category_list: constant.category.concat()
                 }
             });
 
             this.handleLoad();
+        } else {
+            let category_id = this.props.params.category_id;
+            let product_show_list = [];
+
+            for (let i = 0; i < this.props.category.product_list.length; i++) {
+                if (this.props.category.product_list[i].product_category_id === category_id || category_id === '0') {
+                    product_show_list.push(this.props.category.product_list[i]);
+                }
+            }
+
+            this.props.dispatch({
+                type: 'category/fetch',
+                data: {
+                    product_show_list: product_show_list
+                }
+            });
+
+            this.setState({
+                category_id: category_id
+            });
         }
     }
 
@@ -44,11 +63,25 @@ class Category extends Component {
             url: '/product/all/list',
             data: {},
             success: function (data) {
-                this.props.dispatch({
-                    type: 'index/fetch',
-                    data: {
-                        product_list: data
+                let category_id = this.props.params.category_id;
+                let product_show_list = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].product_category_id === category_id || category_id === '0') {
+                        product_show_list.push(data[i]);
                     }
+                }
+
+                this.props.dispatch({
+                    type: 'category/fetch',
+                    data: {
+                        product_list: data,
+                        product_show_list: product_show_list
+                    }
+                });
+
+                this.setState({
+                    category_id: category_id
                 });
 
                 Toast.hide();
@@ -61,13 +94,81 @@ class Category extends Component {
         });
     }
 
+    handleCategory(category_id) {
+        let product_show_list = [];
+
+        for (let i = 0; i < this.props.category.product_list.length; i++) {
+            if (this.props.category.product_list[i].product_category_id === category_id || category_id === '0') {
+                product_show_list.push(this.props.category.product_list[i]);
+            }
+        }
+
+        this.props.dispatch({
+            type: 'category/fetch',
+            data: {
+                product_show_list: product_show_list
+            }
+        });
+
+        this.setState({
+            category_id: category_id
+        });
+    }
+
+    handleProduct(product_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/product/detail/' + product_id,
+            query: {},
+        }));
+    }
+
     render() {
         return (
             <div>
-                <view>
-                    <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                    <view className="empty-text">没有数据</view>
-                </view>
+                <div className="category-left">
+                    {
+                        this.props.category.category_list.map((item) => {
+                            return (
+                                <div key={item.category_id} className={item.category_id == this.state.category_id ? 'category-left-item category-left-item-active' : 'category-left-item'} onClick={this.handleCategory.bind(this, item.category_id)}>{item.category_name}</div>
+                            );
+                        })
+                    }
+                </div>
+                <div className="category-right">
+                    {
+                        this.props.category.product_show_list.map((item) => {
+                            return (
+                                <div
+                                    className='index-product-item'
+                                    style={{
+                                        width: (document.documentElement.clientWidth - 202 - 50) / 2 + 'px',
+                                        margin: '15px 0 0 15px'
+                                    }}
+                                    key={item.product_id}
+                                    onClick={this.handleProduct.bind(this, item.product_id)}
+                                >
+                                    <img
+                                        style={{
+                                            width: (document.documentElement.clientWidth - 202 - 50) / 2 + 'px',
+                                            height: (document.documentElement.clientWidth - 202 - 50) / 2 + 'px',
+                                        }}
+                                        src={constant.host + item.product_image}
+                                        alt=""
+                                    />
+                                    <div className='index-product-item-name' style={{fontSize: '24px'}}>{item.product_name}</div>
+                                    <div className='index-product-item-price' style={{fontSize: '24px'}}>
+                                        ¥{item.product_sku_price.toFixed(2)}
+                                        <span className="category-product-tag">
+                                        <img src={require('../assets/svg/like.svg')} alt=""/>
+                                        <img src={require('../assets/svg/appreciate.svg')} alt=""/>
+                                    </span>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
+                    <div style={{ float: 'left', width: '100%', height: '15px' }} />
+                </div>
             </div>
         );
     }

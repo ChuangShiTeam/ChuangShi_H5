@@ -92,7 +92,7 @@ class Index extends Component {
 
     render() {
         return (
-            <view>
+            <div>
                 <div style={{height: document.documentElement.clientWidth * 0.4 + 'px'}}>
                     <Carousel autoplay infinite>
                         {
@@ -158,7 +158,7 @@ class Index extends Component {
                     })
                 }
                 <div style={{float: 'left', width: '100%', height: '115px'}}/>
-            </view>
+            </div>
         );
     }
 }
