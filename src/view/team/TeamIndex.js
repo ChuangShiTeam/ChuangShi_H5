@@ -12,7 +12,7 @@ class TeamIndex extends Component {
         super(props);
 
         this.state = {
-
+            is_load: this.props.team_index.is_load
         }
     }
 
@@ -178,9 +178,14 @@ class TeamIndex extends Component {
                 }
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
-                <div className={'loading-mask ' + (this.props.team_index.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.team_index.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }

@@ -10,7 +10,7 @@ class Manage extends Component {
         super(props);
 
         this.state = {
-
+            is_load: this.props.my.is_load
         }
     }
 
@@ -170,9 +170,14 @@ class Manage extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
-                <div className={'loading-mask ' + (this.props.my.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.my.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }

@@ -6,7 +6,7 @@ import Index from './view/Index';
 import TeamIndex from './view/team/TeamIndex';
 import Cart from './view/Cart';
 import ProductDetail from './view/ProductDetail';
-import Article from './view/Article';
+import ArticleIndex from './view/article/ArticleIndex';
 import My from './view/My';
 import Manage from './view/Manage';
 import Category from './view/Category';
@@ -45,7 +45,7 @@ function RouterConfig({history}) {
                     <Route path="team" component={TeamIndex}/>
                     <Route path="cart" component={Cart}/>
                     <Route path="product/:product_id" component={ProductDetail}/>
-                    <Route path="article" component={Article}/>
+                    <Route path="article/index" component={ArticleIndex}/>
                     <Route path="my" component={My}/>
                     <Route path="manage" component={Manage}/>
                 </Route>

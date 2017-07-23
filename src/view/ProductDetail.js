@@ -12,7 +12,7 @@ class ProductDetail extends Component {
         super(props);
 
         this.state = {
-
+            is_load: this.props.product_detail.is_load
         }
     }
 
@@ -184,9 +184,14 @@ class ProductDetail extends Component {
                         }
                     </div>
                 </div>
-                <div className={'loading-mask ' + (this.props.product_detail.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.product_detail.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }

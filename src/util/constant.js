@@ -27,7 +27,7 @@ export default {
     }, {
         key: 'read',
         title: '商学院',
-        url: '/article',
+        url: '/article/index',
         path: '/article',
         icon: 'read.svg',
         selected_icon: 'read_active.svg'

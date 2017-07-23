@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Badge, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Badge} from 'antd-mobile';
 
 import http from '../util/http';
 
@@ -10,7 +10,7 @@ class My extends Component {
         super(props);
 
         this.state = {
-
+            is_load: this.props.my.is_load
         }
     }
 
@@ -27,8 +27,6 @@ class My extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/member/my/find',
             data: {},
@@ -37,8 +35,6 @@ class My extends Component {
                     type: 'my/fetch',
                     data: data
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
                 this.props.dispatch({
@@ -163,9 +159,14 @@ class My extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
-                <div className={'loading-mask ' + (this.props.my.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.my.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }
