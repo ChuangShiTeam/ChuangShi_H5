@@ -28,7 +28,7 @@ class ProductDetail extends Component {
 
     componentWillUnmount() {
         if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
-            
+
         } else {
             this.props.dispatch({
                 type: 'product/fetch',
@@ -142,7 +142,7 @@ class ProductDetail extends Component {
                     <Item extra={
                         <Stepper
                             style={{width: '100%', minWidth: '2rem'}}
-                            showNumber={false}
+                            showNumber={true}
                             max={99999}
                             min={1}
                             value={this.props.product.product_sku_quantity}
@@ -152,20 +152,20 @@ class ProductDetail extends Component {
                         购买数量
                     </Item>
                 </List>
-                <div className="product-quantity" style={{top: (document.documentElement.clientWidth + 146) + 'px'}}>
-                    <div
-                        className="product-quantity-number">{this.props.product.product_sku_quantity}</div>
-                </div>
+                {/*<div className="product-quantity" style={{top: (document.documentElement.clientWidth + 292) + 'px'}}>*/}
+                    {/*<div className="product-quantity-number">{this.props.product.product_sku_quantity}</div>*/}
+                {/*</div>*/}
                 <WhiteSpace size="lg"/>
                 <div
                     className="product-content"
                     dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
                 />
+                <WhiteSpace size="lg"/>
                 {
                     constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
-                        <div style={{height: '100px'}}></div>
+                        <div style={{height: '200px'}}></div>
                         :
-                        <div style={{height: '50px'}}></div>
+                        <div style={{height: '100px'}}></div>
                 }
                 <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                     <div className="footer-total">

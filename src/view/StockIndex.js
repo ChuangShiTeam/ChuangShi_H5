@@ -94,39 +94,41 @@ class StockIndex extends Component {
                                         className="item-long-text"
                                         onClick={this.handleEdit.bind(this, item.stock_id)}
                                     >
-                                        <div>
+                                        <div className="stock-express">
                                             快递单号：{item.express_shipper_code === null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
-                                        <div>收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>
-                                        <div className="text-ellipsis">
-                                            收货地址：
-                                            {item.stock_receiver_province
-                                            + item.stock_receiver_city
-                                            + item.stock_receiver_area
-                                            + item.stock_receiver_address}
+                                        {/*<div className="stock-express">收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>*/}
+                                        <div className="stock-express text-ellipsis">
+                                            收货人：{item.stock_receiver_name} {item.stock_receiver_mobile} {item.stock_receiver_province + item.stock_receiver_city + item.stock_receiver_area + item.stock_receiver_address}
                                         </div>
-                                        {item.express_flow === null ?
-                                            ""
-                                            :
-                                            <Flex justify="center" className="item-flow-text">
-                                                <Flex.Item>
+                                        <Flex justify="center" className="item-flow-text">
+                                            <Flex.Item>
+                                                <div className="item-flow-province">
+                                                    上海
+                                                </div>
+                                                <div className="item-flow-name">
                                                     {constant.name}
-                                                    <div className="item-flow-province">
-                                                        上海
-                                                    </div>
-                                                </Flex.Item>
-                                                <Flex.Item/>
-                                                <Flex.Item>
-                                                    {item.express_flow}
-                                                </Flex.Item>
-                                                <Flex.Item/>
-                                                <Flex.Item>
+                                                </div>
+                                            </Flex.Item>
+                                            <Flex.Item>
+                                                <div className="item-flow-status">
+                                                    {
+                                                        item.express_flow === null ?
+                                                            "暂无"
+                                                            :
+                                                            item.express_flow
+
+                                                    }
+                                                </div>
+                                            </Flex.Item>
+                                            <Flex.Item>
+                                                <div className="item-flow-province">
+                                                    {item.stock_receiver_province}
+                                                </div>
+                                                <div className="item-flow-name">
                                                     {item.stock_receiver_name}
-                                                    <div className="item-flow-province">
-                                                        {item.stock_receiver_province}
-                                                    </div>
-                                                </Flex.Item>
-                                            </Flex>
-                                        }
+                                                </div>
+                                            </Flex.Item>
+                                        </Flex>
                                     </Item>
                                 </List>
                                 <WhiteSpace size="lg"/>
@@ -134,7 +136,7 @@ class StockIndex extends Component {
                         );
                     })
                 }
-                <div style={{height: '100px'}}></div>
+                <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>新建发货单</div>
                 </div>

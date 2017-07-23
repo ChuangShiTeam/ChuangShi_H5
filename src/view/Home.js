@@ -28,8 +28,8 @@ class Home extends Component {
 
     render() {
         return (
-            <view>
-            </view>
+            <div>
+            </div>
         );
     }
 }

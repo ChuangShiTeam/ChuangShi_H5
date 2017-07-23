@@ -164,27 +164,19 @@ class TradeIndex extends Component {
                                             return (
                                                 <Item onClick={this.handleEdit.bind(this,trade.trade_id)}
                                                       key={product_sku.product_sku_id}
-                                                      extra={'￥'
-                                                              + product_sku.product_sku_amount.toFixed(2)
-                                                              + ' X '
-                                                              + product_sku.product_sku_quantity
-                                                      }
+                                                      extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
                                                 >
-                                                    <div className="list-item-image">
-                                                        <img src={constant.host + product_sku.product_image} alt=""/>
-                                                    </div>
-                                                    <div className="list-item-text" style={{top: '10px'}}>
+                                                    <img className="product-list-image" src={constant.host + product_sku.product_image} alt=""/>
+                                                    <div className="product-list-text">
                                                         {product_sku.product_name}
-                                                    </div>
-                                                    <div className="list-item-brief" style={{top: '35px'}}>
-                                                        {product_sku.product_name}
+                                                        <div>{(product_sku.product_sku_amount / product_sku.product_sku_quantity).toFixed(2)} × {product_sku.product_sku_quantity}</div>
                                                     </div>
                                                 </Item>
                                             );
                                         })
                                     }
                                     <Item>
-                                        <span style={{fontSize: '14px'}}>
+                                        <span style={{fontSize: '28px'}}>
                                             共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}
                                         </span>
                                     </Item>

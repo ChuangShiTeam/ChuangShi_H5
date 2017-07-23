@@ -238,7 +238,7 @@ class MemberAddressDetail extends Component {
                     >设为默认地址</Item>
                 </List>
                 <WhiteSpace size="lg"/>
-                <div style={{height: '100px'}}></div>
+                <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleSubmit.bind(this)}>提交</div>
                 </div>

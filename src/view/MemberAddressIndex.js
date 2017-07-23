@@ -151,15 +151,15 @@ class MemberAddressIndex extends Component {
                 }
                 {
                     this.state.is_load && this.state.list.length === 0 ?
-                        <view>
+                        <div>
                             <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                            <view className="empty-text">没有数据</view>
-                        </view>
+                            <div className="empty-text">没有数据</div>
+                        </div>
                         :
                         ''
                 }
                 <WhiteSpace size="lg"/>
-                <div style={{height: '100px'}}></div>
+                <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>
                         新建收货地址

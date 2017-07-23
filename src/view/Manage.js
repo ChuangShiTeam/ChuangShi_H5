@@ -170,7 +170,7 @@ class Manage extends Component {
                     }
                 </List>
                 <WhiteSpace size="lg"/>
-                <div style={{height: '50px'}}></div>
+                <div style={{height: '100px'}}></div>
             </div>
         );
     }
