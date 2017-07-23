@@ -11,6 +11,7 @@ class Index extends Component {
         super(props);
 
         this.state = {
+            is_load: this.props.index.is_load,
             carousel_list: ['00', '01', '02', '03']
         }
     }
@@ -154,9 +155,14 @@ class Index extends Component {
                     })
                 }
                 <div style={{float: 'left', width: '100%', height: '115px'}}/>
-                <div className={'loading-mask ' + (this.props.index.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.index.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }

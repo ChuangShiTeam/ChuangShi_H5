@@ -7,7 +7,7 @@ class Cart extends Component {
         super(props);
 
         this.state = {
-
+            is_load: this.props.cart.is_load
         }
     }
 
@@ -35,9 +35,14 @@ class Cart extends Component {
                     <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
                     <div className="empty-text">没有数据</div>
                 </div>
-                <div className={'loading-mask ' + (this.props.cart.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.cart.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }
