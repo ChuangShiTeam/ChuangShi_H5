@@ -2,18 +2,19 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {routerRedux} from "dva/router";
 import {createForm} from "rc-form";
-import {WhiteSpace, List, InputItem, Picker, Switch, Toast} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, InputItem, Picker, Switch, Toast} from "antd-mobile";
 
-import constant from "../util/constant";
-import validate from "../util/validate";
-import china from "../util/china";
-import http from "../util/http";
+import constant from "../../util/constant";
+import validate from "../../util/validate";
+import china from "../../util/china";
+import http from "../../util/http";
 
 class MemberAddressDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            is_load: false,
             member_address: {}
         }
     }
@@ -25,6 +26,10 @@ class MemberAddressDetail extends Component {
 
         if (this.props.route.path.indexOf('/edit/') > -1) {
             this.handleLoad();
+        } else {
+            this.setState({
+                is_load: true
+            });
         }
     }
 
@@ -81,9 +86,11 @@ class MemberAddressDetail extends Component {
                     member_address: data
                 });
             }.bind(this),
-            complete() {
-
-            },
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
         });
     }
 
@@ -241,6 +248,9 @@ class MemberAddressDetail extends Component {
                 <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleSubmit.bind(this)}>提交</div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

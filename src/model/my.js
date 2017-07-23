@@ -2,6 +2,7 @@ export default {
     namespace: 'my',
 
     state: {
+        is_load: false,
         user_name: '',
         user_avatar: '',
         member_level_id: '',

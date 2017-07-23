@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Stepper, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Stepper} from 'antd-mobile';
 
 import constant from '../util/constant';
 import storage from '../util/storage';
@@ -11,7 +11,9 @@ class ProductDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {}
+        this.state = {
+
+        }
     }
 
     componentDidMount() {
@@ -31,7 +33,7 @@ class ProductDetail extends Component {
 
         } else {
             this.props.dispatch({
-                type: 'product/fetch',
+                type: 'product_detail/fetch',
                 data: {
                     is_load: false,
                     product_total: 0,
@@ -50,8 +52,6 @@ class ProductDetail extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/product/find',
             data: {
@@ -59,7 +59,7 @@ class ProductDetail extends Component {
             },
             success: function (data) {
                 this.props.dispatch({
-                    type: 'product/fetch',
+                    type: 'product_detail/fetch',
                     data: {
                         is_load: true,
                         product_id: data.product_id,
@@ -72,20 +72,23 @@ class ProductDetail extends Component {
                         product_sku_total_price: data.product_sku_price * data.product_sku_quantity
                     },
                 });
-
-                Toast.hide();
             }.bind(this),
-            complete() {
-
-            },
+            complete: function () {
+                this.props.dispatch({
+                    type: 'product_detail/fetch',
+                    data: {
+                        is_load: true
+                    }
+                });
+            }.bind(this)
         });
     }
 
     handleChange(product_sku_quantity) {
-        let product_sku_total_price = this.props.product.product_sku_price * product_sku_quantity;
+        let product_sku_total_price = this.props.product_detail.product_sku_price * product_sku_quantity;
 
         this.props.dispatch({
-            type: 'product/fetch',
+            type: 'product_detail/fetch',
             data: {
                 product_sku_quantity: product_sku_quantity,
                 product_sku_total_price: product_sku_total_price
@@ -95,8 +98,8 @@ class ProductDetail extends Component {
 
     handleBuy() {
         storage.setProductSkuList([{
-            product_sku_id: this.props.product.product_sku_id,
-            product_sku_quantity: this.props.product.product_sku_quantity
+            product_sku_id: this.props.product_detail.product_sku_id,
+            product_sku_quantity: this.props.product_detail.product_sku_quantity
         }]);
 
         this.props.dispatch(routerRedux.push({
@@ -112,20 +115,20 @@ class ProductDetail extends Component {
             <div>
                 <div style={{height: document.documentElement.clientWidth + 'px'}}>
                     {
-                        this.props.product.is_load ?
+                        this.props.product_detail.is_load ?
                             <img style={{
                                 width: document.documentElement.clientWidth + 'px',
                                 height: document.documentElement.clientWidth + 'px'
-                            }} src={constant.host + this.props.product.product_image} alt=""/>
+                            }} src={constant.host + this.props.product_detail.product_image} alt=""/>
                             :
                             ''
                     }
                 </div>
                 <List>
                     <Item>
-                        <div>{this.props.product.product_name}</div>
+                        <div>{this.props.product_detail.product_name}</div>
                         <div className="product-price">
-                            ￥{this.props.product.product_sku_price.toFixed(2)}
+                            ￥{this.props.product_detail.product_sku_price.toFixed(2)}
                             <span className="product-tag">
                                 <img src={require('../assets/svg/round_check.svg')} alt=""/>正品保证
                                 <img src={require('../assets/svg/round_check.svg')} style={{marginLeft: '10px'}}
@@ -137,7 +140,7 @@ class ProductDetail extends Component {
                 <WhiteSpace size="lg"/>
                 <List>
                     <Item>
-                        已选：{this.props.product.product_sku_quantity >= 25000 ? (this.props.product.product_sku_quantity - 15000) : this.props.product.product_sku_quantity}个
+                        已选：{this.props.product_detail.product_sku_quantity >= 25000 ? (this.props.product_detail.product_sku_quantity - 15000) : this.props.product_detail.product_sku_quantity}个
                     </Item>
                     <Item extra={
                         <Stepper
@@ -145,7 +148,7 @@ class ProductDetail extends Component {
                             showNumber={true}
                             max={99999}
                             min={1}
-                            value={this.props.product.product_sku_quantity}
+                            value={this.props.product_detail.product_sku_quantity}
                             onChange={this.handleChange.bind(this)}
                         />}
                     >
@@ -153,12 +156,12 @@ class ProductDetail extends Component {
                     </Item>
                 </List>
                 {/*<div className="product-quantity" style={{top: (document.documentElement.clientWidth + 292) + 'px'}}>*/}
-                    {/*<div className="product-quantity-number">{this.props.product.product_sku_quantity}</div>*/}
+                    {/*<div className="product-quantity-number">{this.props.product_detail.product_sku_quantity}</div>*/}
                 {/*</div>*/}
                 <WhiteSpace size="lg"/>
                 <div
                     className="product-content"
-                    dangerouslySetInnerHTML={{__html: this.props.product.product_content}}
+                    dangerouslySetInnerHTML={{__html: this.props.product_detail.product_content}}
                 />
                 <WhiteSpace size="lg"/>
                 {
@@ -170,7 +173,7 @@ class ProductDetail extends Component {
                 <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                     <div className="footer-total">
                         <span
-                            className="footer-total-text">总金额: ￥{this.props.product.product_sku_total_price.toFixed(2)}</span>
+                            className="footer-total-text">总金额: ￥{this.props.product_detail.product_sku_total_price.toFixed(2)}</span>
                     </div>
                     <div className="footer-buy" onClick={this.handleBuy.bind(this)}>
                         {
@@ -181,9 +184,12 @@ class ProductDetail extends Component {
                         }
                     </div>
                 </div>
+                <div className={'loading-mask ' + (this.props.product_detail.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
         );
     }
 }
 
-export default connect(({product}) => ({product}))(ProductDetail);
+export default connect(({product_detail}) => ({product_detail}))(ProductDetail);

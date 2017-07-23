@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Tabs, Toast, Button} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Tabs, Button, Toast} from 'antd-mobile';
 
-import constant from '../util/constant';
-import storage from '../util/storage';
-import http from '../util/http';
+import constant from '../../util/constant';
+import storage from '../../util/storage';
+import http from '../../util/http';
 
 class TradeIndex extends Component {
     constructor(props) {
@@ -32,8 +32,6 @@ class TradeIndex extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/trade/list',
             data: {},
@@ -50,8 +48,6 @@ class TradeIndex extends Component {
                     trade_list: trade_list,
                     list: data
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -149,27 +145,30 @@ class TradeIndex extends Component {
                             <div key={trade.trade_id}>
                                 <WhiteSpace size="lg"/>
                                 <List>
-                                    <Item extra={
-                                        <div className="orange-color">
-                                            {trade.trade_flow === "WAIT_PAY" ? "待付款" :
-                                                trade.trade_flow === "WAIT_SEND" ? "待发货" :
-                                                    trade.trade_flow === "WAIT_RECEIVE" ? "待收货" :
-                                                        trade.trade_flow === "COMPLETE" ? "已完成" : ""}
-                                        </div>
-                                    }>
+                                    <Item onClick={this.handleEdit.bind(this, trade.trade_id)}
+                                          extra={
+                                              <div className="orange-color">
+                                                  {trade.trade_flow === "WAIT_PAY" ? "待付款" :
+                                                      trade.trade_flow === "WAIT_SEND" ? "待发货" :
+                                                          trade.trade_flow === "WAIT_RECEIVE" ? "待收货" :
+                                                              trade.trade_flow === "COMPLETE" ? "已完成" : ""}
+                                              </div>
+                                          }>
                                         {trade.trade_number}
                                     </Item>
                                     {
                                         trade.trade_product_sku_list.map((product_sku) => {
                                             return (
-                                                <Item onClick={this.handleEdit.bind(this,trade.trade_id)}
+                                                <Item onClick={this.handleEdit.bind(this, trade.trade_id)}
                                                       key={product_sku.product_sku_id}
                                                       extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
                                                 >
-                                                    <img className="product-list-image" src={constant.host + product_sku.product_image} alt=""/>
+                                                    <img className="product-list-image"
+                                                         src={constant.host + product_sku.product_image} alt=""/>
                                                     <div className="product-list-text">
                                                         {product_sku.product_name}
-                                                        <div>{(product_sku.product_sku_amount / product_sku.product_sku_quantity).toFixed(2)} × {product_sku.product_sku_quantity}</div>
+                                                        <div>{(product_sku.product_sku_amount / product_sku.product_sku_quantity).toFixed(2)}
+                                                            × {product_sku.product_sku_quantity}</div>
                                                     </div>
                                                 </Item>
                                             );
@@ -181,23 +180,23 @@ class TradeIndex extends Component {
                                         </span>
                                     </Item>
                                     {(trade.trade_flow === "WAIT_PAY") ?
-                                        <Item
-                                            extra={
-                                                <div>
-                                                    {
-                                                        trade.trade_flow === "WAIT_PAY" ?
-                                                            <Button style={{ marginRight: '0.08rem' }}
-                                                                    type="primary"
-                                                                    size="small"
-                                                                    inline
-                                                                    onClick={this.handlePay.bind(this,trade.trade_id)}>
-                                                                立即付款
-                                                            </Button>
-                                                            :
-                                                            ""
-                                                    }
-                                                </div>
-                                            }
+                                        <Item onClick={this.handleEdit.bind(this, trade.trade_id)}
+                                              extra={
+                                                  <div>
+                                                      {
+                                                          trade.trade_flow === "WAIT_PAY" ?
+                                                              <Button style={{marginRight: '0.08rem'}}
+                                                                      type="primary"
+                                                                      size="small"
+                                                                      inline
+                                                                      onClick={this.handlePay.bind(this, trade.trade_id)}>
+                                                                  立即付款
+                                                              </Button>
+                                                              :
+                                                              ""
+                                                      }
+                                                  </div>
+                                              }
                                         >
                                             {""}
                                         </Item>
@@ -210,6 +209,9 @@ class TradeIndex extends Component {
                     })
                 }
                 <WhiteSpace size="lg"/>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
         );
     }

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
+import {ActivityIndicator} from 'antd-mobile';
 
 class MemberStockIndex extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
+            is_load: false
         }
     }
 
@@ -14,6 +15,10 @@ class MemberStockIndex extends Component {
         document.title = 'TA的发货单';
 
         document.body.scrollTop = 0;
+
+        this.setState({
+            is_load: true
+        });
     }
 
     componentWillUnmount() {
@@ -24,8 +29,11 @@ class MemberStockIndex extends Component {
         return (
             <div>
                 <div>
-                    <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
+                    <img src={require('../../assets/svg/empty.svg')} className="empty-image" alt=""/>
                     <div className="empty-text">没有数据</div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

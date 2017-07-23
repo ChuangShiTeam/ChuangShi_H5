@@ -3,8 +3,8 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {WhiteSpace, Icon, Result, Button, Toast} from 'antd-mobile';
 
-import constant from "../util/constant";
-import http from '../util/http';
+import constant from "../../util/constant";
+import http from '../../util/http';
 
 class TradeConfirm extends Component {
     constructor(props) {
@@ -33,6 +33,7 @@ class TradeConfirm extends Component {
 
     handleLoad() {
         Toast.loading('加载中..', 0);
+
         var trade_id = this.props.params.trade_id;
         http.request({
             url: '/trade/confirm',
@@ -90,7 +91,7 @@ class TradeConfirm extends Component {
                 {
                     this.state.result === 'confirm' ?
                         <Result
-                            img={<img src={require('../assets/svg/waiting.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
+                            img={<img src={require('../../assets/svg/waiting.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
                             title="等待确认"
                             message="已支付成功，等待平台确认"
                         />
@@ -124,7 +125,7 @@ class TradeConfirm extends Component {
                 {
                     this.state.result === 'error' ?
                         <Result
-                            img={<img src={require('../assets/svg/notice.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
+                            img={<img src={require('../../assets/svg/notice.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
                             title="网络异常"
                             message="请与平台工作人员确认"
                         />

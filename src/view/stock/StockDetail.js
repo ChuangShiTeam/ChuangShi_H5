@@ -2,18 +2,19 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from "rc-form";
-import {WhiteSpace, List, InputItem, Picker, Steps, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, InputItem, Picker, Steps, Toast} from 'antd-mobile';
 
-import constant from "../util/constant";
-import validate from "../util/validate";
-import http from "../util/http";
-import storage from '../util/storage';
+import constant from "../../util/constant";
+import validate from "../../util/validate";
+import http from "../../util/http";
+import storage from '../../util/storage';
 
 class StockDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            is_load: false,
             action: 'save',
             product_sku_id: '',
             stock: {},
@@ -32,6 +33,10 @@ class StockDetail extends Component {
                 action: 'update'
             });
             this.handleLoadStock();
+        } else {
+            this.setState({
+                is_load: true
+            });
         }
 
         this.handleLoadProduct();
@@ -42,8 +47,6 @@ class StockDetail extends Component {
     }
 
     handleLoadStock() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/member/stock/find',
             data: {
@@ -65,12 +68,12 @@ class StockDetail extends Component {
                         express_traces: temp
                     });
                 }
-
-                Toast.hide();
             }.bind(this),
-            complete() {
-
-            }
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
         });
     }
 
@@ -225,6 +228,9 @@ class StockDetail extends Component {
                     <div className="footer">
                         <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>提交</div>
                     </div>
+                    <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                        <div className="loading"><ActivityIndicator/></div>
+                    </div>
                 </div>
                 :
                 <div>
@@ -287,6 +293,9 @@ class StockDetail extends Component {
                             </Item>
                         </List>}
                     <WhiteSpace size="lg"/>
+                    <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                        <div className="loading"><ActivityIndicator/></div>
+                    </div>
                 </div>
         );
     }

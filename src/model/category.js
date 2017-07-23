@@ -1,10 +1,9 @@
-import constant from '../util/constant';
-
 export default {
     namespace: 'category',
 
     state: {
-        category_list: constant.category.concat(),
+        is_load: false,
+        category_list: [],
         product_list: [],
         product_show_list: []
     },

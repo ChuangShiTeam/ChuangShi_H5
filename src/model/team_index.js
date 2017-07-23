@@ -1,7 +1,8 @@
 export default {
-    namespace: 'team',
+    namespace: 'team_index',
 
     state: {
+        is_load: false,
         list: [],
         scroll_top: 0,
     },
