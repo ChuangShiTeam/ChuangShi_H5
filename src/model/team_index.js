@@ -1,10 +1,9 @@
 export default {
-    namespace: 'index',
+    namespace: 'team_index',
 
     state: {
         is_load: false,
-        category_list: [],
-        product_list: [],
+        list: [],
         scroll_top: 0,
     },
 

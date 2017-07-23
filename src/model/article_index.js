@@ -1,9 +1,8 @@
 export default {
-    namespace: 'team',
+    namespace: 'article_index',
 
     state: {
-        list: [],
-        scroll_top: 0,
+        is_load: false
     },
 
     reducers: {

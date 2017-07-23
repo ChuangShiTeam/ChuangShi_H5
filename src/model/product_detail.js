@@ -1,5 +1,5 @@
 export default {
-    namespace: 'product',
+    namespace: 'product_detail',
 
     state: {
         is_load: false,

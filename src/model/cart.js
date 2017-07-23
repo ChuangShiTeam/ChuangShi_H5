@@ -1,11 +1,8 @@
 export default {
-    namespace: 'index',
+    namespace: 'cart',
 
     state: {
-        is_load: false,
-        category_list: [],
-        product_list: [],
-        scroll_top: 0,
+        is_load: false
     },
 
     reducers: {

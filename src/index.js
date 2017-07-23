@@ -6,8 +6,10 @@ import './view/Style.css';
 
 import index from './model/index';
 import category from './model/category';
-import team from './model/team';
-import product from './model/product';
+import team_index from './model/team_index';
+import product_detail from './model/product_detail';
+import article_index from './model/article_index';
+import cart from './model/cart';
 import my from './model/my';
 
 import wechat from './util/wechat';
@@ -22,8 +24,10 @@ if (result) {
 
     app.model(index);
     app.model(category);
-    app.model(team);
-    app.model(product);
+    app.model(team_index);
+    app.model(product_detail);
+    app.model(article_index);
+    app.model(cart);
     app.model(my);
 
     app.router(Router);

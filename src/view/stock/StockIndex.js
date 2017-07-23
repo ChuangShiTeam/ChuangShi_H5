@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Toast, Flex} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Flex} from 'antd-mobile';
 
-import http from '../util/http';
-import constant from '../util/constant';
+import http from '../../util/http';
+import constant from '../../util/constant';
 
 class StockIndex extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            is_load: false,
             stock_list: [],
             stock_quantity: 0
         }
@@ -29,8 +30,6 @@ class StockIndex extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/member/send/detail',
             data: {
@@ -43,8 +42,6 @@ class StockIndex extends Component {
                     stock_list: data.stock_list,
                     stock_quantity: data.stock_quantity
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -139,6 +136,9 @@ class StockIndex extends Component {
                 <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>新建发货单</div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

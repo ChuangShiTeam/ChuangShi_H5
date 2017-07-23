@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Checkbox, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Checkbox, Toast} from 'antd-mobile';
 
-import constant from '../util/constant';
-import http from '../util/http';
+import constant from '../../util/constant';
+import http from '../../util/http';
 
 class MemberLevel extends Component {
     constructor(props) {
@@ -116,7 +116,7 @@ class MemberLevel extends Component {
                 {
                     this.state.is_load && this.state.member_level_list.length === 0 ?
                         <div>
-                            <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
+                            <img src={require('../../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <div className="empty-text">没有数据</div>
                         </div>
                         :
@@ -126,6 +126,9 @@ class MemberLevel extends Component {
                 <div style={{height: '200px'}}></div>
                 <div className="footer">
                     <div className="footer-buttom" onClick={this.handleSubmit.bind(this)}>提交</div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

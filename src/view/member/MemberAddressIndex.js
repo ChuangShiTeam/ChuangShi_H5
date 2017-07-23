@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
+import {ActivityIndicator, WhiteSpace, List, Checkbox} from 'antd-mobile';
 
-import {WhiteSpace, List, Checkbox} from 'antd-mobile';
-
-import storage from '../util/storage';
-import http from '../util/http';
+import storage from '../../util/storage';
+import http from '../../util/http';
 
 class MemberAddressIndex extends Component {
     constructor(props) {
@@ -152,7 +151,7 @@ class MemberAddressIndex extends Component {
                 {
                     this.state.is_load && this.state.list.length === 0 ?
                         <div>
-                            <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
+                            <img src={require('../../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <div className="empty-text">没有数据</div>
                         </div>
                         :
@@ -164,6 +163,9 @@ class MemberAddressIndex extends Component {
                     <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>
                         新建收货地址
                     </div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

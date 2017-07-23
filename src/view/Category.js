@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {Toast} from 'antd-mobile';
+import {ActivityIndicator} from 'antd-mobile';
 
 import constant from '../util/constant';
 import http from '../util/http';
@@ -57,8 +57,6 @@ class Category extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/product/all/list',
             data: {},
@@ -83,12 +81,13 @@ class Category extends Component {
                 this.setState({
                     category_id: category_id
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
-                this.setState({
-                    is_load: true
+                this.props.dispatch({
+                    type: 'category/fetch',
+                    data: {
+                        is_load: true
+                    }
                 });
             }.bind(this)
         });
@@ -129,7 +128,7 @@ class Category extends Component {
                     {
                         this.props.category.category_list.map((item) => {
                             return (
-                                <div key={item.category_id} className={item.category_id == this.state.category_id ? 'category-left-item category-left-item-active' : 'category-left-item'} onClick={this.handleCategory.bind(this, item.category_id)}>{item.category_name}</div>
+                                <div key={item.category_id} className={item.category_id === this.state.category_id ? 'category-left-item category-left-item-active' : 'category-left-item'} onClick={this.handleCategory.bind(this, item.category_id)}>{item.category_name}</div>
                             );
                         })
                     }
@@ -168,6 +167,9 @@ class Category extends Component {
                         })
                     }
                     <div style={{ float: 'left', width: '100%', height: '15px' }} />
+                </div>
+                <div className={'loading-mask ' + (this.props.category.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );

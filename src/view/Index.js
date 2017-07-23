@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {Carousel, Toast} from 'antd-mobile';
+import {ActivityIndicator, Carousel} from 'antd-mobile';
 
 import constant from '../util/constant';
 import http from '../util/http';
@@ -11,7 +11,6 @@ class Index extends Component {
         super(props);
 
         this.state = {
-            is_load: false,
             carousel_list: ['00', '01', '02', '03']
         }
     }
@@ -51,10 +50,6 @@ class Index extends Component {
     }
 
     handleLoad() {
-        if (this.props.index.product_list.length === 0) {
-            Toast.loading('加载中..', 0);
-        }
-
         http.request({
             url: '/product/all/list',
             data: {},
@@ -65,12 +60,13 @@ class Index extends Component {
                         product_list: data
                     }
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
-                this.setState({
-                    is_load: true
+                this.props.dispatch({
+                    type: 'index/fetch',
+                    data: {
+                        is_load: true
+                    }
                 });
             }.bind(this)
         });
@@ -158,6 +154,9 @@ class Index extends Component {
                     })
                 }
                 <div style={{float: 'left', width: '100%', height: '115px'}}/>
+                <div className={'loading-mask ' + (this.props.index.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
         );
     }

@@ -3,17 +3,18 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from 'rc-form';
 
-import {WhiteSpace, List, TextareaItem, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, TextareaItem, Toast} from 'antd-mobile';
 
-import constant from '../util/constant';
-import storage from '../util/storage';
-import http from '../util/http';
+import constant from '../../util/constant';
+import storage from '../../util/storage';
+import http from '../../util/http';
 
 class TradeDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            is_load: false,
             trade_number: '',
             trade_receiver_name: '',
             trade_receiver_mobile: '',
@@ -47,8 +48,6 @@ class TradeDetail extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/trade/find',
             data: {
@@ -74,12 +73,12 @@ class TradeDetail extends Component {
                     trade_product_sku_list: data.trade_product_sku_list,
                     express_trade_id_list: data.express_trade_id_list
                 });
-
-                Toast.hide();
             }.bind(this),
-            complete() {
-
-            }
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
         });
     }
 
@@ -280,6 +279,9 @@ class TradeDetail extends Component {
                     :
                     ""
                 }
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
 
         );

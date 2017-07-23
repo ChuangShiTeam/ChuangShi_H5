@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
 
-import http from '../util/http';
+import http from '../../util/http';
 
 const Item = List.Item;
 
@@ -12,21 +12,21 @@ class TeamIndex extends Component {
         super(props);
 
         this.state = {
-            is_load: false
+            is_load: this.props.team_index.is_load
         }
     }
 
     componentDidMount() {
         document.title = '我的代理';
 
-        document.body.scrollTop = this.props.team.scroll_top;
+        document.body.scrollTop = this.props.team_index.scroll_top;
 
         this.handleLoad();
     }
 
     componentWillUnmount() {
         this.props.dispatch({
-            type: 'team/fetch',
+            type: 'team_index/fetch',
             data: {
                 scroll_top: document.body.scrollTop
             },
@@ -34,33 +34,30 @@ class TeamIndex extends Component {
     }
 
     handleLoad() {
-        if (this.props.team.list.length === 0) {
-            Toast.loading('加载中..', 0);
-        }
-
         http.request({
             url: '/member/team/list',
             data: {},
             success: function (data) {
                 this.props.dispatch({
-                    type: 'team/fetch',
+                    type: 'team_index/fetch',
                     data: {
                         list: data
                     }
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
-                this.setState({
-                    is_load: true
+                this.props.dispatch({
+                    type: 'team_index/fetch',
+                    data: {
+                        is_load: true
+                    }
                 });
             }.bind(this)
         });
     }
 
     handleButton(member_id) {
-        let list = this.props.team.list;
+        let list = this.props.team_index.list;
 
         this.handleCheck(list, member_id);
 
@@ -161,19 +158,19 @@ class TeamIndex extends Component {
             <div>
                 <WhiteSpace size="lg"/>
                 {
-                    this.props.team.list.length > 0 ?
+                    this.props.team_index.list.length > 0 ?
                         <List>
                             {
-                                this.handleGenerate(this.props.team.list, 0)
+                                this.handleGenerate(this.props.team_index.list, 0)
                             }
                         </List>
                         :
                         ''
                 }
                 {
-                    this.state.is_load && this.props.team.list.length === 0 ?
+                    this.props.team_index.is_load && this.props.team_index.list.length === 0 ?
                         <div>
-                            <img src={require('../assets/svg/empty.svg')} className="empty-image" alt=""/>
+                            <img src={require('../../assets/svg/empty.svg')} className="empty-image" alt=""/>
                             <div className="empty-text">没有数据</div>
                         </div>
                         :
@@ -181,9 +178,17 @@ class TeamIndex extends Component {
                 }
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
+                {
+                    this.state.is_load ?
+                        ''
+                        :
+                        <div className={'loading-mask ' + (this.props.team_index.is_load ? 'loading-mask-hide' : '')}>
+                            <div className="loading"><ActivityIndicator/></div>
+                        </div>
+                }
             </div>
         );
     }
 }
 
-export default connect(({team}) => ({team}))(TeamIndex);
+export default connect(({team_index}) => ({team_index}))(TeamIndex);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Steps, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Steps} from 'antd-mobile';
 
 import constant from "../util/constant";
 import http from "../util/http";
@@ -11,6 +11,7 @@ class ExpressIndex extends Component {
         super(props);
 
         this.state = {
+            is_load: false,
             express: {},
             express_traces_list: []
         }
@@ -29,8 +30,6 @@ class ExpressIndex extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/express/find',
             data: {
@@ -52,12 +51,12 @@ class ExpressIndex extends Component {
                         express_traces_list: temp
                     });
                 }
-
-                Toast.hide();
             }.bind(this),
-            complete() {
-
-            }
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
         });
     }
 
@@ -116,6 +115,9 @@ class ExpressIndex extends Component {
                         </Item>
                     </List>}
                 <WhiteSpace size="lg"/>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
         );
     }

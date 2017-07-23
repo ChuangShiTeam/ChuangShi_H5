@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {WhiteSpace, List, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
 
-import http from '../util/http';
+import http from '../../util/http';
 
 class MemberIndex extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            is_load: false,
             user_name: '',
             user_avatar: '',
             member_level_name: '',
@@ -31,8 +32,6 @@ class MemberIndex extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/member/team/find',
             data: {
@@ -46,8 +45,6 @@ class MemberIndex extends Component {
                     member_status: data.member_status,
                     is_children: data.is_children
                 });
-
-                Toast.hide();
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -134,6 +131,9 @@ class MemberIndex extends Component {
                         :
                         ''
                 }
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
+                </div>
             </div>
         );
     }

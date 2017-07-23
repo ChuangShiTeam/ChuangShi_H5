@@ -3,11 +3,11 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from 'rc-form';
 
-import {WhiteSpace, List, TextareaItem, Modal, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast} from 'antd-mobile';
 
-import constant from '../util/constant';
-import storage from '../util/storage';
-import http from '../util/http';
+import constant from '../../util/constant';
+import storage from '../../util/storage';
+import http from '../../util/http';
 
 const alert = Modal.alert;
 
@@ -16,6 +16,7 @@ class TradeCheck extends Component {
         super(props);
 
         this.state = {
+            is_load: false,
             is_pay: false,
             is_address: false,
             member_address: {},
@@ -39,8 +40,6 @@ class TradeCheck extends Component {
     }
 
     handleLoad() {
-        Toast.loading('加载中..', 0);
-
         http.request({
             url: '/trade/check',
             data: {
@@ -101,12 +100,12 @@ class TradeCheck extends Component {
                     trade_express_amount: trade_express_amount,
                     trade_amount: trade_amount
                 });
-
-                Toast.hide();
             }.bind(this),
-            complete() {
-
-            },
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
         });
     }
 
@@ -281,6 +280,9 @@ class TradeCheck extends Component {
                         className="footer-buy" style={{backgroundColor: this.state.is_pay ? '#1AAD19' : '#dddddd'}}
                         onClick={this.handlePay.bind(this)}>立刻支付
                     </div>
+                </div>
+                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                    <div className="loading"><ActivityIndicator/></div>
                 </div>
             </div>
         );
