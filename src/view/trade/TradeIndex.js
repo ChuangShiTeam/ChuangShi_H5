@@ -180,8 +180,7 @@ class TradeIndex extends Component {
                                         </span>
                                     </Item>
                                     {(trade.trade_flow === "WAIT_PAY") ?
-                                        <Item onClick={this.handleEdit.bind(this, trade.trade_id)}
-                                              extra={
+                                        <Item extra={
                                                   <div>
                                                       {
                                                           trade.trade_flow === "WAIT_PAY" ?
