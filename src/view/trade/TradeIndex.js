@@ -122,7 +122,7 @@ class TradeIndex extends Component {
 
     handleEdit(trade_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: 'trade/edit/' + trade_id,
+            pathname: '/trade/edit/' + trade_id,
             query: {}
         }));
         storage.setTradeFlow(this.state.trade_flow);

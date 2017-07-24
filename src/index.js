@@ -1,5 +1,7 @@
 import dva from 'dva';
 import Router from './router';
+import {useRouterHistory} from 'dva/router';
+import {createHashHistory} from 'history';
 import FastClick from 'fastclick';
 
 import './view/Style.css';
@@ -20,7 +22,9 @@ if (result) {
 
     FastClick.attach(document.body);
 
-    const app = dva();
+    const app = dva({
+        history: useRouterHistory(createHashHistory)({queryKey: false}),
+    });
 
     app.model(index);
     app.model(category);

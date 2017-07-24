@@ -6,7 +6,7 @@ export default {
     platform: 'H5',
     version: '9.9.8',
     // name: '星销',
-    // h5Host: 'http://h5.xingxiao.nowui.com/#/',
+    // h5Host: 'http://h5.xingxiao.nowui.com/?#/',
     // app_id: 'c1af3f1ae00e4e0da9b20f5bd41b4279',
     // wechat_app_id: 'wx26c8db6f1987e4e0',
     // index: 'team',
@@ -40,10 +40,10 @@ export default {
     //     selected_icon: 'my_active.svg'
     // }],
     name: '济颐馆',
-    h5Host: 'http://h5.jiyiguan.nowui.com/#/',
+    h5Host: 'http://h5.jiyiguan.nowui.com/?#/',
     app_id: 'df2078d6c9eb46babb0df957127273ab',
     wechat_app_id: 'wx934f793803320ecd',
-    index: 'index/',
+    index: 'index',
     menu: [{
         key: 'index',
         title: '首页',
