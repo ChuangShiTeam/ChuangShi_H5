@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Tabs, Button, Toast} from 'antd-mobile';
-
-import constant from '../../util/constant';
-import storage from '../../util/storage';
-import http from '../../util/http';
+import React, {Component} from "react";
+import {connect} from "dva";
+import {routerRedux} from "dva/router";
+import {ActivityIndicator, WhiteSpace, List, Tabs, Button, Toast} from "antd-mobile";
+import constant from "../../util/constant";
+import storage from "../../util/storage";
+import http from "../../util/http";
 
 class TradeIndex extends Component {
     constructor(props) {
@@ -13,7 +12,7 @@ class TradeIndex extends Component {
 
         this.state = {
             is_load: false,
-            trade_flow: this.props.params.trade_flow,
+            trade_flow: 'ALL',
             trade_list: [],
             list: []
         }
@@ -38,8 +37,14 @@ class TradeIndex extends Component {
             success: function (data) {
                 var trade_list = [];
 
+                if (storage.getTradeFlow() !== null && storage.getTradeFlow() !== '') {
+                    this.setState({
+                        trade_flow: storage.getTradeFlow()
+                    });
+                }
+
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].trade_flow === this.props.params.trade_flow || this.props.params.trade_flow === 'ALL') {
+                    if (data[i].trade_flow === this.state.trade_flow || this.state.trade_flow === 'ALL') {
                         trade_list.push(data[i]);
                     }
                 }
@@ -65,7 +70,7 @@ class TradeIndex extends Component {
                 trade_list.push(this.state.list[i]);
             }
         }
-
+        storage.setTradeFlow(trade_flow);
         this.setState({
             trade_flow: trade_flow,
             trade_list: trade_list
@@ -96,6 +101,7 @@ class TradeIndex extends Component {
                                 pathname: '/trade/confirm/' + data.trade_id,
                                 query: {}
                             }));
+                            storage.setTradeFlow(this.state.trade_flow);
                         } else {
                             //支付失败
                         }
@@ -119,6 +125,7 @@ class TradeIndex extends Component {
             pathname: 'trade/edit/' + trade_id,
             query: {}
         }));
+        storage.setTradeFlow(this.state.trade_flow);
     }
 
     render() {

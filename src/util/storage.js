@@ -4,6 +4,7 @@ const open_id_key = ('open_id_' + constant.version);
 const token_key = ('token_' + constant.version);
 const product_sku_list_key = ('product_sku_list_' + constant.version);
 const member_address_key = ('member_address_' + constant.version);
+const trade_flow_key = ('trade_flow_' + constant.version);
 
 function getOpenId() {
     if (constant.is_test) {
@@ -87,6 +88,18 @@ function removeMemberAddress() {
     localStorage.removeItem(member_address_key);
 }
 
+function getTradeFlow() {
+    return JSON.parse(localStorage.getItem(trade_flow_key));
+}
+
+function setTradeFlow(trade_flow) {
+    localStorage.setItem(trade_flow_key, JSON.stringify(trade_flow));
+}
+
+function removeTradeFlow() {
+    localStorage.removeItem(trade_flow_key);
+}
+
 export default {
     getOpenId: getOpenId,
     setOpenId: setOpenId,
@@ -97,5 +110,8 @@ export default {
     removeProductSkuList: removeProductSkuList,
     getMemberAddress: getMemberAddress,
     setMemberAddress: setMemberAddress,
-    removeMemberAddress: removeMemberAddress
+    removeMemberAddress: removeMemberAddress,
+    getTradeFlow: getTradeFlow,
+    setTradeFlow: setTradeFlow,
+    removeTradeFlow: removeTradeFlow
 };

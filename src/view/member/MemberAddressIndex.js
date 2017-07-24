@@ -124,19 +124,22 @@ class MemberAddressIndex extends Component {
                                                 key={item.member_address_id}
                                                 multipleLine
                                                 checked={this.state.member_address_id === item.member_address_id}
-                                                onChange={this.handleChange.bind(this, item)}>
-                                                <span onClick={this.handleEdit.bind(this, item.member_address_id)}>
-                                                    {item.member_address_name} {item.member_address_mobile}
-                                                    <Brief>
-                                                        {item.member_address_province
-                                                        + item.member_address_city
-                                                        + item.member_address_area
-                                                        + item.member_address_address}
-                                                    </Brief>
-                                                    <Brief className="orange-color">
-                                                        {item.address_is_default ? "默认地址" : ""}
-                                                    </Brief>
-                                                </span>
+                                                onChange={this.handleChange.bind(this, item)}
+                                                extra={
+                                                        <div onClick={this.handleEdit.bind(this, item.member_address_id)}>
+                                                            编辑
+                                                        </div>}
+                                            >
+                                                {item.member_address_name} {item.member_address_mobile}
+                                                <Brief>
+                                                    {item.member_address_province
+                                                    + item.member_address_city
+                                                    + item.member_address_area
+                                                    + item.member_address_address}
+                                                </Brief>
+                                                <div className="orange-color">
+                                                    {item.address_is_default ? "默认地址" : ""}
+                                                </div>
                                             </CheckboxItem>
                                     );
                                 })

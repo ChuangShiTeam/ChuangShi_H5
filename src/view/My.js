@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Badge} from 'antd-mobile';
-
-import http from '../util/http';
+import React, {Component} from "react";
+import {connect} from "dva";
+import {routerRedux} from "dva/router";
+import {ActivityIndicator, WhiteSpace, List, Badge} from "antd-mobile";
+import http from "../util/http";
+import storage from "../util/storage";
 
 class My extends Component {
     constructor(props) {
@@ -52,6 +52,7 @@ class My extends Component {
             pathname: '/trade/index/' + trade_flow,
             query: {}
         }));
+        storage.setTradeFlow(trade_flow);
     }
 
     handleTeam() {

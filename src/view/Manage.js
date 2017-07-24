@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Badge} from 'antd-mobile';
-
-import http from '../util/http';
+import React, {Component} from "react";
+import {connect} from "dva";
+import {routerRedux} from "dva/router";
+import {ActivityIndicator, WhiteSpace, List, Badge} from "antd-mobile";
+import http from "../util/http";
+import storage from "../util/storage";
 
 class Manage extends Component {
     constructor(props) {
@@ -20,6 +20,8 @@ class Manage extends Component {
         document.body.scrollTop = 0;
 
         this.handleLoad();
+        
+        storage.removeTradeFlow();
     }
 
     componentWillUnmount() {
