@@ -56,9 +56,9 @@ class Manage extends Component {
         }));
     }
 
-    handleStock() {
+    handleDeliveryOrder() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/stock/index',
+            pathname: '/delivery/order/index',
             query: {}
         }));
     }
@@ -124,7 +124,7 @@ class Manage extends Component {
                             </Badge>
                             <div className="manage-item-text">订单管理</div>
                         </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleStock.bind(this)}>
+                        <div className="manage-item manage-item-left" onClick={this.handleDeliveryOrder.bind(this)}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>

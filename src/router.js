@@ -12,13 +12,13 @@ import Manage from './view/Manage';
 import Category from './view/Category';
 import MemberIndex from './view/member/MemberIndex';
 import MemberTradeIndex from './view/member/MemberTradeIndex';
-import MemberStockIndex from './view/member/MemberStockIndex';
+import MemberStockIndex from './view/member/MemberDeliveryOrderIndex';
 import MemberBillIndex from './view/member/MemberBillIndex';
 import MemberLevel from './view/member/MemberLevel';
 import MemberAddressIndex from './view/member/MemberAddressIndex';
 import MemberAddressDetail from './view/member/MemberAddressDetail';
-import StockIndex from './view/stock/StockIndex';
-import StockDetail from './view/stock/StockDetail';
+import DeliveryOrderIndex from './view/delivery_order/DeliveryOrderIndex';
+import DeliveryOrderDetail from './view/delivery_order/DeliveryOrderDetail';
 import TradeCheck from './view/trade/TradeCheck';
 import TradeIndex from './view/trade/TradeIndex';
 import TradeDetail from './view/trade/TradeDetail';
@@ -59,9 +59,9 @@ function RouterConfig({history}) {
                 <Route path="member/address/index/:type" component={MemberAddressIndex}/>
                 <Route path="member/address/add" component={MemberAddressDetail}/>
                 <Route path="member/address/edit/:member_address_id" component={MemberAddressDetail}/>
-                <Route path="stock/index" component={StockIndex}/>
-                <Route path="stock/add" component={StockDetail}/>
-                <Route path="stock/edit/:stock_id" component={StockDetail}/>
+                <Route path="delivery/order/index" component={DeliveryOrderIndex}/>
+                <Route path="delivery/order/add" component={DeliveryOrderDetail}/>
+                <Route path="delivery/order/edit/:delivery_order_id" component={DeliveryOrderDetail}/>
                 <Route path="trade/check" component={TradeCheck}/>
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="trade/edit/:trade_id" component={TradeDetail}/>

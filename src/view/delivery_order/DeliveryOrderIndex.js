@@ -6,13 +6,13 @@ import {ActivityIndicator, WhiteSpace, List, Flex} from 'antd-mobile';
 import http from '../../util/http';
 import constant from '../../util/constant';
 
-class StockIndex extends Component {
+class DeliveryOrderIndex extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             is_load: false,
-            stock_list: [],
+            delivery_order_list: [],
             stock_quantity: 0
         }
     }
@@ -39,7 +39,7 @@ class StockIndex extends Component {
             success: function (data) {
 
                 this.setState({
-                    stock_list: data.stock_list,
+                    delivery_order_list: data.delivery_order_list,
                     stock_quantity: data.stock_quantity
                 });
             }.bind(this),
@@ -53,14 +53,14 @@ class StockIndex extends Component {
 
     handleAdd() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/stock/add',
+            pathname: '/delivery/order/add',
             query: {},
         }));
     }
 
-    handleEdit(stock_id) {
+    handleEdit(delivery_order_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/stock/edit/' + stock_id,
+            pathname: '/delivery/order/edit/' + delivery_order_id,
             query: {},
         }));
     }
@@ -81,21 +81,21 @@ class StockIndex extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 {
-                    this.state.stock_list.map((item) => {
+                    this.state.delivery_order_list.map((item) => {
                         return (
-                            <div key={item.stock_id}>
+                            <div key={item.delivery_order_id}>
                                 <List>
                                     <Item
                                         multipleLine
                                         arrow="horizontal"
                                         className="item-long-text"
-                                        onClick={this.handleEdit.bind(this, item.stock_id)}
+                                        onClick={this.handleEdit.bind(this, item.delivery_order_id)}
                                     >
                                         <div className="stock-express">
                                             快递单号：{item.express_shipper_code === null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
-                                        {/*<div className="stock-express">收货人：{item.stock_receiver_name} {item.stock_receiver_mobile}</div>*/}
+                                        {/*<div className="stock-express">收货人：{item.delivery_order_receiver_name} {item.delivery_order_receiver_mobile}</div>*/}
                                         <div className="stock-express text-ellipsis">
-                                            收货人：{item.stock_receiver_name} {item.stock_receiver_mobile} {item.stock_receiver_province + item.stock_receiver_city + item.stock_receiver_area + item.stock_receiver_address}
+                                            收货人：{item.delivery_order_receiver_name} {item.delivery_order_receiver_mobile} {item.delivery_order_receiver_province + item.delivery_order_receiver_city + item.delivery_order_receiver_area + item.delivery_order_receiver_address}
                                         </div>
                                         <Flex justify="center" className="item-flow-text">
                                             <Flex.Item>
@@ -119,10 +119,10 @@ class StockIndex extends Component {
                                             </Flex.Item>
                                             <Flex.Item>
                                                 <div className="item-flow-province">
-                                                    {item.stock_receiver_province}
+                                                    {item.delivery_order_receiver_province}
                                                 </div>
                                                 <div className="item-flow-name">
-                                                    {item.stock_receiver_name}
+                                                    {item.delivery_order_receiver_name}
                                                 </div>
                                             </Flex.Item>
                                         </Flex>
@@ -145,4 +145,4 @@ class StockIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(StockIndex);
+export default connect(() => ({}))(DeliveryOrderIndex);

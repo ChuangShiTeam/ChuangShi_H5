@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {ActivityIndicator} from 'antd-mobile';
 
-class MemberStockIndex extends Component {
+class MemberDeliveryOrderIndex extends Component {
     constructor(props) {
         super(props);
 
@@ -40,4 +40,4 @@ class MemberStockIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(MemberStockIndex);
+export default connect(() => ({}))(MemberDeliveryOrderIndex);

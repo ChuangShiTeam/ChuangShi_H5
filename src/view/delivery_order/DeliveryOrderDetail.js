@@ -9,7 +9,7 @@ import validate from "../../util/validate";
 import http from "../../util/http";
 import storage from '../../util/storage';
 
-class StockDetail extends Component {
+class DeliveryOrderDetail extends Component {
     constructor(props) {
         super(props);
 
@@ -17,7 +17,7 @@ class StockDetail extends Component {
             is_load: false,
             action: 'save',
             product_sku_id: '',
-            stock: {},
+            delivery_order: {},
             member_address: {},
             express_traces: []
         }
@@ -32,7 +32,7 @@ class StockDetail extends Component {
             this.setState({
                 action: 'update'
             });
-            this.handleLoadStock();
+            this.handleLoadDeliveryOrder();
         } else {
             this.setState({
                 is_load: true
@@ -46,15 +46,15 @@ class StockDetail extends Component {
 
     }
 
-    handleLoadStock() {
+    handleLoadDeliveryOrder() {
         http.request({
-            url: '/member/stock/find',
+            url: '/delivery/order/find',
             data: {
-                stock_id: this.props.params.stock_id
+                delivery_order_id: this.props.params.delivery_order_id
             },
             success: function (data) {
                 this.setState({
-                    stock: data
+                    delivery_order: data
                 });
 
                 if (data.express_traces !== null) {
@@ -113,27 +113,27 @@ class StockDetail extends Component {
                     return;
                 }
 
-                values.stock_receiver_name = this.state.member_address.member_address_name;
-                values.stock_receiver_mobile = this.state.member_address.member_address_mobile;
-                values.stock_receiver_province = this.state.member_address.member_address_province;
-                values.stock_receiver_city = this.state.member_address.member_address_city;
-                values.stock_receiver_area = this.state.member_address.member_address_area;
-                values.stock_receiver_address = this.state.member_address.member_address_address;
+                values.delivery_order_receiver_name = this.state.member_address.member_address_name;
+                values.delivery_order_receiver_mobile = this.state.member_address.member_address_mobile;
+                values.delivery_order_receiver_province = this.state.member_address.member_address_province;
+                values.delivery_order_receiver_city = this.state.member_address.member_address_city;
+                values.delivery_order_receiver_area = this.state.member_address.member_address_area;
+                values.delivery_order_receiver_address = this.state.member_address.member_address_address;
 
-                var stock_product_sku_list = [];
+                var delivery_order_product_sku_list = [];
                 var map = {};
                 map.product_sku_quantity = values.product_sku_quantity;
                 map.product_sku_id = this.state.product_sku_id;
-                stock_product_sku_list.push(map);
-                values.stock_product_sku_list = stock_product_sku_list;
+                delivery_order_product_sku_list.push(map);
+                values.delivery_order_product_sku_list = delivery_order_product_sku_list;
                 delete values.product_sku_quantity;
 
-                values.stock_express_pay_way = values.stock_express_pay_way[0];
+                values.delivery_order_express_pay_way = values.delivery_order_express_pay_way[0];
 
                 Toast.loading('加载中..', 0);
 
                 if (this.props.route.path.indexOf('/edit/') > -1) {
-                    values.stock_id = this.props.params.stock_id;
+                    values.delivery_order_id = this.props.params.delivery_order_id;
                 }
 
                 http.request({
@@ -216,7 +216,7 @@ class StockDetail extends Component {
                                     label: '自己付',
                                     value: '自己付',
                                 },
-                            ]} {...getFieldProps('stock_express_pay_way', {
+                            ]} {...getFieldProps('delivery_order_express_pay_way', {
                             initialValue: [],
                         })}
                         >
@@ -236,33 +236,33 @@ class StockDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.express_flow === null ? "暂无物流信息" : this.state.stock.express_flow}>
+                        <Item extra={this.state.delivery_order.express_flow === null ? "暂无物流信息" : this.state.delivery_order.express_flow}>
                             物流状态
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.stock_quantity}>
+                        <Item extra={this.state.delivery_order.delivery_order_total_quantity}>
                             爆水丸数量
                         </Item>
-                        <Item extra={this.state.stock.stock_express_pay_way}>
+                        <Item extra={this.state.delivery_order.delivery_order_express_pay_way}>
                             支付方式
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.stock.stock_receiver_name}>
+                        <Item extra={this.state.delivery_order.delivery_order_receiver_name}>
                             收货人
                         </Item>
-                        <Item extra={this.state.stock.stock_receiver_mobile}>
+                        <Item extra={this.state.delivery_order.delivery_order_receiver_mobile}>
                             手机号码
                         </Item>
                         <Item multipleLine="true"
                               wrap="true"
-                              extra={this.state.stock.stock_receiver_province
-                              + this.state.stock.stock_receiver_city
-                              + this.state.stock.stock_receiver_area
-                              + this.state.stock.stock_receiver_address}>
+                              extra={this.state.delivery_order.delivery_order_receiver_province
+                              + this.state.delivery_order.delivery_order_receiver_city
+                              + this.state.delivery_order.delivery_order_receiver_area
+                              + this.state.delivery_order.delivery_order_receiver_address}>
                             详细地址
                         </Item>
                     </List>
@@ -301,6 +301,6 @@ class StockDetail extends Component {
     }
 }
 
-StockDetail = createForm()(StockDetail);
+DeliveryOrderDetail = createForm()(DeliveryOrderDetail);
 
-export default connect(() => ({}))(StockDetail);
+export default connect(() => ({}))(DeliveryOrderDetail);
