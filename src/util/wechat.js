@@ -1,6 +1,6 @@
-import constant from './constant';
-import http from './http';
-import storage from './storage';
+import constant from "./constant";
+import http from "./http";
+import storage from "./storage";
 
 function getQueryString(name) {
     let url = document.location.href;
@@ -31,9 +31,7 @@ function auth() {
     http.request({
         // url: '/wechat/config?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/index',
         url: '/wechat/config?app_id=' + constant.app_id + '&url=' + document.location.href,
-        data: {
-
-        },
+        data: {},
         success: function (data) {
             window.wx.config({
                 debug: false,
