@@ -62,7 +62,7 @@ class TeamIndex extends Component {
         this.handleCheck(list, member_id);
 
         this.props.dispatch({
-            type: 'team/fetch',
+            type: 'team_index/fetch',
             data: {
                 list: list
             }
