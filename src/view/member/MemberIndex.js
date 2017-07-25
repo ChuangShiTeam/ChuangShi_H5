@@ -61,9 +61,9 @@ class MemberIndex extends Component {
         }));
     }
 
-    handleMemberStock() {
+    handleMemberDeliveryOrder() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/stock/index/' + this.props.params.member_id,
+            pathname: '/member/delivery/order/index/' + this.props.params.member_id,
             query: {}
         }));
     }
@@ -113,7 +113,7 @@ class MemberIndex extends Component {
                     <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
                         TA的订单
                     </Item>
-                    {/*<Item arrow="horizontal" onClick={this.handleMemberStock.bind(this)}>*/}
+                    {/*<Item arrow="horizontal" onClick={this.handleMemberDeliveryOrder.bind(this)}>*/}
                         {/*TA的发货单*/}
                     {/*</Item>*/}
                     {/*<Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>*/}
