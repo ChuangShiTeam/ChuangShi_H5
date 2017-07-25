@@ -168,10 +168,16 @@ class TradeDetail extends Component {
                                                             wrap className="item-long-text"
                                                             onClick={this.handleTraces.bind(this, item.express_id)}>
                                                             <div className="green-color">
-                                                                [{item.express_flow}]{item.express_traces.AcceptStation}
-                                                                <Brief>
+                                                                {item.express_flow === '无轨迹' ?
+                                                                    <div>[{item.express_flow}]</div>
+                                                                    :
+                                                                    <div>
+                                                                    [{item.express_flow}]{item.express_traces.AcceptStation}
+                                                                    <Brief>
                                                                     {item.express_traces.AcceptTime}
-                                                                </Brief>
+                                                                    </Brief>
+                                                                    </div>
+                                                                }
                                                             </div>
                                                         </Item>
                                                     );
@@ -214,10 +220,12 @@ class TradeDetail extends Component {
                                                 key={index}
                                                 extra={'￥' + (item.product_sku_amount).toFixed(2)}
                                             >
-                                                <img className="product-list-image" src={constant.host + item.product_image} alt=""/>
+                                                <img className="product-list-image"
+                                                     src={constant.host + item.product_image} alt=""/>
                                                 <div className="product-list-text">
                                                     {item.product_name}
-                                                    <div>{(item.product_sku_amount / item.product_sku_quantity).toFixed(2)} × {item.product_sku_quantity}</div>
+                                                    <div>{(item.product_sku_amount / item.product_sku_quantity).toFixed(2)}
+                                                        × {item.product_sku_quantity}</div>
                                                 </div>
                                             </Item>
                                         );
