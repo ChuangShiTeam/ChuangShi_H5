@@ -115,9 +115,9 @@ class MemberAddressIndex extends Component {
                                                     + item.member_address_area
                                                     + item.member_address_address}
                                                 </Brief>
-                                                <Brief className="orange-color">
+                                                <div className="orange-color">
                                                     {item.address_is_default ? "默认地址" : ""}
-                                                </Brief>
+                                                </div>
                                             </Item>
                                             :
                                             <CheckboxItem
