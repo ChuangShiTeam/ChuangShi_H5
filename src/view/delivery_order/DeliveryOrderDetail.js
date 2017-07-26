@@ -19,7 +19,7 @@ class DeliveryOrderDetail extends Component {
             product_sku_id: '',
             delivery_order: {},
             member_address: {},
-            express_traces: []
+            express_list: []
         }
     }
 
@@ -54,20 +54,9 @@ class DeliveryOrderDetail extends Component {
             },
             success: function (data) {
                 this.setState({
-                    delivery_order: data
+                    delivery_order: data.delivery_order,
+                    express_list: data.express_list
                 });
-
-                if (data.express_traces !== null) {
-                    var express_traces = data.express_traces;
-                    var temp = [];
-                    for (let i = 0; i < express_traces.length; i++) {
-                        temp.push(express_traces[express_traces.length - 1 - i]);
-                    }
-
-                    this.setState({
-                        express_traces: temp
-                    });
-                }
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -165,6 +154,13 @@ class DeliveryOrderDetail extends Component {
         }));
     }
 
+    handleTraces(express_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/express/index/' + express_id,
+            query: {}
+        }));
+    }
+
     render() {
         const Item = List.Item;
         const Step = Steps.Step;
@@ -236,8 +232,13 @@ class DeliveryOrderDetail extends Component {
                 <div>
                     <WhiteSpace size="lg"/>
                     <List>
-                        <Item extra={this.state.delivery_order.express_flow === null ? "暂无物流信息" : this.state.delivery_order.express_flow}>
-                            物流状态
+                        <Item extra={this.state.delivery_order.delivery_order_flow === null ? "暂无发货信息" : this.state.delivery_order.express_flow}>
+                            <div className="orange-color">
+                                发货状态： {
+                                this.state.delivery_order.delivery_order_flow === "WAIT_SEND" ? "待发货" :
+                                    this.state.delivery_order.delivery_order_flow === "WAIT_RECEIVE" ? "待收货" :
+                                        this.state.delivery_order.delivery_order_flow === "COMPLETE" ? "已完成" : ""}
+                            </div>
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
@@ -267,31 +268,51 @@ class DeliveryOrderDetail extends Component {
                         </Item>
                     </List>
                     <WhiteSpace size="lg"/>
-                    {this.state.express_traces.length === 0 ?
-                        ""
-                        :
-                        <List>
-                            <Item>
-                                <Steps>
-                                    {
-                                        this.state.express_traces.map((item, index) => {
-                                            return (
-                                                <Step
-                                                    key={index}
-                                                    icon={index === 0 ? "check-circle-o" : ""}
-                                                    title={
-                                                        <div className="traces-item-content">
-                                                            <div>{item.AcceptStation}</div>
-                                                            <div>{item.AcceptTime}</div>
-                                                        </div>
-                                                    }
-                                                />
-                                            );
-                                        })
+                    {
+                        this.state.delivery_order.delivery_order_flow === "WAIT_RECEIVE" || this.state.delivery_order.delivery_order_flow === "COMPLETE" ?
+                            this.state.express_list.length === 0 ?
+                                null
+                                :
+                                <div>
+                                    <WhiteSpace size="lg"/>
+                                    {this.state.express_list.length > 0 ?
+                                        <List>
+                                            {
+                                                this.state.express_list.map((item, index) => {
+                                                    return (
+                                                        <Item
+                                                            key={index}
+                                                            arrow="horizontal"
+                                                            wrap className="item-long-text"
+                                                            onClick={this.handleTraces.bind(this, item.express_id)}>
+                                                            <div className="green-color">
+                                                                {item.express_flow === '无轨迹' ?
+                                                                    <div>[{item.express_flow}]</div>
+                                                                    :
+                                                                    <div>
+                                                                        [{item.express_flow}]{item.express_traces[item.express_traces.length - 1].AcceptStation}
+                                                                        <Brief>
+                                                                            {item.express_traces[item.express_traces.length - 1].AcceptTime}
+                                                                        </Brief>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </Item>
+                                                    );
+                                                })
+                                            }
+                                        </List>
+                                        :
+                                        <List>
+                                            <Item>
+                                                <Brief>
+                                                    暂无物流信息
+                                                </Brief>
+                                            </Item>
+                                        </List>
                                     }
-                                </Steps>
-                            </Item>
-                        </List>}
+                                </div>:null
+                    }
                     <WhiteSpace size="lg"/>
                     <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                         <div className="loading"><ActivityIndicator/></div>

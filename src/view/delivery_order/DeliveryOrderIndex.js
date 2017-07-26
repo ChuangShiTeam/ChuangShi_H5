@@ -91,9 +91,6 @@ class DeliveryOrderIndex extends Component {
                                         className="item-long-text"
                                         onClick={this.handleEdit.bind(this, item.delivery_order_id)}
                                     >
-                                        <div className="stock-express">
-                                            快递单号：{item.express_shipper_code === null ? "暂无物流信息" : item.express_shipper_code} {item.express_no}</div>
-                                        {/*<div className="stock-express">收货人：{item.delivery_order_receiver_name} {item.delivery_order_receiver_mobile}</div>*/}
                                         <div className="stock-express text-ellipsis">
                                             收货人：{item.delivery_order_receiver_name} {item.delivery_order_receiver_mobile} {item.delivery_order_receiver_province + item.delivery_order_receiver_city + item.delivery_order_receiver_area + item.delivery_order_receiver_address}
                                         </div>
@@ -109,11 +106,10 @@ class DeliveryOrderIndex extends Component {
                                             <Flex.Item>
                                                 <div className="item-flow-status">
                                                     {
-                                                        item.express_flow === null ?
-                                                            "暂无"
-                                                            :
-                                                            item.express_flow
-
+                                                        item.delivery_order_flow === null ? "暂无" :
+                                                        item.delivery_order_flow === "WAIT_SEND" ? "待发货" :
+                                                        item.delivery_order_flow === "WAIT_RECEIVE" ? "待收货" :
+                                                        item.delivery_order_flow === "COMPLETE" ? "已完成" : ""
                                                     }
                                                 </div>
                                             </Flex.Item>
