@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from "rc-form";
-import {ActivityIndicator, WhiteSpace, List, InputItem, Picker, Steps, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, InputItem, Picker, Toast} from 'antd-mobile';
 
 import constant from "../../util/constant";
 import validate from "../../util/validate";
@@ -163,7 +163,6 @@ class DeliveryOrderDetail extends Component {
 
     render() {
         const Item = List.Item;
-        const Step = Steps.Step;
         const Brief = Item.Brief;
 
         const {getFieldProps, getFieldError} = this.props.form;
