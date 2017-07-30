@@ -72,7 +72,7 @@ class Manage extends Component {
 
     handleCertificate() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/certificate',
+            pathname: '/certificate/index',
             query: {}
         }));
     }

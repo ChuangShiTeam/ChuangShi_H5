@@ -25,7 +25,9 @@ import TradeDetail from './view/trade/TradeDetail';
 import TradeConfirm from './view/trade/TradeConfirm';
 import ExpressIndex from './view/ExpressIndex';
 import Qrcode from './view/Qrcode';
-import Certificate from './view/Certificate';
+import CertificateIndex from './view/certificate/CertificateIndex';
+import CertificateWechatAdd from './view/certificate/CertificateWechatAdd';
+import CertificateOtherAdd from './view/certificate/CertificateOtherAdd';
 
 import constant from './util/constant';
 
@@ -68,7 +70,9 @@ function RouterConfig({history}) {
                 <Route path="trade/confirm/:trade_id" component={TradeConfirm}/>
                 <Route path="express/index/:express_id" component={ExpressIndex}/>
                 <Route path="qrcode" component={Qrcode}/>
-                <Route path="certificate" component={Certificate}/>
+                <Route path="certificate/index" component={CertificateIndex}/>
+                <Route path="certificate/wechat/add" component={CertificateWechatAdd}/>
+                <Route path="certificate/other/add" component={CertificateOtherAdd}/>
                 <Route path="team/index" component={TeamIndex}/>
             </Route>
         </Router>
