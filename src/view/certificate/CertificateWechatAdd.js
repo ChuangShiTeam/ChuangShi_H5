@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "dva";
-import {createForm} from "rc-form";
-import {ActivityIndicator, WhiteSpace, List, InputItem, Item, Picker} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, InputItem} from "antd-mobile";
 
 class CertificateWechatAdd extends Component {
     constructor(props) {
@@ -27,8 +26,6 @@ class CertificateWechatAdd extends Component {
     }
 
     render() {
-        <WhiteSpace size="lg"/>
-        const Item = List.Item;
 
         return (
             <div>

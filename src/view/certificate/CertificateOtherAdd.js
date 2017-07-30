@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "dva";
-import {createForm} from "rc-form";
-import {ActivityIndicator, WhiteSpace, List, InputItem, Item, Picker} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, InputItem, Picker} from "antd-mobile";
 
 
 const seasons = [
@@ -57,7 +56,6 @@ class CertificateOtherAdd extends Component {
 
     render() {
         const Item = List.Item;
-        console.log(this.state);
 
         return (
             <div>
