@@ -70,19 +70,22 @@ class CertificateOtherAdd extends Component {
                 >
                     <Item arrow="horizontal" className="province-city-area">渠道:</Item>
                 </Picker>
-                <WhiteSpace size="lg"/>
                 {
                     this.state.is_channel?
-                    <List>
-                        <InputItem
-                            clear
-                            placeholder="请输入渠道名称"
-                        >渠道名:</InputItem>
-                        <InputItem
-                            clear
-                            placeholder="请输入渠道地址"
-                        >渠道地址:</InputItem>
-                    </List>:null
+                        <div>
+                            <WhiteSpace size="lg"/>
+                        <List>
+                            <InputItem
+                                clear
+                                placeholder="请输入渠道名称"
+                            >渠道名:</InputItem>
+                            <InputItem
+                                clear
+                                placeholder="请输入渠道地址"
+                            >渠道地址:</InputItem>
+                        </List>
+                        </div>:null
+
                 }
                 <WhiteSpace size="lg"/>
                 <List>
