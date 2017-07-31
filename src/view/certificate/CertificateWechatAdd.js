@@ -2,17 +2,15 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {createForm} from "rc-form";
 import {routerRedux} from "dva/router";
-import {ActivityIndicator, WhiteSpace, List, InputItem, Item, DatePicker, Toast} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, InputItem, DatePicker, Toast} from "antd-mobile";
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
-import constant from "../../util/constant";
-import validate from "../../util/validate";
 import http from "../../util/http";
 
 class CertificateWechatAdd extends Component {
     constructor(props) {
         super(props);
+
 
         this.state = {
             is_load: false
@@ -64,10 +62,9 @@ class CertificateWechatAdd extends Component {
     }
 
     render() {
-        const Item = List.Item;
         const {getFieldProps, getFieldError} = this.props.form;
-        const maxDate = moment('2016-12-03 +0800', 'YYYY-MM-DD Z').utcOffset(8);
-        const minDate = moment('2015-08-06 +0800', 'YYYY-MM-DD Z').utcOffset(8);
+        const maxDate = moment('2020-12-30 +0800', 'YYYY-MM-DD Z').utcOffset(8);
+        const minDate = moment('2010-01-01 +0800', 'YYYY-MM-DD Z').utcOffset(8);
 
         return (
             <div>
@@ -109,6 +106,18 @@ class CertificateWechatAdd extends Component {
                         clear
                         placeholder="请输入身份证"
                     >身份证:</InputItem>
+                    <InputItem
+                        {...getFieldProps('certificate_people_wx', {
+                            rules: [{
+                                required: true,
+                                message: '微信号',
+                            }],
+                            initialValue: '',
+                        })}
+                        error={!!getFieldError('certificate_people_wx')}
+                        clear
+                        placeholder="请输入微信号"
+                    >微信号:</InputItem>
                     <DatePicker
                         mode="date"
                         title="选择日期"

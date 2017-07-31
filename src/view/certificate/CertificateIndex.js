@@ -91,16 +91,17 @@ class CertificateIndex extends Component {
                     </Item>
                 </List>
 
-                <List style={{marginTop: '30px',marginBottom: '50px'}}>
+                <List style={{marginTop: '30px',marginBottom: '80px'}}>
                     {
                         this.state.certificateImageWXList.map((item, index) => {
                             return (
-                                <img style={{
-                                    width: '100%',
-                                    height: '1000px',
-                                    paddingBottom: '50px'
-                                }}
-                                     src={constant.host + item.file_original_path} alt=""/>
+                                <img key={index}
+                                     style={{
+                                        width: document.documentElement.clientWidth + 'px',
+                                        paddingBottom: '30px'
+                                     }}
+                                     src={constant.host + item.file_original_path} alt=""
+                                />
                             );
                         })
                     }
