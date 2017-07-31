@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Flex} from 'antd-mobile';
 import constant from "../../util/constant";
 import http from "../../util/http";
 
@@ -13,7 +13,8 @@ class CertificateIndex extends Component {
             is_load: false,
             certificate: {},
             certificateImageWXList: [],
-            certificateImageOtherList: []
+            certificateImageOtherList: [],
+            is_pay: false
         }
     }
 
@@ -75,23 +76,7 @@ class CertificateIndex extends Component {
 
         return (
             <div>
-                <WhiteSpace size="lg"/>
-                <List>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleWeChatAdd.bind(this)}
-                    >
-                        微信授权书
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleOtherAdd.bind(this)}
-                    >
-                        其它平台授权书
-                    </Item>
-                </List>
-
-                <List style={{marginTop: '30px',marginBottom: '80px'}}>
+                <List style={{marginBottom: '80px'}}>
                     {
                         this.state.certificateImageWXList.map((item, index) => {
                             return (
@@ -106,18 +91,27 @@ class CertificateIndex extends Component {
                         })
                     }
                 </List>
-
-
-                <div className="footer">
-                    <div
-                        style={{backgroundColor: '#1AAD19'}}
-                        className="footer-buttom"
-                        onClick={this.handlePlay.bind(this)}
-                    >
-                        去支付保证金
-                    </div>
-                </div>
-
+                {
+                    this.state.is_pay ?
+                        <div className="footer">
+                            <Flex>
+                                <Flex.Item style={{backgroundColor: '#1AAD19'}} className="footer-buttom"
+                                           onClick={this.handleWeChatAdd.bind(this)}>微信授权书</Flex.Item>
+                                <Flex.Item style={{backgroundColor: '#1AAD19'}} className="footer-buttom"
+                                           onClick={this.handleOtherAdd.bind(this)}>其它平台授权书</Flex.Item>
+                            </Flex>
+                        </div>
+                        :
+                        <div className="footer">
+                            <div
+                                style={{backgroundColor: '#1AAD19'}}
+                                className="footer-buttom"
+                                onClick={this.handlePlay.bind(this)}
+                            >
+                                去支付保证金
+                            </div>
+                        </div>
+                }
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>
