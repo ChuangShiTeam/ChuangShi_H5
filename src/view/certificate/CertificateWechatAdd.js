@@ -5,7 +5,10 @@ import {routerRedux} from "dva/router";
 import {ActivityIndicator, WhiteSpace, List, InputItem, DatePicker, Toast} from "antd-mobile";
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+
 import http from "../../util/http";
+import constant from "../../util/constant";
+import validate from "../../util/validate";
 
 class CertificateWechatAdd extends Component {
     constructor(props) {
@@ -35,14 +38,20 @@ class CertificateWechatAdd extends Component {
         this.props.form.validateFields((errors, values) => {
             if (!errors) {
 
-                Toast.loading('加载中..', 0);
+                if (!validate.isMobile(values.certificate_people_mobile)) {
+                    Toast.fail('手机号码格式不对', constant.duration);
+
+                    return;
+                }
 
                 values.certificate_start_date = values['certificate_start_date'].format('YYYY-MM-DD');
                 values.certificate_end_date = values['certificate_end_date'].format('YYYY-MM-DD');
                 values.certificate_type = '微信';
 
+                Toast.loading('加载中..', 0);
+
                 http.request({
-                    url: '/certificate/image/save',
+                    url: '/certificate/image/wx/save',
                     data: values,
                     success: function (data) {
                         Toast.hide();

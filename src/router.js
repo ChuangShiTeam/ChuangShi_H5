@@ -28,13 +28,14 @@ import Qrcode from './view/Qrcode';
 import CertificateIndex from './view/certificate/CertificateIndex';
 import CertificateWechatAdd from './view/certificate/CertificateWechatAdd';
 import CertificateOtherAdd from './view/certificate/CertificateOtherAdd';
+import CertificateConfirm from './view/certificate/CertificateConfirm';
 
 import constant from './util/constant';
 
 function RouterConfig({history}) {
 
     const handleEnter = function (next, replace, callback) {
-           callback();
+        callback();
     };
 
     return (
@@ -52,7 +53,7 @@ function RouterConfig({history}) {
                     <Route path="manage" component={Manage}/>
                 </Route>
                 <Route path="product/detail/:product_id" component={ProductDetail}/>
-                <Route path="category/:category_id" component={Category} />
+                <Route path="category/:category_id" component={Category}/>
                 <Route path="member/index/:member_id" component={MemberIndex}/>
                 <Route path="member/trade/index/:member_id" component={MemberTradeIndex}/>
                 <Route path="member/stock/index/:member_id" component={MemberStockIndex}/>
@@ -73,6 +74,7 @@ function RouterConfig({history}) {
                 <Route path="certificate/index" component={CertificateIndex}/>
                 <Route path="certificate/wechat/add" component={CertificateWechatAdd}/>
                 <Route path="certificate/other/add" component={CertificateOtherAdd}/>
+                <Route path="certificate/confirm/:certificate_id" component={CertificateConfirm}/>
                 <Route path="team/index" component={TeamIndex}/>
             </Route>
         </Router>
