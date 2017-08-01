@@ -5,6 +5,8 @@ const token_key = ('token_' + constant.version);
 const product_sku_list_key = ('product_sku_list_' + constant.version);
 const member_address_key = ('member_address_' + constant.version);
 const trade_flow_key = ('trade_flow_' + constant.version);
+const member_purchase_order_flow_key = ('member_purchase_order_flow_' + constant.version);
+const member_delivery_order_flow_key = ('member_delivery_order_flow_' + constant.version);
 
 function getOpenId() {
     if (constant.is_test) {
@@ -105,6 +107,30 @@ function removeTradeFlow() {
     localStorage.removeItem(trade_flow_key);
 }
 
+function getMemberPurchaseOrderFlow() {
+    return JSON.parse(localStorage.getItem(member_purchase_order_flow_key));
+}
+
+function setMemberPurchaseOrderFlow(member_purchase_order_flow) {
+    localStorage.setItem(member_purchase_order_flow_key, JSON.stringify(member_purchase_order_flow));
+}
+
+function removeMemberPurchaseOrderFlow() {
+    localStorage.removeItem(member_purchase_order_flow_key);
+}
+
+function getMemberDeliveryOrderFlow() {
+    return JSON.parse(localStorage.getItem(member_delivery_order_flow_key));
+}
+
+function setMemberDeliveryOrderFlow(member_delivery_order_flow) {
+    localStorage.setItem(member_delivery_order_flow_key, JSON.stringify(member_delivery_order_flow));
+}
+
+function removeMemberDeliveryOrderFlow() {
+    localStorage.removeItem(member_delivery_order_flow_key);
+}
+
 export default {
     getOpenId: getOpenId,
     setOpenId: setOpenId,
@@ -118,5 +144,11 @@ export default {
     removeMemberAddress: removeMemberAddress,
     getTradeFlow: getTradeFlow,
     setTradeFlow: setTradeFlow,
-    removeTradeFlow: removeTradeFlow
+    removeTradeFlow: removeTradeFlow,
+    getMemberPurchaseOrderFlow: getMemberPurchaseOrderFlow,
+    setMemberPurchaseOrderFlow: setMemberPurchaseOrderFlow,
+    removeMemberPurchaseOrderFlow: removeMemberPurchaseOrderFlow,
+    getMemberDeliveryOrderFlow: getMemberDeliveryOrderFlow,
+    setMemberDeliveryOrderFlow: setMemberDeliveryOrderFlow,
+    removeMemberDeliveryOrderFlow: removeMemberDeliveryOrderFlow
 };

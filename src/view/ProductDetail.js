@@ -96,12 +96,22 @@ class ProductDetail extends Component {
         });
     }
 
+    handleMemberPurchaseOrder() {
+        storage.setProductSkuList([{
+            product_sku_id: this.props.product_detail.product_sku_id,
+            product_sku_quantity: this.props.product_detail.product_sku_quantity
+        }]);
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/purchase/order/check',
+            query: {}
+        }));
+    }
+
     handleBuy() {
         storage.setProductSkuList([{
             product_sku_id: this.props.product_detail.product_sku_id,
             product_sku_quantity: this.props.product_detail.product_sku_quantity
         }]);
-
         this.props.dispatch(routerRedux.push({
             pathname: '/trade/check',
             query: {}
@@ -175,14 +185,16 @@ class ProductDetail extends Component {
                         <span
                             className="footer-total-text">总金额: ￥{this.props.product_detail.product_sku_total_price.toFixed(2)}</span>
                     </div>
-                    <div className="footer-buy" onClick={this.handleBuy.bind(this)}>
-                        {
-                            constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
-                                '立即进货'
-                                :
-                                '立即购买'
-                        }
-                    </div>
+                    {
+                        constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                            <div className="footer-buy" onClick={this.handleMemberPurchaseOrder.bind(this)}>
+                                立即进货
+                            </div>
+                            :
+                            <div className="footer-buy" onClick={this.handleBuy.bind(this)}>
+                                立即购买
+                            </div>
+                    }
                 </div>
                 {
                     this.state.is_load ?

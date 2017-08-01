@@ -17,8 +17,13 @@ import MemberBillIndex from './view/member/MemberBillIndex';
 import MemberLevel from './view/member/MemberLevel';
 import MemberAddressIndex from './view/member/MemberAddressIndex';
 import MemberAddressDetail from './view/member/MemberAddressDetail';
-import DeliveryOrderIndex from './view/delivery_order/DeliveryOrderIndex';
-import DeliveryOrderDetail from './view/delivery_order/DeliveryOrderDetail';
+import MemberPurchaseOrderCheck from './view/member_purchase_order/MemberPurchaseOrderCheck';
+import MemberPurchaseOrderIndex from './view/member_purchase_order/MemberPurchaseOrderIndex';
+import MemberPurchaseOrderDetail from './view/member_purchase_order/MemberPurchaseOrderDetail';
+import MemberPurchaseOrderConfirm from './view/member_purchase_order/MemberPurchaseOrderConfirm';
+import MemberDeliveryOrderIndex from './view/member_delivery_order/MemberDeliveryOrderIndex';
+import MemberDeliveryOrderDetail from './view/member_delivery_order/MemberDeliveryOrderDetail';
+import MemberDeliveryOrderWarehouseReplaceDeliver from './view/member_delivery_order/MemberDeliveryOrderWarehouseReplaceDeliver';
 import TradeCheck from './view/trade/TradeCheck';
 import TradeIndex from './view/trade/TradeIndex';
 import TradeDetail from './view/trade/TradeDetail';
@@ -62,9 +67,13 @@ function RouterConfig({history}) {
                 <Route path="member/address/index/:type" component={MemberAddressIndex}/>
                 <Route path="member/address/add" component={MemberAddressDetail}/>
                 <Route path="member/address/edit/:member_address_id" component={MemberAddressDetail}/>
-                <Route path="delivery/order/index" component={DeliveryOrderIndex}/>
-                <Route path="delivery/order/add" component={DeliveryOrderDetail}/>
-                <Route path="delivery/order/edit/:delivery_order_id" component={DeliveryOrderDetail}/>
+                <Route path="member/purchase/order/check" component={MemberPurchaseOrderCheck}/>
+                <Route path="member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
+                <Route path="member/purchase/order/edit/:member_purchase_order_id" component={MemberPurchaseOrderDetail}/>
+                <Route path="member/purchase/order/confirm/:member_purchase_order_id" component={MemberPurchaseOrderConfirm}/>
+                <Route path="member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
+                <Route path="member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
+                <Route path="member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
                 <Route path="trade/check" component={TradeCheck}/>
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="trade/edit/:trade_id" component={TradeDetail}/>

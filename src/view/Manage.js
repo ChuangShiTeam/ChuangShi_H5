@@ -49,16 +49,16 @@ class Manage extends Component {
         });
     }
 
-    handleTrade(trade_flow) {
+    handleMemberPurchaseOrder(member_purchase_order_flow) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/trade/index/' + trade_flow,
+            pathname: '/member/purchase/order/index/' + member_purchase_order_flow,
             query: {}
         }));
     }
 
-    handleDeliveryOrder() {
+    handleMemberDeliveryOrder() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/delivery/order/index',
+            pathname: '/member/delivery/order/index',
             query: {}
         }));
     }
@@ -118,13 +118,13 @@ class Manage extends Component {
                 <WhiteSpace size="lg"/>
                 <List className="no-padding-list">
                     <Item multipleLine>
-                        <div className="manage-item" onClick={this.handleTrade.bind(this, 'ALL')}>
+                        <div className="manage-item" onClick={this.handleMemberPurchaseOrder.bind(this, 'ALL')}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/form.svg')} alt=""/>
                             </Badge>
-                            <div className="manage-item-text">订单管理</div>
+                            <div className="manage-item-text">进货管理</div>
                         </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleDeliveryOrder.bind(this)}>
+                        <div className="manage-item manage-item-left" onClick={this.handleMemberDeliveryOrder.bind(this)}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>
