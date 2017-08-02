@@ -13,7 +13,8 @@ export default {
         member_wait_pay: 0,
         member_wait_send: 0,
         member_wait_receive: 0,
-        member_status: false
+        member_status: false,
+        certificate_amount: 0.00
     },
 
     reducers: {

@@ -112,7 +112,7 @@ class Manage extends Component {
                         }
                     </div>
                     <div className="manage-member-price">
-                        保证金: ￥0.00
+                        保证金: ￥{this.props.my.certificate_amount}
                     </div>
                 </div>
                 <WhiteSpace size="lg"/>
