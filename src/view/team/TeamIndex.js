@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Badge} from 'antd-mobile';
 
 import http from '../../util/http';
 
@@ -98,13 +98,12 @@ class TeamIndex extends Component {
                 <div key={item.member_id}>
                     <Item
                         multipleLine
-                        arrow="horizontal"
                     >
                         <div className="list-item" onClick={this.handleItem.bind(this, item.member_id)}>
                             <div className="list-item-image">
                                 <img src={item.user_avatar} alt=""/>
                             </div>
-                            <div className="list-item-text" style={{right: '80px'}}>
+                            <div className="list-item-text" style={{right: '125px'}}>
                                 {item.user_name}
                             </div>
                             <div className="list-item-brief">
@@ -114,7 +113,15 @@ class TeamIndex extends Component {
                                             {item.member_level_name}
                                             {
                                                 index === 0 ?
-                                                    <span style={{with: '100px', backgroundColor: '#a72025', color: '#ffffff', marginLeft: '20px', paddingLeft: '20px', paddingRight: '20px', fontSize: '28px'}}>直属</span>
+                                                    <span style={{
+                                                        with: '100px',
+                                                        backgroundColor: '#a72025',
+                                                        color: '#ffffff',
+                                                        marginLeft: '20px',
+                                                        paddingLeft: '20px',
+                                                        paddingRight: '20px',
+                                                        fontSize: '28px'
+                                                    }}>直属</span>
                                                     :
                                                     ''
                                             }
@@ -129,15 +136,17 @@ class TeamIndex extends Component {
                                 ''
                                 :
                                 <div className="list-item-button"
+                                     style={{paddingTop: '40px'}}
                                      onClick={this.handleButton.bind(this, item.member_id)}>
-                                    <div className="list-item-button-number">
-                                        {item.is_show ? '-' : '+'} {item.is_show ? '' : item.children.length}</div>
+                                    <Badge text={item.children.length}>
+                                        <span className="list-item-button-number">{item.is_show ? '-' : '+'}</span>
+                                    </Badge>
                                 </div>
                         }
                     </Item>
                     {
                         typeof (item.children) !== 'undefined' ?
-                            <div style={{marginLeft: '25px', display: item.is_show ? 'block' : 'none'}}>
+                            <div style={{marginLeft: '50px', display: item.is_show ? 'block' : 'none'}}>
                                 {
                                     this.handleGenerate(item.children, 1)
                                 }

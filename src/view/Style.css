@@ -44,20 +44,21 @@ body, html {
 .list-item-button {
     position: absolute;
     top: 0px;
-    right: 50px;
+    right: 25px;
     bottom: 0px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .list-item-button-number {
-    float: right;
-    width: 70px;
-    background-color: #a72025;
-    font-size: 24px;
-    margin-top: 45px;
-    margin-right: 20px;
-    margin-left: 20px;
-    padding: 10px;
-    color: #ffffff;
+    width: 80px;
+    height: 80px;
+    color: #666666;
+    background-color: #dddddd;
+    display: inline-block;
+    text-align: center;
+    font-size: 60px;
+    line-height: 70px;
 }
 
 .empty-image {
@@ -342,21 +343,21 @@ body, html {
 .manage-member-name {
     position: absolute;
     width: 100%;
-    top: 210px;
+    top: 220px;
     text-align: center;
 }
 
 .manage-member-level {
     position: absolute;
     width: 100%;
-    top: 260px;
+    top: 270px;
     text-align: center;
 }
 
 .manage-member-price {
     position: absolute;
     width: 100%;
-    top: 310px;
+    top: 320px;
     text-align: center;
 }
 
