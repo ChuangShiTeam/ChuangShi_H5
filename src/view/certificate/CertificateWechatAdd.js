@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {createForm} from "rc-form";
 import {routerRedux} from "dva/router";
-import {ActivityIndicator, WhiteSpace, List, InputItem, DatePicker, Toast} from "antd-mobile";
-import moment from 'moment';
+import {ActivityIndicator, List, InputItem, Toast} from "antd-mobile";
 import 'moment/locale/zh-cn';
 
 import http from "../../util/http";
@@ -44,8 +43,6 @@ class CertificateWechatAdd extends Component {
                     return;
                 }
 
-                values.certificate_start_date = values['certificate_start_date'].format('YYYY-MM-DD');
-                values.certificate_end_date = values['certificate_end_date'].format('YYYY-MM-DD');
                 values.certificate_type = '微信';
 
                 Toast.loading('加载中..', 0);
@@ -72,12 +69,9 @@ class CertificateWechatAdd extends Component {
 
     render() {
         const {getFieldProps, getFieldError} = this.props.form;
-        const maxDate = moment('2020-12-30 +0800', 'YYYY-MM-DD Z').utcOffset(8);
-        const minDate = moment('2010-01-01 +0800', 'YYYY-MM-DD Z').utcOffset(8);
 
         return (
             <div>
-                <WhiteSpace size="lg"/>
                 <List>
                     <InputItem
                         {...getFieldProps('certificate_people_name', {
@@ -127,26 +121,6 @@ class CertificateWechatAdd extends Component {
                         clear
                         placeholder="请输入微信号"
                     >微信号:</InputItem>
-                    <DatePicker
-                        mode="date"
-                        title="选择日期"
-                        extra=""
-                        {...getFieldProps('certificate_start_date', {})}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                    >
-                        <List.Item arrow="horizontal">授权开始日期</List.Item>
-                    </DatePicker>
-                    <DatePicker
-                        mode="date"
-                        title="选择日期"
-                        extra=""
-                        {...getFieldProps('certificate_end_date', {})}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                    >
-                        <List.Item arrow="horizontal">授权结束日期</List.Item>
-                    </DatePicker>
                 </List>
 
                 <div className="footer">

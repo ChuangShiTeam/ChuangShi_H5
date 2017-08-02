@@ -131,7 +131,7 @@ class MemberPurchaseOrderIndex extends Component {
             success: function (data) {
                 console.log(data);
                 Toast.hide();
-            }.bind(this),
+            },
             complete() {
 
             }
@@ -152,7 +152,8 @@ class MemberPurchaseOrderIndex extends Component {
 
         return (
             <div>
-                <Tabs activeKey={this.state.member_purchase_order_flow} animated={false} onTabClick={this.handleTab.bind(this)}>
+                <Tabs activeKey={this.state.member_purchase_order_flow} animated={false}
+                      onTabClick={this.handleTab.bind(this)}>
                     <TabPane tab="全部" key="ALL">
                     </TabPane>
                     <TabPane tab="待付款" key="WAIT_PAY">
@@ -170,8 +171,9 @@ class MemberPurchaseOrderIndex extends Component {
                             <div key={member_purchase_order.member_purchase_order_id}>
                                 <WhiteSpace size="lg"/>
                                 <List>
-                                    <Item onClick={this.handleEdit.bind(this, member_purchase_order.member_purchase_order_id)}
-                                          extra={
+                                    <Item
+                                        onClick={this.handleEdit.bind(this, member_purchase_order.member_purchase_order_id)}
+                                        extra={
                                               <div className="orange-color">
                                                   {member_purchase_order.member_purchase_order_flow === "WAIT_PAY" ? "待付款" :
                                                       member_purchase_order.member_purchase_order_flow === "WAIT_SEND" ? "待发货" :
@@ -183,9 +185,10 @@ class MemberPurchaseOrderIndex extends Component {
                                     {
                                         member_purchase_order.member_purchase_order_product_sku_list.map((product_sku) => {
                                             return (
-                                                <Item onClick={this.handleEdit.bind(this, member_purchase_order.member_purchase_order_id)}
-                                                      key={product_sku.product_sku_id}
-                                                      extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
+                                                <Item
+                                                    onClick={this.handleEdit.bind(this, member_purchase_order.member_purchase_order_id)}
+                                                    key={product_sku.product_sku_id}
+                                                    extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
                                                 >
                                                     <img className="product-list-image"
                                                          src={constant.host + product_sku.product_image} alt=""/>

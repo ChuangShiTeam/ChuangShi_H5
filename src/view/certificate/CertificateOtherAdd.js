@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {createForm} from "rc-form";
 import {routerRedux} from "dva/router";
-import {ActivityIndicator, WhiteSpace, List, InputItem, DatePicker, Toast, Picker} from "antd-mobile";
-import moment from 'moment';
-import 'moment/locale/zh-cn';
+import {ActivityIndicator, List, InputItem, Toast, Picker} from "antd-mobile";
 
 import http from "../../util/http";
 import constant from "../../util/constant";
@@ -44,8 +42,6 @@ class CertificateOtherAdd extends Component {
                     return;
                 }
 
-                values.certificate_start_date = values['certificate_start_date'].format('YYYY-MM-DD');
-                values.certificate_end_date = values['certificate_end_date'].format('YYYY-MM-DD');
                 values.certificate_type = values.certificate_type[0];
 
                 Toast.loading('加载中..', 0);
@@ -72,8 +68,6 @@ class CertificateOtherAdd extends Component {
 
     render() {
         const {getFieldProps, getFieldError} = this.props.form;
-        const maxDate = moment('2020-12-30 +0800', 'YYYY-MM-DD Z').utcOffset(8);
-        const minDate = moment('2010-01-01 +0800', 'YYYY-MM-DD Z').utcOffset(8);
         const district = [
             {
                 label: '淘宝',
@@ -82,6 +76,10 @@ class CertificateOtherAdd extends Component {
             {
                 label: '天猫',
                 value: '天猫'
+            },
+            {
+                label: '咸鱼',
+                value: '咸鱼'
             },
             {
                 label: '京东',
@@ -144,30 +142,6 @@ class CertificateOtherAdd extends Component {
                         placeholder="请输入微信号"
                     >微信号:</InputItem>
                     <InputItem
-                        {...getFieldProps('certificate_channel_name', {
-                            rules: [{
-                                required: true,
-                                message: 'certificate_channel_name',
-                            }],
-                            initialValue: '',
-                        })}
-                        error={!!getFieldError('certificate_channel_name')}
-                        clear
-                        placeholder="请输入渠道商名称"
-                    >渠道商名称:</InputItem>
-                    <InputItem
-                        {...getFieldProps('certificate_channel_url', {
-                            rules: [{
-                                required: true,
-                                message: 'certificate_channel_url',
-                            }],
-                            initialValue: '',
-                        })}
-                        error={!!getFieldError('certificate_channel_url')}
-                        clear
-                        placeholder="请输入渠道商网址"
-                    >渠道商网址:</InputItem>
-                    <InputItem
                         {...getFieldProps('certificate_shop_name', {
                             rules: [{
                                 required: true,
@@ -191,26 +165,6 @@ class CertificateOtherAdd extends Component {
                         clear
                         placeholder="请输入店铺地址"
                     >店铺地址:</InputItem>
-                    <DatePicker
-                        mode="date"
-                        title="选择日期"
-                        extra=""
-                        {...getFieldProps('certificate_start_date', {})}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                    >
-                        <List.Item arrow="horizontal">授权开始日期</List.Item>
-                    </DatePicker>
-                    <DatePicker
-                        mode="date"
-                        title="选择日期"
-                        extra=""
-                        {...getFieldProps('certificate_end_date', {})}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                    >
-                        <List.Item arrow="horizontal">授权结束日期</List.Item>
-                    </DatePicker>
                 </List>
 
                 <div className="footer">

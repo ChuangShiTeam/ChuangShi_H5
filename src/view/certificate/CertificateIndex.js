@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {routerRedux} from "dva/router";
 
-import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast, Flex, Tabs, Badge} from 'antd-mobile';
+import {ActivityIndicator, Toast, Flex, Tabs, Badge} from 'antd-mobile';
 
 import constant from '../../util/constant';
 import storage from '../../util/storage';
@@ -241,14 +241,15 @@ class CertificateIndex extends Component {
                             <Flex>
                                 {
                                     this.state.certificateImageWXList.length === 0 ?
-                                        <Flex.Item style={{backgroundColor: '#1AAD19'}} className="footer-buttom"
+                                        <Flex.Item style={{backgroundColor: '#c81623'}}
+                                                   className="footer-buttom"
                                                    onClick={this.handleWeChatAdd.bind(this)}>
                                             微信授权书
                                         </Flex.Item>
                                         :
                                         ""
                                 }
-                                <Flex.Item style={{backgroundColor: '#1AAD19'}} className="footer-buttom"
+                                <Flex.Item style={{backgroundColor: '#c81623'}} className="footer-buttom"
                                            onClick={this.handleOtherAdd.bind(this)}>其它平台授权书</Flex.Item>
                             </Flex>
                         </div>
