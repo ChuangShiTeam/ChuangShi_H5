@@ -26,7 +26,7 @@ class MemberPurchaseOrderDetail extends Component {
             member_purchase_order_product_quantity: 0,
             member_purchase_order_product_amount: 0.00,
             member_purchase_order_express_amount: 0.00,
-            member_purchase_order_total_amount: 0.00,
+            member_purchase_order_amount: 0.00,
             member_purchase_order_flow: '',
             system_create_time: '',
             member_purchase_order_product_sku_list: [],
@@ -65,7 +65,7 @@ class MemberPurchaseOrderDetail extends Component {
                     member_purchase_order_product_quantity: data.member_purchase_order_product_quantity,
                     member_purchase_order_product_amount: data.member_purchase_order_product_amount,
                     member_purchase_order_express_amount: data.member_purchase_order_express_amount,
-                    member_purchase_order_total_amount: data.member_purchase_order_total_amount,
+                    member_purchase_order_amount: data.member_purchase_order_amount,
                     member_purchase_order_flow: data.member_purchase_order_flow,
                     system_create_time: data.system_create_time,
                     member_purchase_order_product_sku_list: data.member_purchase_order_product_sku_list,
@@ -262,7 +262,7 @@ class MemberPurchaseOrderDetail extends Component {
                             <div className="footer">
                                 <div className="footer-total">
                                     <span className="footer-total-text">
-                                        总金额: ￥{this.state.member_purchase_order_total_amount.toFixed(2)}
+                                        总金额: ￥{this.state.member_purchase_order_amount.toFixed(2)}
                                     </span>
                                 </div>
                                 <div

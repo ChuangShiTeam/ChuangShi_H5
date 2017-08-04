@@ -72,7 +72,7 @@ function RouterConfig({history}) {
                 <Route path="member/purchase/order/edit/:member_purchase_order_id" component={MemberPurchaseOrderDetail}/>
                 <Route path="member/purchase/order/confirm/:member_purchase_order_id" component={MemberPurchaseOrderConfirm}/>
                 <Route path="member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
-                <Route path="member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
+                <Route path="member/delivery/order/edit/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
                 <Route path="trade/check" component={TradeCheck}/>
                 <Route path="trade/index/:trade_flow" component={TradeIndex}/>

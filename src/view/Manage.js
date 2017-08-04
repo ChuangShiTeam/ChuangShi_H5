@@ -54,6 +54,7 @@ class Manage extends Component {
             pathname: '/member/purchase/order/index/' + member_purchase_order_flow,
             query: {}
         }));
+        storage.removeMemberPurchaseOrderFlow();
     }
 
     handleMemberDeliveryOrder() {
@@ -61,6 +62,7 @@ class Manage extends Component {
             pathname: '/member/delivery/order/index',
             query: {}
         }));
+        storage.removeMemberDeliveryOrderFlow();
     }
 
     handleTeam() {

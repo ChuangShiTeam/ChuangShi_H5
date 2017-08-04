@@ -115,7 +115,7 @@ class MemberDeliveryOrderIndex extends Component {
 
     handleView(member_delivery_order_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/delivery/order/view/' + member_delivery_order_id,
+            pathname: '/member/delivery/order/edit/' + member_delivery_order_id,
             query: {},
         }));
     }
@@ -131,7 +131,7 @@ class MemberDeliveryOrderIndex extends Component {
                     </TabPane>
                     <TabPane tab="待发货" key="WAIT_SEND">
                     </TabPane>
-                    <TabPane tab="待仓库发货" key="WAIT_WAREHOUSE_SEND">
+                    <TabPane tab="待总仓库发货" key="WAIT_WAREHOUSE_SEND">
                     </TabPane>
                     <TabPane tab="待收货" key="WAIT_RECEIVE">
                     </TabPane>
@@ -148,11 +148,23 @@ class MemberDeliveryOrderIndex extends Component {
                                           extra={
                                               <div className="orange-color">
                                                   {member_delivery_order.member_delivery_order_flow === "WAIT_SEND" ? "待发货" :
-                                                      member_delivery_order.member_delivery_order_flow === "WAIT_WAREHOUSE_SEND" ? "待仓库发货" :
+                                                      member_delivery_order.member_delivery_order_flow === "WAIT_WAREHOUSE_SEND" ? "待总仓库发货" :
                                                           member_delivery_order.member_delivery_order_flow === "WAIT_RECEIVE" ? "待收货" :
                                                               member_delivery_order.member_delivery_order_flow === "COMPLETE" ? "已完成" : ""}
                                               </div>
                                           }>
+                                        {
+                                            member_delivery_order.member_delivery_order_is_warehouse_deliver ?
+                                                "总仓库代发"
+                                                :
+                                                <div>
+                                                    <img style={{width:"60px",height:"60px"}}
+                                                         src={member_delivery_order.user_avatar} alt=""/>
+                                                    <span style={{fontSize: '28px',marginLeft: '20px'}}>
+                                                     {member_delivery_order.user_name}
+                                                    </span>
+                                                </div>
+                                        }
                                     </Item>
                                     {
                                         member_delivery_order.member_delivery_order_product_sku_list.map((product_sku) => {
@@ -177,6 +189,23 @@ class MemberDeliveryOrderIndex extends Component {
                                             共{member_delivery_order.member_delivery_order_total_quantity}件商品，合计：￥{member_delivery_order.member_delivery_order_amount}
                                         </span>
                                     </Item>
+                                    <Item
+                                        extra={
+                                            <span style={{fontSize: '28px'}}>
+                                                {member_delivery_order.system_create_time}
+                                            </span>
+                                        }
+                                    >
+                                        <span style={{fontSize: '28px'}}>
+                                            {member_delivery_order.member_delivery_order_receiver_name}
+
+                                            {member_delivery_order.member_delivery_order_receiver_mobile != "" ?
+                                                (member_delivery_order.member_delivery_order_receiver_mobile)
+                                                :
+                                                ""
+                                            }
+                                        </span>
+                                    </Item>
                                     {(member_delivery_order.member_delivery_order_flow === "WAIT_SEND") ?
                                         <Item extra={
                                             <div>
@@ -185,23 +214,12 @@ class MemberDeliveryOrderIndex extends Component {
                                                         size="small"
                                                         inline
                                                         onClick={this.handleWarehouseReplaceDeliver.bind(this, member_delivery_order.member_delivery_order_id)}>
-                                                    仓库代发
+                                                    总仓库代发
                                                 </Button>
                                             </div>
                                         }
                                         >
-                                            {
-                                                member_delivery_order.member_delivery_order_is_warehouse_deliver?
-                                                    null
-                                                        :
-                                                    <Button style={{marginRight: '0.08rem'}}
-                                                            type="primary"
-                                                            size="small"
-                                                            inline
-                                                            onClick={this.handleDeliver.bind(this, member_delivery_order.member_delivery_order_id)}>
-                                                        自己发货
-                                                    </Button>
-                                            }
+                                            {""}
                                         </Item>
                                         :
                                         ""
@@ -212,17 +230,6 @@ class MemberDeliveryOrderIndex extends Component {
                     })
                 }
                 <div style={{height: '200px'}}></div>
-                <div className="footer">
-                    <Flex>
-                        <Flex.Item>
-                            <div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>仓库代发</div>
-                        </Flex.Item>
-                    </Flex>
-
-                </div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

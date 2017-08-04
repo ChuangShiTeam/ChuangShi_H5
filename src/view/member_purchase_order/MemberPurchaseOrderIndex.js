@@ -181,6 +181,20 @@ class MemberPurchaseOrderIndex extends Component {
                                                               member_purchase_order.member_purchase_order_flow === "COMPLETE" ? "已完成" : ""}
                                               </div>
                                           }>
+                                        {
+                                            member_purchase_order.member_purchase_order_is_warehouse_receive ?
+                                                "总仓库代收"
+                                                :
+                                                <span style={{fontSize: '28px'}}>
+                                                    {member_purchase_order.member_purchase_order_receiver_name}
+
+                                                        {member_purchase_order.member_purchase_order_receiver_mobile != "" ?
+                                                            "  电话："+member_purchase_order.member_purchase_order_receiver_mobile
+                                                            :
+                                                            ""
+                                                        }
+                                                </span>
+                                        }
                                     </Item>
                                     {
                                         member_purchase_order.member_purchase_order_product_sku_list.map((product_sku) => {
@@ -203,30 +217,23 @@ class MemberPurchaseOrderIndex extends Component {
                                     }
                                     <Item>
                                         <span style={{fontSize: '28px'}}>
-                                            共{member_purchase_order.member_purchase_order_product_total_quantity}件商品，合计：￥{member_purchase_order.member_purchase_order_product_amount}
+                                            共{member_purchase_order.member_purchase_order_total_quantity}件商品，合计：￥{member_purchase_order.member_purchase_order_product_amount}
                                         </span>
                                     </Item>
                                     {(member_purchase_order.member_purchase_order_flow === "WAIT_PAY") ?
                                         <Item extra={
-                                                  <div>
-                                                      <Button style={{marginRight: '0.08rem'}}
-                                                                      type="primary"
-                                                                      size="small"
-                                                                      inline
-                                                                      onClick={this.handlePay.bind(this, member_purchase_order.member_purchase_order_id)}>
-                                                                  立即付款
-                                                      </Button>
-                                                       <Button style={{marginRight: '0.08rem'}}
+                                                  <Button style={{marginRight: '0.08rem'}}
                                                                   type="primary"
                                                                   size="small"
                                                                   inline
-                                                                  onClick={this.handlePaySuccess.bind(this, member_purchase_order.member_purchase_order_id)}>
-                                                              测试
+                                                                  onClick={this.handlePay.bind(this, member_purchase_order.member_purchase_order_id)}>
+                                                              立即付款
                                                   </Button>
-                                                  </div>
-                                              }
+                                                  }
                                         >
-                                            {""}
+                                            <span style={{fontSize: '28px'}}>
+                                                {member_purchase_order.system_create_time}
+                                            </span>
                                         </Item>
                                         :
                                         ""
