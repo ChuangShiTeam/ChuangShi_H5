@@ -12,12 +12,17 @@ class TeamIndex extends Component {
         super(props);
 
         this.state = {
-            is_load: this.props.team_index.is_load
+            is_load: this.props.team_index.is_load,
+            is_first: false
         }
     }
 
     componentDidMount() {
         document.title = '我的代理';
+
+        this.setState({
+            is_first: this.props.routes[1].path === '/team/first/index'
+        });
 
         document.body.scrollTop = this.props.team_index.scroll_top;
 
@@ -132,9 +137,7 @@ class TeamIndex extends Component {
                             </div>
                         </div>
                         {
-                            typeof (item.children) === 'undefined' ?
-                                ''
-                                :
+                            typeof (item.children) !== 'undefined' && !this.state.is_first ?
                                 <div className="list-item-button"
                                      style={{paddingTop: '40px'}}
                                      onClick={this.handleButton.bind(this, item.member_id)}>
@@ -142,10 +145,12 @@ class TeamIndex extends Component {
                                         <span className="list-item-button-number">{item.is_show ? '-' : '+'}</span>
                                     </Badge>
                                 </div>
+                                :
+                                ''
                         }
                     </Item>
                     {
-                        typeof (item.children) !== 'undefined' ?
+                        typeof (item.children) !== 'undefined' && !this.state.is_first ?
                             <div style={{marginLeft: '50px', display: item.is_show ? 'block' : 'none'}}>
                                 {
                                     this.handleGenerate(item.children, 1)

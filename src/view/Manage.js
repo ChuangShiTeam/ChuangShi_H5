@@ -20,7 +20,7 @@ class Manage extends Component {
         document.body.scrollTop = 0;
 
         this.handleLoad();
-        
+
         storage.removeTradeFlow();
     }
 
@@ -30,7 +30,7 @@ class Manage extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/my/find',
+            url: '/mobile/member/purchase/find',
             data: {},
             success: function (data) {
                 this.props.dispatch({
@@ -66,6 +66,13 @@ class Manage extends Component {
     handleTeam() {
         this.props.dispatch(routerRedux.push({
             pathname: '/team/index',
+            query: {}
+        }));
+    }
+
+    handleFirstTeam() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/team/first/index',
             query: {}
         }));
     }
@@ -112,9 +119,29 @@ class Manage extends Component {
                         }
                     </div>
                     <div className="manage-member-price">
-                        保证金: ￥{this.props.my.certificate_amount}
+                        保证金: ￥{this.props.my.certificate_amount.toFixed(2)}
                     </div>
                 </div>
+                <WhiteSpace size="lg"/>
+                <List>
+                    {
+                        this.props.my.bill_amount > 0 ?
+                            <Item multipleLine
+                                  extra="提现"
+                                  arrow="horizontal"
+                                  thumb={require('../assets/svg/money_bag.svg')}
+                                  onClick={this.handleMemberAddress.bind(this)}
+                            >
+                                余额: ￥{this.props.my.bill_amount.toFixed(2)}
+                            </Item>
+                            :
+                            <Item multipleLine
+                                  thumb={require('../assets/svg/money_bag.svg')}
+                            >
+                                余额: ￥{this.props.my.bill_amount.toFixed(2)}
+                            </Item>
+                    }
+                </List>
                 <WhiteSpace size="lg"/>
                 <List className="no-padding-list">
                     <Item multipleLine>
@@ -124,7 +151,8 @@ class Manage extends Component {
                             </Badge>
                             <div className="manage-item-text">进货管理</div>
                         </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleMemberDeliveryOrder.bind(this)}>
+                        <div className="manage-item manage-item-left"
+                             onClick={this.handleMemberDeliveryOrder.bind(this)}>
                             <Badge text={this.props.my.member_wait_pay}>
                                 <img src={require('../assets/svg/shop.svg')} alt=""/>
                             </Badge>
@@ -154,7 +182,7 @@ class Manage extends Component {
                     </Item>
                     <Item
                         thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
-                        onClick={this.handleTeam.bind(this)}
+                        onClick={this.handleFirstTeam.bind(this)}
                     >
                         直属代理
                     </Item>

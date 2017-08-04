@@ -26,7 +26,7 @@ class Main extends Component {
 
     handleMenu() {
         for (let i = 0; i < this.state.menu.length; i++) {
-            if ('/' + this.props.routes[2].path === this.state.menu[i].path) {
+            if (this.props.routes[2].path === this.state.menu[i].path) {
                 this.setState({
                     selectedTab: this.state.menu[i].key,
                 });

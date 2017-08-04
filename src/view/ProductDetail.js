@@ -53,7 +53,7 @@ class ProductDetail extends Component {
 
     handleLoad() {
         http.request({
-            url: '/product/find',
+            url: constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ? '/mobile/product/find' : '/product/find',
             data: {
                 product_id: this.props.params.product_id,
             },
@@ -148,26 +148,34 @@ class ProductDetail extends Component {
                     </Item>
                 </List>
                 <WhiteSpace size="lg"/>
-                <List>
-                    <Item>
-                        已选：{this.props.product_detail.product_sku_quantity >= 25000 ? (this.props.product_detail.product_sku_quantity - 15000) : this.props.product_detail.product_sku_quantity}个
-                    </Item>
-                    <Item extra={
-                        <Stepper
-                            style={{width: '100%', minWidth: '2rem'}}
-                            showNumber={true}
-                            max={99999}
-                            min={1}
-                            value={this.props.product_detail.product_sku_quantity}
-                            onChange={this.handleChange.bind(this)}
-                        />}
-                    >
-                        购买数量
-                    </Item>
-                </List>
-                {/*<div className="product-quantity" style={{top: (document.documentElement.clientWidth + 292) + 'px'}}>*/}
-                    {/*<div className="product-quantity-number">{this.props.product_detail.product_sku_quantity}</div>*/}
-                {/*</div>*/}
+                {
+                    constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                        <List>
+                            <Item>
+                                {this.props.product_detail.is_first_purchase ? '首次' : ''}进货数量：{this.props.product_detail.product_sku_quantity}个
+                            </Item>
+                        </List>
+                        :
+                        <List>
+                            <Item>
+                                已选：{this.props.product_detail.product_sku_quantity}个
+                            </Item>
+                            <Item extra={
+                                <Stepper
+                                    style={{width: '100%', minWidth: '2rem'}}
+                                    showNumber={true}
+                                    max={99999}
+                                    min={1}
+                                    value={this.props.product_detail.product_sku_quantity}
+                                    onChange={this.handleChange.bind(this)}
+                                    readOnly={true}
+                                />}
+                            >
+                                购买数量
+                            </Item>
+                        </List>
+
+                }
                 <WhiteSpace size="lg"/>
                 <div
                     className="product-content"

@@ -18,6 +18,17 @@ body, html {
     height: 100px !important;
 }
 
+.list-item-name {
+    position: absolute;
+    top: 40px;
+    left: 130px;
+    right: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 32px;
+}
+
 .list-item-text {
     position: absolute;
     top: 30px;
@@ -612,4 +623,9 @@ body, html {
     left: 50%;
     margin-top: -25px;
     margin-left: -25px;
+}
+
+.product-brand-price {
+    color: #c81623;
+    margin-left: -5px;
 }

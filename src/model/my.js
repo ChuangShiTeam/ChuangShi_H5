@@ -14,6 +14,7 @@ export default {
         member_wait_send: 0,
         member_wait_receive: 0,
         member_status: false,
+        bill_amount: 0.00,
         certificate_amount: 0.00
     },
 

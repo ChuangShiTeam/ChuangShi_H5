@@ -1,8 +1,8 @@
 export default {
-    // host: 'http://localhost:8080',
+    host: 'http://localhost:8080',
     is_test: true,
-    host: 'http://api.chuangshi.nowui.com',
-    //is_test: false,
+    // host: 'http://api.chuangshi.nowui.com',
+    // is_test: false,
     platform: 'H5',
     version: '9.9.8',
     name: '星销',
@@ -18,17 +18,17 @@ export default {
         icon: 'friend.svg',
         selected_icon: 'friend_active.svg'
     }, {
-        key: 'product',
-        title: '进货',
-        url: '/product/76537999b6c6428d9a78d47739c08fa5',
-        path: '/product/:product_id',
-        icon: 'cart.svg',
-        selected_icon: 'cart_active.svg'
+        key: 'brand',
+        title: '品牌',
+        url: '/product/brand/index',
+        path: '/product/brand/index',
+        icon: 'brand.svg',
+        selected_icon: 'brand_active.svg'
     }, {
-        key: 'read',
+        key: 'knowledge',
         title: '商学院',
-        url: '/article/index',
-        path: '/article',
+        url: '/knowledge/index',
+        path: '/knowledge/index',
         icon: 'read.svg',
         selected_icon: 'read_active.svg'
     }, {
