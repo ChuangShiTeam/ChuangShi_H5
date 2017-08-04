@@ -100,6 +100,13 @@ class Manage extends Component {
         }));
     }
 
+    handleEnchashment() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/enchashment/index',
+            query: {}
+        }));
+    }
+
     render() {
         const Item = List.Item;
 
@@ -132,7 +139,7 @@ class Manage extends Component {
                                   extra="提现"
                                   arrow="horizontal"
                                   thumb={require('../assets/svg/money_bag.svg')}
-                                  onClick={this.handleMemberAddress.bind(this)}
+                                  onClick={this.handleEnchashment.bind(this)}
                             >
                                 余额: ￥{this.props.my.bill_amount.toFixed(2)}
                             </Item>

@@ -43,6 +43,8 @@ import CertificateIndex from './view/certificate/CertificateIndex';
 import CertificateWechatAdd from './view/certificate/CertificateWechatAdd';
 import CertificateOtherAdd from './view/certificate/CertificateOtherAdd';
 import CertificateConfirm from './view/certificate/CertificateConfirm';
+import EnchashmentIndex from './view/enchashment/EnchashmentIndex';
+import EnchashmentDetail from './view/enchashment/EnchashmentDetail';
 
 import constant from './util/constant';
 
@@ -105,6 +107,9 @@ function RouterConfig({history}) {
                 <Route path="/knowledge/activity/index" component={KnowledgeActivityIndex}/>
                 <Route path="/knowledge/eliten/index" component={KnowledgeElitenIndex}/>
                 <Route path="/knowledge/iecturer/index" component={KnowledgeIecturerIndex}/>
+                <Route path="/enchashment/index" component={EnchashmentIndex}/>
+                <Route path="/enchashment/add" component={EnchashmentDetail}/>
+                <Route path="/enchashment/edit/:enchashment_id" component={EnchashmentDetail}/>
             </Route>
         </Router>
     );
