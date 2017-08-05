@@ -460,17 +460,17 @@ body, html {
     color: green !important;
 }
 
-.list-line{
-     display: block;
-     position: absolute;
-     content: '';
-     left: 0;
-     bottom: 0;
-     right: auto;
-     top: auto;
-     width: 100%;
-     border-bottom: 1PX solid #ddd;
- }
+.list-line {
+    display: block;
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    width: 100%;
+    border-bottom: 1PX solid #ddd;
+}
 
 .express-traces-image {
     width: 150px !important;
@@ -628,4 +628,24 @@ body, html {
 .product-brand-price {
     color: #c81623;
     margin-left: -5px;
+}
+
+.certificate-item {
+    color: #000;
+    textAlign: left;
+    height: 0.6rem;
+    lineHeight: 0.6rem;
+    width: 100%;
+}
+
+.certificate-agreement {
+    color: #888;
+    font-size: 0.3rem;
+    line-height: 1.5;
+    margin-top: 0.12rem;
+    width: auto;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
 }
