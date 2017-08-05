@@ -28,49 +28,51 @@ function auth() {
         storage.setOpenId(open_id);
     }
 
-    http.request({
-        // url: '/wechat/config?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/index',
-        url: '/wechat/config?app_id=' + constant.app_id + '&url=' + document.location.href,
-        data: {},
-        success: function (data) {
-            window.wx.config({
-                debug: false,
-                appId: constant.wechat_app_id,
-                timestamp: data.timestamp,
-                nonceStr: data.nonceStr,
-                signature: data.signature,
-                jsApiList: [
-                    'checkJsApi',
-                    'onMenuShareTimeline',
-                    'onMenuShareAppMessage',
-                    'chooseWXPay'
-                ]
-            });
+    if (!constant.is_test) {
+        http.request({
+            // url: '/wechat/config?app_id=' + constant.app_id + '&url=http://h5.xingxiao.nowui.com/#/index',
+            url: '/wechat/config?app_id=' + constant.app_id + '&url=' + document.location.href,
+            data: {},
+            success: function (data) {
+                window.wx.config({
+                    debug: false,
+                    appId: constant.wechat_app_id,
+                    timestamp: data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: [
+                        'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'chooseWXPay'
+                    ]
+                });
 
-            window.share_config = {
-                "share": {
-                    "imgUrl": "",
-                    "title": "",
-                    "desc": "",
-                    "link": "",
-                    "success": function () {
+                window.share_config = {
+                    "share": {
+                        "imgUrl": "",
+                        "title": "",
+                        "desc": "",
+                        "link": "",
+                        "success": function () {
 
-                    },
-                    'cancel': function () {
+                        },
+                        'cancel': function () {
 
+                        }
                     }
-                }
-            };
-            window.wx.ready(function () {
-                window.wx.onMenuShareAppMessage(window.share_config.share);
-                window.wx.onMenuShareTimeline(window.share_config.share);
-                window.wx.onMenuShareQQ(window.share_config.share);
-            });
-        },
-        complete: function () {
+                };
+                window.wx.ready(function () {
+                    window.wx.onMenuShareAppMessage(window.share_config.share);
+                    window.wx.onMenuShareTimeline(window.share_config.share);
+                    window.wx.onMenuShareQQ(window.share_config.share);
+                });
+            },
+            complete: function () {
 
-        }
-    });
+            }
+        });
+    }
 
     return true;
 }

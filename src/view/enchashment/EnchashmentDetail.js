@@ -44,7 +44,9 @@ class EnchashmentDetail extends Component {
                     bill_amount: data.bill_amount
                 });
 
-                data.bill_amount = data.bill_amount;
+                // data.enchashment_amount = data.bill_amount;
+                // delete data.bill_amount;
+                // this.props.form.setFieldsValue(data);
             }.bind(this),
             complete: function () {
                 this.setState({
@@ -55,6 +57,10 @@ class EnchashmentDetail extends Component {
     }
 
     handleSubmit() {
+        if (this.state.bill_amount === 0) {
+            return;
+        }
+
         this.props.form.validateFields((errors, values) => {
             if (!errors) {
                 if (values.enchashment_amount > this.state.bill_amount) {
@@ -106,6 +112,9 @@ class EnchashmentDetail extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
+                    <Item>
+                        提现到微信零钱
+                    </Item>
                     <InputItem
                         {...getFieldProps('enchashment_amount', {
                             rules: [{
@@ -123,7 +132,7 @@ class EnchashmentDetail extends Component {
                 <WhiteSpace size="lg"/>
                 <div style={{height: '200px'}}></div>
                 <div className="footer">
-                    <div className="footer-buttom" onClick={this.handleSubmit.bind(this)}>提交</div>
+                    <div className="footer-buttom" style={{backgroundColor: this.state.bill_amount > 0 ? '#1AAD19' : '#dddddd'}} onClick={this.handleSubmit.bind(this)}>提现</div>
                 </div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>

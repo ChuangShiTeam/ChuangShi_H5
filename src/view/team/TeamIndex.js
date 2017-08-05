@@ -20,9 +20,11 @@ class TeamIndex extends Component {
     componentDidMount() {
         document.title = '我的代理';
 
-        this.setState({
-            is_first: this.props.routes[1].path === '/team/first/index'
-        });
+        if (this.props.routes[1].path === '/team/first/index' || this.props.routes[2].path === '/team/first/index') {
+            this.setState({
+                is_first: true
+            });
+        }
 
         document.body.scrollTop = this.props.team_index.scroll_top;
 

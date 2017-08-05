@@ -40,10 +40,10 @@ class KnowledgeActivityIndex extends Component {
                 <WingBlank size="lg">
                     <Card onClick={this.handleItem.bind(this)}>
                         <Card.Header
-                            title="8月8日活动董事通告"
+                            title="中国首届个创行业峰会"
                         />
                         <Card.Body>
-                            <img src={require('../../assets/image/WechatIMG548.jpeg')} style={{width: '100%'}} alt=""/>
+                            <img src={require('../../assets/image/IMG_2562.jpg')} style={{width: '100%'}} alt=""/>
                         </Card.Body>
                     </Card>
                     <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
