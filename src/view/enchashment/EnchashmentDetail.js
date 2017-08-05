@@ -2,11 +2,9 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {routerRedux} from "dva/router";
 import {createForm} from "rc-form";
-import {ActivityIndicator, WhiteSpace, List, InputItem, Picker, Switch, Toast} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, InputItem, Toast} from "antd-mobile";
 
 import constant from "../../util/constant";
-import validate from "../../util/validate";
-import china from "../../util/china";
 import http from "../../util/http";
 
 class EnchashmentDetail extends Component {
@@ -47,8 +45,6 @@ class EnchashmentDetail extends Component {
                 });
 
                 data.bill_amount = data.bill_amount;
-
-                this.props.form.setFieldsValue(data);
             }.bind(this),
             complete: function () {
                 this.setState({

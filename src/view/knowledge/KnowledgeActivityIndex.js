@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
-import {ActivityIndicator} from 'antd-mobile';
+import {routerRedux} from 'dva/router';
+import {ActivityIndicator, Card, WhiteSpace, WingBlank} from 'antd-mobile';
 
-class KnowledgeIecturerIndex extends Component {
+class KnowledgeActivityIndex extends Component {
     constructor(props) {
         super(props);
 
@@ -25,19 +26,35 @@ class KnowledgeIecturerIndex extends Component {
 
     }
 
+    handleItem() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/knowledge/activity/detail',
+            query: {},
+        }));
+    }
+
     render() {
         return (
             <div>
-                <div>
-                    <img src={require('../../assets/svg/empty.svg')} className="empty-image" alt=""/>
-                    <div className="empty-text">没有数据</div>
-                </div>
-                <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
-                    <div className="loading"><ActivityIndicator/></div>
-                </div>
+                <WhiteSpace size="lg"/>
+                <WingBlank size="lg">
+                    <Card onClick={this.handleItem.bind(this)}>
+                        <Card.Header
+                            title="8月8日活动董事通告"
+                        />
+                        <Card.Body>
+                            <img src={require('../../assets/image/WechatIMG548.jpeg')} style={{width: '100%'}} alt=""/>
+                        </Card.Body>
+                    </Card>
+                    <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
+                        <div className="loading"><ActivityIndicator/></div>
+                    </div>
+                </WingBlank>
+                <WhiteSpace size="lg"/>
+                <div style={{height: '100px'}}></div>
             </div>
         );
     }
 }
 
-export default connect(() => ({}))(KnowledgeIecturerIndex);
+export default connect(() => ({}))(KnowledgeActivityIndex);

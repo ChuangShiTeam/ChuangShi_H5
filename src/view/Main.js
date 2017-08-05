@@ -5,6 +5,7 @@ import {routerRedux} from 'dva/router';
 import { TabBar } from 'antd-mobile';
 
 import constant from '../util/constant';
+import notification from '../util/notification';
 
 class Main extends Component {
     constructor(props) {
@@ -17,27 +18,34 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        this.handleMenu();
+        this.handleMenu(this.props.routes[2].path);
+
+        notification.on('notification_main_load', this, function (data) {
+            this.handleMenu(data.path);
+        });
     }
 
     componentWillUnmount() {
-
+        notification.remove('notification_main_load', this);
     }
 
-    handleMenu() {
+    handleMenu(path) {
+        let key = '';
         for (let i = 0; i < this.state.menu.length; i++) {
-            if (this.props.routes[2].path === this.state.menu[i].path) {
-                this.setState({
-                    selectedTab: this.state.menu[i].key,
-                });
+            if (path === this.state.menu[i].path) {
+                key = this.state.menu[i].key;
             }
         }
+
+        this.setState({
+            selectedTab: key
+        });
     }
 
     handlePress(key, url) {
-        this.setState({
-            selectedTab: key,
-        });
+        // this.setState({
+        //     selectedTab: key,
+        // });
 
         this.props.dispatch(routerRedux.push({
             pathname: url,
