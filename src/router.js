@@ -26,6 +26,7 @@ import MemberBillIndex from './view/member/MemberBillIndex';
 import MemberLevel from './view/member/MemberLevel';
 import MemberAddressIndex from './view/member/MemberAddressIndex';
 import MemberAddressDetail from './view/member/MemberAddressDetail';
+import MemberChildrenPurchaseOrderIndex from './view/member/MemberChildrenPurchaseOrderIndex';
 import MemberPurchaseOrderCheck from './view/member_purchase_order/MemberPurchaseOrderCheck';
 import MemberPurchaseOrderIndex from './view/member_purchase_order/MemberPurchaseOrderIndex';
 import MemberPurchaseOrderDetail from './view/member_purchase_order/MemberPurchaseOrderDetail';
@@ -45,12 +46,22 @@ import CertificateOtherAdd from './view/certificate/CertificateOtherAdd';
 import CertificateConfirm from './view/certificate/CertificateConfirm';
 import EnchashmentIndex from './view/enchashment/EnchashmentIndex';
 import EnchashmentDetail from './view/enchashment/EnchashmentDetail';
+import MemberChildrenAddressIndex from './view/member/MemberChildrenAddressIndex';
 
 import constant from './util/constant';
+import notification from './util/notification';
 
 function RouterConfig({history}) {
 
     const handleEnter = function (next, replace, callback) {
+        callback();
+    };
+
+    const handleChange = function (next, replace, callback) {
+        notification.emit('notification_main_load', {
+            path: replace.location.pathname
+        });
+
         callback();
     };
 
@@ -59,7 +70,7 @@ function RouterConfig({history}) {
             <Route path="/">
                 <IndexRedirect to={constant.index}/>
                 <Route path="home" component={Home}/>
-                <Route component={Main} onEnter={handleEnter}>
+                <Route component={Main} onEnter={handleEnter} onChange={handleChange}>
                     <Route path="/index" component={Index}/>
                     <Route path="/team" component={TeamIndex}/>
                     <Route path="/product/brand/index" component={ProductBrandIndex}/>
@@ -68,10 +79,12 @@ function RouterConfig({history}) {
                     <Route path="/knowledge/index" component={KnowledgeIndex}/>
                     <Route path="/my" component={My}/>
                     <Route path="/manage" component={Manage}/>
+
+                    <Route path="/member/index/:member_id" component={MemberIndex}/>
+                    <Route path="/member/children/purchase/order/index/:member_id" component={MemberChildrenPurchaseOrderIndex}/>
                 </Route>
                 <Route path="/product/detail/:product_id" component={ProductDetail}/>
                 <Route path="/category/:category_id" component={Category}/>
-                <Route path="/member/index/:member_id" component={MemberIndex}/>
                 <Route path="/member/trade/index/:member_id" component={MemberTradeIndex}/>
                 <Route path="/member/stock/index/:member_id" component={MemberStockIndex}/>
                 <Route path="/member/bill/index/:member_id" component={MemberBillIndex}/>
@@ -86,6 +99,7 @@ function RouterConfig({history}) {
                 <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
                 <Route path="/member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="/member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
+                <Route path="/member/children/address/:member_id" component={MemberChildrenAddressIndex}/>
                 <Route path="/trade/check" component={TradeCheck}/>
                 <Route path="/trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="/trade/edit/:trade_id" component={TradeDetail}/>
@@ -98,7 +112,6 @@ function RouterConfig({history}) {
                 <Route path="/certificate/confirm/:certificate_id" component={CertificateConfirm}/>
                 <Route path="/team/index" component={TeamIndex}/>
                 <Route path="/team/first/index" component={TeamIndex}/>
-                <Route path="/member/index/:member_id" component={MemberIndex}/>
                 <Route path="/product/brand/detail/:product_brand_id" component={ProductBrandDetail}/>
                 <Route path="/knowledge/brand/index" component={KnowledgeBrandIndex}/>
                 <Route path="/knowledge/brand/detail" component={KnowledgeBrandDetail}/>

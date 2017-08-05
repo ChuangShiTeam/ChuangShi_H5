@@ -133,23 +133,14 @@ class Manage extends Component {
                 </div>
                 <WhiteSpace size="lg"/>
                 <List>
-                    {
-                        this.props.my.bill_amount > 0 ?
-                            <Item multipleLine
-                                  extra="提现"
-                                  arrow="horizontal"
-                                  thumb={require('../assets/svg/money_bag.svg')}
-                                  onClick={this.handleEnchashment.bind(this)}
-                            >
-                                余额: ￥{this.props.my.bill_amount.toFixed(2)}
-                            </Item>
-                            :
-                            <Item multipleLine
-                                  thumb={require('../assets/svg/money_bag.svg')}
-                            >
-                                余额: ￥{this.props.my.bill_amount.toFixed(2)}
-                            </Item>
-                    }
+                    <Item multipleLine
+                          extra="提现"
+                          arrow="horizontal"
+                          thumb={require('../assets/svg/money_bag.svg')}
+                          onClick={this.handleEnchashment.bind(this)}
+                    >
+                        余额: ￥{this.props.my.bill_amount.toFixed(2)}
+                    </Item>
                 </List>
                 <WhiteSpace size="lg"/>
                 <List className="no-padding-list">

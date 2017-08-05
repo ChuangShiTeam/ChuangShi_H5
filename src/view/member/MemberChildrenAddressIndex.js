@@ -5,19 +5,18 @@ import {ActivityIndicator, List, WhiteSpace} from 'antd-mobile';
 
 import http from '../../util/http';
 
-class EnchashmentIndex extends Component {
+class MemberTeamAddressIndex extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             is_load: false,
-            bill_amount: 0,
             list: '',
         };
     }
 
     componentDidMount() {
-        document.title = '我要提现';
+        document.title = '代理收货地址';
 
         document.body.scrollTop = 0;
 
@@ -30,12 +29,13 @@ class EnchashmentIndex extends Component {
 
     handleLoad() {
         http.request({
-            url: '/mobile/enchashment/list',
-            data: {},
+            url: '/mobile/member/children/address/list',
+            data: {
+                member_id: this.props.params.member_id
+            },
             success: function (data) {
                 this.setState({
-                    bill_amount: data.bill_amount,
-                    list: data.list,
+                    list: data,
                 });
             }.bind(this),
             complete: function () {
@@ -44,13 +44,6 @@ class EnchashmentIndex extends Component {
                 });
             }.bind(this)
         });
-    }
-
-    handleAdd() {
-        this.props.dispatch(routerRedux.push({
-            pathname: '/enchashment/add',
-            query: {}
-        }));
     }
 
     render() {
@@ -66,10 +59,14 @@ class EnchashmentIndex extends Component {
                             {
                                 this.state.list.map((item) => {
                                     return (
-                                        <Item multipleLine key={item.enchashment_id}
-                                              extra="待审核">
-                                            提现金额: ￥{item.enchashment_amount.toFixed(2)}
-                                            <Brief>{item.system_create_time}</Brief>
+                                        <Item multipleLine key={item.member_address_id}>
+                                            {item.member_address_name} {item.member_address_mobile}
+                                            <Brief>
+                                                {item.member_address_province
+                                                + item.member_address_city
+                                                + item.member_address_area
+                                                + item.member_address_address}
+                                            </Brief>
                                         </Item>
                                     );
                                 })
@@ -107,4 +104,4 @@ class EnchashmentIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(EnchashmentIndex);
+export default connect(() => ({}))(MemberTeamAddressIndex);

@@ -15,12 +15,19 @@ class MemberIndex extends Component {
             user_avatar: '',
             member_level_name: '',
             member_status: false,
-            is_children: false
+            is_children: false,
+            is_first: false
         }
     }
 
     componentDidMount() {
-        document.title = '团队信息';
+        document.title = '代理信息';
+
+        console.log(this.props.routes[1].path)
+
+        this.setState({
+            is_first: this.props.routes[1].path === '/member/first/index/:member_id'
+        });
 
         document.body.scrollTop = 0;
 
@@ -56,14 +63,14 @@ class MemberIndex extends Component {
 
     handleMemberTrade() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/trade/index/' + this.props.params.member_id,
+            pathname: '/member/children/purchase/order/index/' + this.props.params.member_id,
             query: {}
         }));
     }
 
-    handleMemberDeliveryOrder() {
+    handleAddress() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/delivery/order/index/' + this.props.params.member_id,
+            pathname: '/member/children/address/' + this.props.params.member_id,
             query: {}
         }));
     }
@@ -110,12 +117,17 @@ class MemberIndex extends Component {
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
+                    {
+                        this.state.is_children ?
+                            <Item arrow="horizontal" onClick={this.handleAddress.bind(this)}>
+                                收货地址
+                            </Item>
+                            :
+                            ''
+                    }
                     <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
-                        TA的订单
+                        进货订单
                     </Item>
-                    {/*<Item arrow="horizontal" onClick={this.handleMemberDeliveryOrder.bind(this)}>*/}
-                        {/*TA的发货单*/}
-                    {/*</Item>*/}
                     {/*<Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>*/}
                         {/*TA的账单流水*/}
                     {/*</Item>*/}

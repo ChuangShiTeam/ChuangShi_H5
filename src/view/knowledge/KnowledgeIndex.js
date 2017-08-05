@@ -70,7 +70,7 @@ class KnowledgeIndex extends Component {
         return (
             <div>
                 <WhiteSpace size="lg"/>
-                <List className="no-padding-list">
+                <List>
                     <Item multipleLine>
                         <div className="manage-item" onClick={this.handleBrand.bind(this)}>
                             <Badge text="">
