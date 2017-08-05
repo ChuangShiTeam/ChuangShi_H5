@@ -121,10 +121,10 @@ class Manage extends Component {
                     </div>
                     <div className="manage-member-level">
                         {
-                            this.props.my.member_level_name === '' ?
-                                <span style={{color: '#a72025'}}>待审核</span>
-                                :
+                            this.props.my.member_status ?
                                 <span>等级: {this.props.my.member_level_name}</span>
+                                :
+                                <span style={{color: '#a72025'}}>待审核</span>
                         }
                     </div>
                     <div className="manage-member-price">
