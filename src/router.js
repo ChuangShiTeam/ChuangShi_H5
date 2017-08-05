@@ -14,6 +14,7 @@ import KnowledgeBrandDetail from './view/knowledge/KnowledgeBrandDetail';
 import KnowledgeBeginnerIndex from './view/knowledge/KnowledgeBeginnerIndex';
 import KnowledgeVideoIndex from './view/knowledge/KnowledgeVideoIndex';
 import KnowledgeActivityIndex from './view/knowledge/KnowledgeActivityIndex';
+import KnowledgeActivityDetail from './view/knowledge/KnowledgeActivityDetail';
 import KnowledgeElitenIndex from './view/knowledge/KnowledgeElitenIndex';
 import KnowledgeIecturerIndex from './view/knowledge/KnowledgeIecturerIndex';
 import My from './view/My';
@@ -81,7 +82,21 @@ function RouterConfig({history}) {
                     <Route path="/manage" component={Manage}/>
 
                     <Route path="/member/index/:member_id" component={MemberIndex}/>
+                    <Route path="/member/children/address/:member_id" component={MemberChildrenAddressIndex}/>
                     <Route path="/member/children/purchase/order/index/:member_id" component={MemberChildrenPurchaseOrderIndex}/>
+                    <Route path="/product/brand/detail/:product_brand_id" component={ProductBrandDetail}/>
+                    <Route path="/knowledge/brand/index" component={KnowledgeBrandIndex}/>
+                    <Route path="/knowledge/brand/detail" component={KnowledgeBrandDetail}/>
+                    <Route path="/knowledge/beginner/index" component={KnowledgeBeginnerIndex}/>
+                    <Route path="/knowledge/video/index" component={KnowledgeVideoIndex}/>
+                    <Route path="/knowledge/activity/index" component={KnowledgeActivityIndex}/>
+                    <Route path="/knowledge/activity/detail" component={KnowledgeActivityDetail}/>
+                    <Route path="/knowledge/eliten/index" component={KnowledgeElitenIndex}/>
+                    <Route path="/knowledge/iecturer/index" component={KnowledgeIecturerIndex}/>
+                    <Route path="/team/first/index" component={TeamIndex}/>
+                    <Route path="/qrcode" component={Qrcode}/>
+                    <Route path="/member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
+                    <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
                 </Route>
                 <Route path="/product/detail/:product_id" component={ProductDetail}/>
                 <Route path="/category/:category_id" component={Category}/>
@@ -93,33 +108,20 @@ function RouterConfig({history}) {
                 <Route path="/member/address/add" component={MemberAddressDetail}/>
                 <Route path="/member/address/edit/:member_address_id" component={MemberAddressDetail}/>
                 <Route path="/member/purchase/order/check" component={MemberPurchaseOrderCheck}/>
-                <Route path="/member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
                 <Route path="/member/purchase/order/edit/:member_purchase_order_id" component={MemberPurchaseOrderDetail}/>
                 <Route path="/member/purchase/order/confirm/:member_purchase_order_id" component={MemberPurchaseOrderConfirm}/>
-                <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
                 <Route path="/member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="/member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
-                <Route path="/member/children/address/:member_id" component={MemberChildrenAddressIndex}/>
                 <Route path="/trade/check" component={TradeCheck}/>
                 <Route path="/trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="/trade/edit/:trade_id" component={TradeDetail}/>
                 <Route path="/trade/confirm/:trade_id" component={TradeConfirm}/>
                 <Route path="/express/index/:express_id" component={ExpressIndex}/>
-                <Route path="/qrcode" component={Qrcode}/>
                 <Route path="/certificate/index" component={CertificateIndex}/>
                 <Route path="/certificate/wechat/add" component={CertificateWechatAdd}/>
                 <Route path="/certificate/other/add" component={CertificateOtherAdd}/>
                 <Route path="/certificate/confirm/:certificate_id" component={CertificateConfirm}/>
                 <Route path="/team/index" component={TeamIndex}/>
-                <Route path="/team/first/index" component={TeamIndex}/>
-                <Route path="/product/brand/detail/:product_brand_id" component={ProductBrandDetail}/>
-                <Route path="/knowledge/brand/index" component={KnowledgeBrandIndex}/>
-                <Route path="/knowledge/brand/detail" component={KnowledgeBrandDetail}/>
-                <Route path="/knowledge/beginner/index" component={KnowledgeBeginnerIndex}/>
-                <Route path="/knowledge/video/index" component={KnowledgeVideoIndex}/>
-                <Route path="/knowledge/activity/index" component={KnowledgeActivityIndex}/>
-                <Route path="/knowledge/eliten/index" component={KnowledgeElitenIndex}/>
-                <Route path="/knowledge/iecturer/index" component={KnowledgeIecturerIndex}/>
                 <Route path="/enchashment/index" component={EnchashmentIndex}/>
                 <Route path="/enchashment/add" component={EnchashmentDetail}/>
                 <Route path="/enchashment/edit/:enchashment_id" component={EnchashmentDetail}/>
