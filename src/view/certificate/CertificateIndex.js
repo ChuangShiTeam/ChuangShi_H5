@@ -286,11 +286,11 @@ class CertificateIndex extends Component {
                                 <WhiteSpace size="lg"/>
                                 <WingBlank>
                                     <div className="certificate-item">
-                                        {
+                                        等级: {
                                             this.props.my.member_level_name === '' ?
-                                                <span style={{color: '#a72025'}}>等级: 待审核</span>
+                                                <span style={{color: '#a72025'}}>待审核</span>
                                                 :
-                                                <span>等级: {this.props.my.member_level_name}</span>
+                                                <span>{this.props.my.member_level_name}</span>
                                         }
                                     </div>
                                 </WingBlank>
@@ -324,7 +324,7 @@ class CertificateIndex extends Component {
                                 <WingBlank>
                                     <AgreeItem defaultChecked data-seed="logId"
                                                onChange={this.handleAgree.bind(this)}>
-                                        V+Lab <a>控价协议</a>
+                                        V+Lab 控价协议
                                     </AgreeItem>
                                 </WingBlank>
                                 <WingBlank>
