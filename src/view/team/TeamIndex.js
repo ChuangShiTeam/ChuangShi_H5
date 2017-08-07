@@ -18,13 +18,29 @@ class TeamIndex extends Component {
     }
 
     componentDidMount() {
-        document.title = '我的代理';
+        let is_first = false;
 
-        if (this.props.routes[1].path === '/team/first/index' || this.props.routes[2].path === '/team/first/index') {
-            this.setState({
-                is_first: true
-            });
+        if (typeof (this.props.routes[1]) !== 'undefined') {
+            if (this.props.routes[1].path === '/team/first/index') {
+                is_first = true;
+            }
         }
+
+        if (typeof (this.props.routes[2]) !== 'undefined') {
+            if (this.props.routes[2].path === '/team/first/index') {
+                is_first = true;
+            }
+        }
+
+        if (is_first) {
+            document.title = '直属代理';
+        } else {
+            document.title = '我的代理';
+        }
+
+        this.setState({
+            is_first: is_first
+        });
 
         document.body.scrollTop = this.props.team_index.scroll_top;
 
