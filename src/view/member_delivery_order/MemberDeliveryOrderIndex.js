@@ -230,6 +230,17 @@ class MemberDeliveryOrderIndex extends Component {
                     })
                 }
                 <div style={{height: '200px'}}></div>
+                <div className="footer">
+                    <Flex>
+                        <Flex.Item>
+                            <div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>
+                        </Flex.Item>
+                    </Flex>
+
+                </div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

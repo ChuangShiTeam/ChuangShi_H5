@@ -35,6 +35,7 @@ import MemberPurchaseOrderConfirm from './view/member_purchase_order/MemberPurch
 import MemberDeliveryOrderIndex from './view/member_delivery_order/MemberDeliveryOrderIndex';
 import MemberDeliveryOrderDetail from './view/member_delivery_order/MemberDeliveryOrderDetail';
 import MemberDeliveryOrderWarehouseReplaceDeliver from './view/member_delivery_order/MemberDeliveryOrderWarehouseReplaceDeliver';
+import MemberDeliveryOrderSelfDeliver from './view/member_delivery_order/MemberDeliveryOrderSelfDeliver';
 import TradeCheck from './view/trade/TradeCheck';
 import TradeIndex from './view/trade/TradeIndex';
 import TradeDetail from './view/trade/TradeDetail';
@@ -112,6 +113,7 @@ function RouterConfig({history}) {
                 <Route path="/member/purchase/order/confirm/:member_purchase_order_id" component={MemberPurchaseOrderConfirm}/>
                 <Route path="/member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="/member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
+                <Route path="/member/delivery/order/self/deliver" component={MemberDeliveryOrderSelfDeliver}/>
                 <Route path="/trade/check" component={TradeCheck}/>
                 <Route path="/trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="/trade/edit/:trade_id" component={TradeDetail}/>
