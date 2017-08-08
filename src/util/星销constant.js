@@ -5,11 +5,11 @@ export default {
     is_test: false,
     platform: 'H5',
     version: '9.9.8',
-    name: '星销',
+    name: '星创会',
     h5Host: 'http://h5.xingxiao.nowui.com/?#/',
     app_id: 'c1af3f1ae00e4e0da9b20f5bd41b4279',
     wechat_app_id: 'wx26c8db6f1987e4e0',
-    index: 'team',
+    index: 'launch',
     menu: [{
         key: 'team',
         title: '代理',

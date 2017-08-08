@@ -80,7 +80,7 @@ class BrandIndex extends Component {
                                     src={constant.host + item.product_brand_image}
                                     alt=""
                                 />
-                                <div className='index-product-item-name' style={{marginBottom: '15px'}}>{item.product_brand_name}</div>
+                                <div className='index-product-item-name' style={{marginBottom: '15px', textAlign: 'center'}}>{item.product_brand_name}</div>
                             </div>
                         );
                     })

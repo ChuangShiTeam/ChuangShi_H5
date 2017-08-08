@@ -15,6 +15,7 @@ class MemberDeliveryOrderIndex extends Component {
             is_load: false,
             member_delivery_order_flow: 'ALL',
             member_delivery_order_list: [],
+            stock_quantity: 0,
             list: []
         }
     }
@@ -24,11 +25,30 @@ class MemberDeliveryOrderIndex extends Component {
 
         document.body.scrollTop = 0;
 
+        this.handleStockLoad();
+
         this.handleLoad();
     }
 
     componentWillUnmount() {
 
+    }
+
+    handleStockLoad() {
+        http.request({
+            url: '/mobile/stock/member/list',
+            data: {},
+            success: function (data) {
+                this.setState({
+                    stock_quantity: data
+                });
+            }.bind(this),
+            complete: function () {
+                this.setState({
+                    is_load: true
+                });
+            }.bind(this)
+        });
     }
 
     handleLoad() {
@@ -88,6 +108,7 @@ class MemberDeliveryOrderIndex extends Component {
             query: {},
         }));
     }
+
     handleWarehouseReplaceDeliverAdd() {
         this.props.dispatch(routerRedux.push({
             pathname: '/member/delivery/order/warehouse/replace/deliver',
@@ -103,6 +124,8 @@ class MemberDeliveryOrderIndex extends Component {
                 member_delivery_order_id: member_delivery_order_id
             },
             success: function (data) {
+                this.handleStockLoad();
+
                 this.handleLoad();
             }.bind(this),
             complete: function () {
@@ -126,7 +149,18 @@ class MemberDeliveryOrderIndex extends Component {
         console.log(this.state.member_delivery_order_list);
         return (
             <div>
-                <Tabs activeKey={this.state.member_delivery_order_flow} animated={false} onTabClick={this.handleTab.bind(this)}>
+                <WhiteSpace size="lg"/>
+                <List>
+                    <Item multipleLine
+                          extra={this.state.stock_quantity}
+                          thumb={require('../../assets/svg/safe.svg')}
+                    >
+                        我的总仓库存
+                    </Item>
+                </List>
+                <WhiteSpace size="lg"/>
+                <Tabs activeKey={this.state.member_delivery_order_flow} animated={false}
+                      onTabClick={this.handleTab.bind(this)}>
                     <TabPane tab="全部" key="ALL">
                     </TabPane>
                     <TabPane tab="待发货" key="WAIT_SEND">
@@ -144,23 +178,24 @@ class MemberDeliveryOrderIndex extends Component {
                             <div key={member_delivery_order.member_delivery_order_id}>
                                 <WhiteSpace size="lg"/>
                                 <List>
-                                    <Item onClick={this.handleView.bind(this, member_delivery_order.member_delivery_order_id)}
-                                          extra={
-                                              <div className="orange-color">
-                                                  {member_delivery_order.member_delivery_order_flow === "WAIT_SEND" ? "待发货" :
-                                                      member_delivery_order.member_delivery_order_flow === "WAIT_WAREHOUSE_SEND" ? "待总仓库发货" :
-                                                          member_delivery_order.member_delivery_order_flow === "WAIT_RECEIVE" ? "待收货" :
-                                                              member_delivery_order.member_delivery_order_flow === "COMPLETE" ? "已完成" : ""}
-                                              </div>
-                                          }>
+                                    <Item
+                                        onClick={this.handleView.bind(this, member_delivery_order.member_delivery_order_id)}
+                                        extra={
+                                            <div className="orange-color">
+                                                {member_delivery_order.member_delivery_order_flow === "WAIT_SEND" ? "待发货" :
+                                                    member_delivery_order.member_delivery_order_flow === "WAIT_WAREHOUSE_SEND" ? "待总仓库发货" :
+                                                        member_delivery_order.member_delivery_order_flow === "WAIT_RECEIVE" ? "待收货" :
+                                                            member_delivery_order.member_delivery_order_flow === "COMPLETE" ? "已完成" : ""}
+                                            </div>
+                                        }>
                                         {
                                             member_delivery_order.member_delivery_order_is_warehouse_deliver ?
                                                 "总仓库代发"
                                                 :
                                                 <div>
-                                                    <img style={{width:"60px",height:"60px"}}
+                                                    <img style={{width: "60px", height: "60px"}}
                                                          src={member_delivery_order.user_avatar} alt=""/>
-                                                    <span style={{fontSize: '28px',marginLeft: '20px'}}>
+                                                    <span style={{fontSize: '28px', marginLeft: '20px'}}>
                                                      {member_delivery_order.user_name}
                                                     </span>
                                                 </div>
@@ -169,9 +204,10 @@ class MemberDeliveryOrderIndex extends Component {
                                     {
                                         member_delivery_order.member_delivery_order_product_sku_list.map((product_sku) => {
                                             return (
-                                                <Item onClick={this.handleView.bind(this, member_delivery_order.member_delivery_order_id)}
-                                                      key={product_sku.product_sku_id}
-                                                      extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
+                                                <Item
+                                                    onClick={this.handleView.bind(this, member_delivery_order.member_delivery_order_id)}
+                                                    key={product_sku.product_sku_id}
+                                                    extra={'￥' + (product_sku.product_sku_amount).toFixed(2)}
                                                 >
                                                     <img className="product-list-image"
                                                          src={constant.host + product_sku.product_image} alt=""/>

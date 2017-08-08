@@ -1,5 +1,6 @@
 import React from 'react';
 import {Router, Route, IndexRedirect} from 'dva/router';
+import Launch from './view/Launch';
 import Home from './view/Home';
 import Main from './view/Main';
 import Index from './view/Index';
@@ -27,9 +28,9 @@ import MemberBillIndex from './view/member/MemberBillIndex';
 import MemberLevel from './view/member/MemberLevel';
 import MemberAddressIndex from './view/member/MemberAddressIndex';
 import MemberAddressDetail from './view/member/MemberAddressDetail';
-import MemberChildrenPurchaseOrderIndex from './view/member/MemberChildrenPurchaseOrderIndex';
 import MemberPurchaseOrderCheck from './view/member_purchase_order/MemberPurchaseOrderCheck';
 import MemberPurchaseOrderIndex from './view/member_purchase_order/MemberPurchaseOrderIndex';
+import MemberChildrenPurchaseOrderIndex from './view/member_purchase_order/MemberChildrenPurchaseOrderIndex';
 import MemberPurchaseOrderDetail from './view/member_purchase_order/MemberPurchaseOrderDetail';
 import MemberPurchaseOrderConfirm from './view/member_purchase_order/MemberPurchaseOrderConfirm';
 import MemberDeliveryOrderIndex from './view/member_delivery_order/MemberDeliveryOrderIndex';
@@ -83,7 +84,6 @@ function RouterConfig({history}) {
 
                     <Route path="/member/index/:member_id" component={MemberIndex}/>
                     <Route path="/member/children/address/:member_id" component={MemberChildrenAddressIndex}/>
-                    <Route path="/member/children/purchase/order/index/:member_id" component={MemberChildrenPurchaseOrderIndex}/>
                     <Route path="/product/brand/detail/:product_brand_id" component={ProductBrandDetail}/>
                     <Route path="/knowledge/brand/index" component={KnowledgeBrandIndex}/>
                     <Route path="/knowledge/brand/detail" component={KnowledgeBrandDetail}/>
@@ -96,8 +96,10 @@ function RouterConfig({history}) {
                     <Route path="/team/first/index" component={TeamIndex}/>
                     <Route path="/qrcode" component={Qrcode}/>
                     <Route path="/member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
+                    <Route path="/member/children/purchase/order/index/:member_id" component={MemberChildrenPurchaseOrderIndex}/>
                     <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
                 </Route>
+                <Route path="/launch" component={Launch}/>
                 <Route path="/product/detail/:product_id" component={ProductDetail}/>
                 <Route path="/category/:category_id" component={Category}/>
                 <Route path="/member/trade/index/:member_id" component={MemberTradeIndex}/>

@@ -19,7 +19,8 @@ class CertificateIndex extends Component {
             certificateImageOtherList: [],
             is_pay: false,
             is_agree: true,
-            tab: 'WX'
+            tab: 'WX',
+            certificate: 0
         }
     }
 

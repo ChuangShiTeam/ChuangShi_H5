@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from "dva/router";
-import {WhiteSpace, List, Badge} from 'antd-mobile';
+import {WhiteSpace, List} from 'antd-mobile';
 
 class KnowledgeBeginnerIndex extends Component {
     constructor(props) {

@@ -649,3 +649,20 @@ body, html {
     text-overflow: ellipsis;
     /*white-space: nowrap;*/
 }
+
+.launch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background: #6c7071 no-repeat center;
+}
+
+.launch-start {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
