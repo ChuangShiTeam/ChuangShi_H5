@@ -666,3 +666,21 @@ body, html {
     left: 0;
     width: 100%;
 }
+
+.article-content {
+    margin: 20px;
+}
+
+.article-content img {
+    width: 100%;
+}
+
+.address-mobile {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    padding: 10px;
+    font-size: 26px;
+    background-color: #c81623;
+    color: #ffffff;
+}

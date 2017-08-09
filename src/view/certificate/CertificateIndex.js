@@ -20,7 +20,7 @@ class CertificateIndex extends Component {
             is_pay: false,
             is_agree: true,
             tab: 'WX',
-            certificate: 0
+            total_fee: 0.00
         }
     }
 
@@ -28,10 +28,6 @@ class CertificateIndex extends Component {
         document.title = '我的授权书';
 
         document.body.scrollTop = 0;
-
-        this.setState({
-            is_load: true
-        });
 
         this.handleLoad();
     }
@@ -48,7 +44,8 @@ class CertificateIndex extends Component {
                 this.setState({
                     certificate: data.certificate,
                     certificateImageWXList: data.certificateImageWXList,
-                    certificateImageOtherList: data.certificateImageOtherList
+                    certificateImageOtherList: data.certificateImageOtherList,
+                    total_fee: data.total_fee
                 });
                 if (data.certificate !== {} && data.certificate.certificate_is_pay !== undefined) {
                     this.setState({
@@ -298,7 +295,7 @@ class CertificateIndex extends Component {
                                 <WhiteSpace size="lg"/>
                                 <WingBlank>
                                     <div className="certificate-item">
-                                        需交保证金: ￥2000
+                                        需交保证金: ￥{this.state.total_fee}
                                     </div>
                                 </WingBlank>
                                 <WhiteSpace size="lg"/>

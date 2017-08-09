@@ -79,7 +79,7 @@ class TradeConfirm extends Component {
 
     handleTrade() {
         this.props.dispatch(routerRedux.push({
-            pathname: 'trade/index/ALL',
+            pathname: '/trade/index/ALL',
             query: {},
         }));
     }

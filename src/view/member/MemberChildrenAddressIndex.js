@@ -67,6 +67,7 @@ class MemberTeamAddressIndex extends Component {
                                                 + item.member_address_area
                                                 + item.member_address_address}
                                             </Brief>
+                                            <a className="address-mobile" href={"tel:" + item.member_address_mobile}>拨打电话</a>
                                         </Item>
                                     );
                                 })

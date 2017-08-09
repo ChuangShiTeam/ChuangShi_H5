@@ -85,6 +85,7 @@ class ProductDetail extends Component {
     }
 
     handleChange(product_sku_quantity) {
+        console.log(product_sku_quantity);
         let product_sku_total_price = this.props.product_detail.product_sku_price * product_sku_quantity;
 
         this.props.dispatch({
@@ -154,6 +155,18 @@ class ProductDetail extends Component {
                             <Item>
                                 {this.props.product_detail.is_first_purchase ? '首次' : ''}进货数量：{this.props.product_detail.product_sku_quantity}个
                             </Item>
+                            <Item extra={
+                                <Stepper
+                                    style={{width: '100%', minWidth: '2rem'}}
+                                    showNumber={true}
+                                    max={99999}
+                                    min={1}
+                                    value={this.props.product_detail.product_sku_quantity}
+                                    onChange={this.handleChange.bind(this)}
+                                />}
+                            >
+                                购买数量
+                            </Item>
                         </List>
                         :
                         <List>
@@ -168,7 +181,6 @@ class ProductDetail extends Component {
                                     min={1}
                                     value={this.props.product_detail.product_sku_quantity}
                                     onChange={this.handleChange.bind(this)}
-                                    readOnly={true}
                                 />}
                             >
                                 购买数量

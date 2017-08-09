@@ -102,7 +102,7 @@ class Manage extends Component {
 
     handleEnchashment() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/enchashment/index',
+            pathname: '/enchashment/add',
             query: {}
         }));
     }

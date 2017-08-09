@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
+import {routerRedux} from 'dva/router';
 import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
 
 class KnowledgeBrandDetail extends Component {
@@ -25,8 +26,11 @@ class KnowledgeBrandDetail extends Component {
 
     }
 
-    handleItem() {
-        
+    handleItem(article_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/knowledge/article/detail/' + article_id,
+            query: {},
+        }));
     }
 
     render() {
@@ -38,51 +42,21 @@ class KnowledgeBrandDetail extends Component {
                 <List>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
+                        onClick={this.handleItem.bind(this, "77b9d917d31e41ce82676a9c69430ca0")}
                     >
-                        个创入门第一课
+                        V+Lab 爆水丸产品知识Beauty Book
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
+                        onClick={this.handleItem.bind(this, "1b9638d9bf3e429f9fcc91cdfa9a9d81")}
                     >
-                        心态与执行力
+                        企业背景 品牌故事
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
+                        onClick={this.handleItem.bind(this, "e8d6d187c39d4a81a2b007af2ede4f4b")}
                     >
-                        如何选择品牌
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
-                    >
-                        新手的导入方法
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
-                    >
-                        营销课件一、营销架构评书
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
-                    >
-                        营销课件二、如何打造朋友圈
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
-                    >
-                        营销课件三、找到你的目标用户
-                    </Item>
-                    <Item
-                        arrow="horizontal"
-                        onClick={this.handleItem.bind(this)}
-                    >
-                        营销课件四、吸粉的方法
+                        爆水丸产品资质
                     </Item>
                 </List>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>

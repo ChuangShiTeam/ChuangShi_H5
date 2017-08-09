@@ -79,7 +79,7 @@ class CertificateConfirm extends Component {
 
     handleCertificate() {
         this.props.dispatch(routerRedux.push({
-            pathname: 'certificate/index',
+            pathname: '/certificate/index',
             query: {},
         }));
     }

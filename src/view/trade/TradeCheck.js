@@ -174,20 +174,20 @@ class TradeCheck extends Component {
                         } else {
                             //支付失败
                             this.props.dispatch(routerRedux.push({
-                                pathname: 'trade/index/ALL',
+                                pathname: '/trade/index/ALL',
                                 query: {},
                             }));
                         }
                     }.bind(this),
                     fail: function (res) {
                         this.props.dispatch(routerRedux.push({
-                            pathname: 'trade/index/ALL',
+                            pathname: '/trade/index/ALL',
                             query: {},
                         }));
                     }.bind(this),
                     cancel: function (res) {
                         this.props.dispatch(routerRedux.push({
-                            pathname: 'trade/index/ALL',
+                            pathname: '/trade/index/ALL',
                             query: {},
                         }));
                     }.bind(this)

@@ -79,7 +79,7 @@ class MemberPurchaseOrderConfirm extends Component {
 
     handleMemberPurchaseOrder() {
         this.props.dispatch(routerRedux.push({
-            pathname: 'member/purchase/order/index/ALL',
+            pathname: '/member/purchase/order/index/ALL',
             query: {},
         }));
     }

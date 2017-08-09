@@ -88,12 +88,6 @@ class EnchashmentIndex extends Component {
                         ''
                 }
                 <WhiteSpace size="lg"/>
-                <div style={{height: '200px'}}></div>
-                <div className="footer">
-                    <div className="footer-buttom" onClick={this.handleAdd.bind(this)}>
-                        提现
-                    </div>
-                </div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

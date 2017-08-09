@@ -82,7 +82,10 @@ class EnchashmentDetail extends Component {
                     success: function (data) {
                         Toast.hide();
 
-                        this.handleBack();
+                        this.props.dispatch(routerRedux.push({
+                            pathname: '/enchashment/result',
+                            query: {}
+                        }));
                     }.bind(this),
                     complete() {
 
@@ -96,6 +99,13 @@ class EnchashmentDetail extends Component {
         this.props.dispatch(routerRedux.goBack());
     }
 
+    handleEnchashment() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/enchashment/index',
+            query: {}
+        }));
+    }
+
     render() {
         const Item = List.Item;
         const {getFieldProps, getFieldError} = this.props.form;
@@ -105,7 +115,10 @@ class EnchashmentDetail extends Component {
                 <WhiteSpace size="lg"/>
                 <List>
                     <Item multipleLine
+                          extra="提现记录"
+                          arrow="horizontal"
                           thumb={require('../../assets/svg/money_bag.svg')}
+                          onClick={this.handleEnchashment.bind(this)}
                     >
                         余额: ￥{this.state.bill_amount.toFixed(2)}
                     </Item>

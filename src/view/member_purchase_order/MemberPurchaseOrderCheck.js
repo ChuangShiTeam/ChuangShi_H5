@@ -178,20 +178,20 @@ class MemberPurchaseOrderCheck extends Component {
                         } else {
                             //支付失败
                             this.props.dispatch(routerRedux.push({
-                                pathname: 'member/purchase/order/index/ALL',
+                                pathname: '/member/purchase/order/index/ALL',
                                 query: {},
                             }));
                         }
                     }.bind(this),
                     fail: function (res) {
                         this.props.dispatch(routerRedux.push({
-                            pathname: 'member/purchase/order/index/ALL',
+                            pathname: '/member/purchase/order/index/ALL',
                             query: {},
                         }));
                     }.bind(this),
                     cancel: function (res) {
                         this.props.dispatch(routerRedux.push({
-                            pathname: 'member/purchase/order/index/ALL',
+                            pathname: '/member/purchase/order/index/ALL',
                             query: {},
                         }));
                     }.bind(this)

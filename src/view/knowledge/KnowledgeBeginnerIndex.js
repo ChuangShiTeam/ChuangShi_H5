@@ -22,10 +22,10 @@ class KnowledgeBeginnerIndex extends Component {
 
     }
 
-    handleBrand() {
+    handleItem(article_id) {
         this.props.dispatch(routerRedux.push({
-            pathname: '/knowledge/brand/detail',
-            query: {}
+            pathname: '/knowledge/article/detail/' + article_id,
+            query: {},
         }));
     }
 
@@ -38,49 +38,49 @@ class KnowledgeBeginnerIndex extends Component {
                 <List>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "ec4ef316fd014f1194ad5d20414b8e57")}
                     >
                         个创入门第一课
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "a4d7a1912dad4c9c910d24cece147e71")}
                     >
                         心态与执行力
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         如何选择品牌
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         新手的导入方法
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         营销课件一、营销架构评书
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         营销课件二、如何打造朋友圈
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         营销课件三、找到你的目标用户
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleBrand.bind(this)}
+                        onClick={this.handleItem.bind(this, "0")}
                     >
                         营销课件四、吸粉的方法
                     </Item>

@@ -18,6 +18,7 @@ import KnowledgeActivityIndex from './view/knowledge/KnowledgeActivityIndex';
 import KnowledgeActivityDetail from './view/knowledge/KnowledgeActivityDetail';
 import KnowledgeElitenIndex from './view/knowledge/KnowledgeElitenIndex';
 import KnowledgeIecturerIndex from './view/knowledge/KnowledgeIecturerIndex';
+import KnowledgeArticleDetail from './view/knowledge/KnowledgeArticleDetail';
 import My from './view/My';
 import Manage from './view/Manage';
 import Category from './view/Category';
@@ -49,6 +50,7 @@ import CertificateOtherAdd from './view/certificate/CertificateOtherAdd';
 import CertificateConfirm from './view/certificate/CertificateConfirm';
 import EnchashmentIndex from './view/enchashment/EnchashmentIndex';
 import EnchashmentDetail from './view/enchashment/EnchashmentDetail';
+import EnchashmentResult from './view/enchashment/EnchashmentResult';
 import MemberChildrenAddressIndex from './view/member/MemberChildrenAddressIndex';
 
 import constant from './util/constant';
@@ -94,6 +96,7 @@ function RouterConfig({history}) {
                     <Route path="/knowledge/activity/detail" component={KnowledgeActivityDetail}/>
                     <Route path="/knowledge/eliten/index" component={KnowledgeElitenIndex}/>
                     <Route path="/knowledge/iecturer/index" component={KnowledgeIecturerIndex}/>
+                    <Route path="/knowledge/article/detail/:article_id" component={KnowledgeArticleDetail}/>
                     <Route path="/team/first/index" component={TeamIndex}/>
                     <Route path="/qrcode" component={Qrcode}/>
                     <Route path="/member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
@@ -113,7 +116,7 @@ function RouterConfig({history}) {
                 <Route path="/member/purchase/order/check" component={MemberPurchaseOrderCheck}/>
                 <Route path="/member/purchase/order/edit/:member_purchase_order_id" component={MemberPurchaseOrderDetail}/>
                 <Route path="/member/purchase/order/confirm/:member_purchase_order_id" component={MemberPurchaseOrderConfirm}/>
-                <Route path="/member/delivery/order/view/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
+                <Route path="/member/delivery/order/edit/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="/member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
                 <Route path="/member/delivery/order/self/deliver" component={MemberDeliveryOrderSelfDeliver}/>
                 <Route path="/trade/check" component={TradeCheck}/>
@@ -129,6 +132,7 @@ function RouterConfig({history}) {
                 <Route path="/enchashment/index" component={EnchashmentIndex}/>
                 <Route path="/enchashment/add" component={EnchashmentDetail}/>
                 <Route path="/enchashment/edit/:enchashment_id" component={EnchashmentDetail}/>
+                <Route path="/enchashment/result" component={EnchashmentResult}/>
             </Route>
         </Router>
     );
