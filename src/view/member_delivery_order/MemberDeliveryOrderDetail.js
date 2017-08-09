@@ -101,7 +101,7 @@ class MemberDeliveryOrderDetail extends Component {
                         if (res.errMsg === "chooseWXPay:ok") {
                             //支付成功
                             this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/confirm/' + data.member_purchase_order_id,
+                                pathname: '/member/purchase/order/confirm/' + data.trade_id,
                                 query: {}
                             }));
                         } else {
@@ -198,15 +198,20 @@ class MemberDeliveryOrderDetail extends Component {
                             <WhiteSpace size="lg"/>
                             <List>
                                 <Item wrap className="item-long-text">
-                                    <div>
-                                        收货人：{this.state.member_purchase_order_receiver_name} {this.state.member_purchase_order_receiver_mobile}
-                                        <div>
-                                            收货地址：{this.state.member_purchase_order_receiver_province
-                                        + " " + this.state.member_purchase_order_receiver_city
-                                        + " " + this.state.member_purchase_order_receiver_area
-                                        + " " + this.state.member_purchase_order_receiver_address}
-                                        </div>
-                                    </div>
+                                    {
+                                        this.state.member_purchase_order_receiver_name === '' ?
+                                            '仓库代收货'
+                                            :
+                                            <div>
+                                                收货人：{this.state.member_purchase_order_receiver_name} {this.state.member_purchase_order_receiver_mobile}
+                                                <div>
+                                                    收货地址：{this.state.member_purchase_order_receiver_province
+                                                + " " + this.state.member_purchase_order_receiver_city
+                                                + " " + this.state.member_purchase_order_receiver_area
+                                                + " " + this.state.member_purchase_order_receiver_address}
+                                                </div>
+                                            </div>
+                                    }
                                 </Item>
                             </List>
                             <WhiteSpace size="lg"/>

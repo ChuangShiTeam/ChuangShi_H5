@@ -98,13 +98,16 @@ class MemberDeliveryOrderIndex extends Component {
         });
     }
 
-    handleDeliver() {
-
-    }
-
     handleSlefDeliverAdd() {
         this.props.dispatch(routerRedux.push({
-            pathname: '/member/delivery/order/slef/deliver',
+            pathname: '/member/delivery/order/self/deliver',
+            query: {},
+        }));
+    }
+
+    handleSlefDeliverForOrder(member_delivery_order_id) {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/delivery/order/self/deliver/for/order/' + member_delivery_order_id,
             query: {},
         }));
     }
@@ -188,18 +191,13 @@ class MemberDeliveryOrderIndex extends Component {
                                                             member_delivery_order.member_delivery_order_flow === "COMPLETE" ? "已完成" : ""}
                                             </div>
                                         }>
-                                        {
-                                            member_delivery_order.member_delivery_order_is_warehouse_deliver ?
-                                                "总仓库代发"
-                                                :
-                                                <div>
-                                                    <img style={{width: "60px", height: "60px"}}
-                                                         src={member_delivery_order.user_avatar} alt=""/>
-                                                    <span style={{fontSize: '28px', marginLeft: '20px'}}>
+                                        <div>
+                                            <img style={{width: "60px", height: "60px"}}
+                                                 src={member_delivery_order.user_avatar} alt=""/>
+                                            <span style={{fontSize: '28px', marginLeft: '20px'}}>
                                                      {member_delivery_order.user_name}
                                                     </span>
-                                                </div>
-                                        }
+                                        </div>
                                     </Item>
                                     {
                                         member_delivery_order.member_delivery_order_product_sku_list.map((product_sku) => {
@@ -250,12 +248,17 @@ class MemberDeliveryOrderIndex extends Component {
                                                         size="small"
                                                         inline
                                                         onClick={this.handleWarehouseReplaceDeliver.bind(this, member_delivery_order.member_delivery_order_id)}>
-                                                    总仓库代发
+                                                    总仓库代发货
                                                 </Button>
                                             </div>
                                         }
                                         >
-                                            {""}
+                                            <Button type="primary"
+                                                    size="small"
+                                                    inline
+                                                    onClick={this.handleSlefDeliverForOrder.bind(this, member_delivery_order.member_delivery_order_id)}>
+                                                自己发货
+                                            </Button>
                                         </Item>
                                         :
                                         ""
@@ -265,18 +268,19 @@ class MemberDeliveryOrderIndex extends Component {
                         );
                     })
                 }
-                <div style={{height: '200px'}}></div>
-                <div className="footer">
-                    <Flex>
-                        <Flex.Item>
-                            <div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>
-                        </Flex.Item>
-                    </Flex>
+                <WhiteSpace size="lg"/>
+                <div style={{height: '100px'}}></div>
+                {/*<div className="footer">*/}
+                    {/*<Flex>*/}
+                        {/*<Flex.Item>*/}
+                            {/*<div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>*/}
+                        {/*</Flex.Item>*/}
+                        {/*<Flex.Item>*/}
+                            {/*<div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>*/}
+                        {/*</Flex.Item>*/}
+                    {/*</Flex>*/}
 
-                </div>
+                {/*</div>*/}
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

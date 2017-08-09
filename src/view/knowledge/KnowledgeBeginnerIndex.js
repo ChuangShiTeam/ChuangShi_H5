@@ -46,13 +46,13 @@ class KnowledgeBeginnerIndex extends Component {
                         arrow="horizontal"
                         onClick={this.handleItem.bind(this, "a4d7a1912dad4c9c910d24cece147e71")}
                     >
-                        心态与执行力
+                        第二节 个创者所需要具备的五大要素
                     </Item>
                     <Item
                         arrow="horizontal"
-                        onClick={this.handleItem.bind(this, "0")}
+                        onClick={this.handleItem.bind(this, "259048e9067f4990b6781410273738f2")}
                     >
-                        如何选择品牌
+                        第三节营销架构基础
                     </Item>
                     <Item
                         arrow="horizontal"

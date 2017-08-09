@@ -101,7 +101,7 @@ class MemberPurchaseOrderDetail extends Component {
                         if (res.errMsg === "chooseWXPay:ok") {
                             //支付成功
                             this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/confirm/' + data.member_purchase_order_id,
+                                pathname: '/member/purchase/order/confirm/' + data.trade_id,
                                 query: {}
                             }));
                         } else {

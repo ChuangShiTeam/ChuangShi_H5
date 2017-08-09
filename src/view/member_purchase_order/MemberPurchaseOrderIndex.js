@@ -98,7 +98,7 @@ class MemberPurchaseOrderIndex extends Component {
                         if (res.errMsg === "chooseWXPay:ok") {
                             //支付成功
                             this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/confirm/' + data.member_purchase_order_id,
+                                pathname: '/member/purchase/order/confirm/' + data.trade_id,
                                 query: {}
                             }));
                             storage.setMemberPurchaseOrderFlow(this.state.member_purchase_order_flow);
@@ -181,20 +181,13 @@ class MemberPurchaseOrderIndex extends Component {
                                                               member_purchase_order.member_purchase_order_flow === "COMPLETE" ? "已完成" : ""}
                                               </div>
                                           }>
-                                        {
-                                            member_purchase_order.member_purchase_order_is_warehouse_receive ?
-                                                "总仓库代收"
-                                                :
-                                                <span style={{fontSize: '28px'}}>
-                                                    {member_purchase_order.member_purchase_order_receiver_name}
-
-                                                        {member_purchase_order.member_purchase_order_receiver_mobile != "" ?
-                                                            "  电话："+member_purchase_order.member_purchase_order_receiver_mobile
-                                                            :
-                                                            ""
-                                                        }
-                                                </span>
-                                        }
+                                        <div>
+                                            <img style={{width: "60px", height: "60px"}}
+                                                 src={member_purchase_order.user_avatar} alt=""/>
+                                            <span style={{fontSize: '28px', marginLeft: '20px'}}>
+                                                     {member_purchase_order.user_name}
+                                                    </span>
+                                        </div>
                                     </Item>
                                     {
                                         member_purchase_order.member_purchase_order_product_sku_list.map((product_sku) => {
@@ -220,30 +213,49 @@ class MemberPurchaseOrderIndex extends Component {
                                             共{member_purchase_order.member_purchase_order_total_quantity}件商品，合计：￥{member_purchase_order.member_purchase_order_product_amount}
                                         </span>
                                     </Item>
-                                    {(member_purchase_order.member_purchase_order_flow === "WAIT_PAY") ?
-                                        <Item extra={
-                                                  <Button style={{marginRight: '0.08rem'}}
-                                                                  type="primary"
-                                                                  size="small"
-                                                                  inline
-                                                                  onClick={this.handlePay.bind(this, member_purchase_order.member_purchase_order_id)}>
-                                                              立即付款
-                                                  </Button>
-                                                  }
-                                        >
+                                    <Item
+                                        extra={
                                             <span style={{fontSize: '28px'}}>
                                                 {member_purchase_order.system_create_time}
                                             </span>
-                                        </Item>
-                                        :
-                                        ""
+                                        }
+                                    >
+                                        {
+                                            member_purchase_order.member_purchase_order_is_warehouse_receive ?
+                                                "总仓库代收"
+                                                :
+                                                <span style={{fontSize: '28px'}}>
+                                                    {member_purchase_order.member_purchase_order_receiver_name}
+
+                                                    {member_purchase_order.member_purchase_order_receiver_mobile != "" ?
+                                                        "  电话："+member_purchase_order.member_purchase_order_receiver_mobile
+                                                        :
+                                                        ""
+                                                    }
+                                                </span>
+                                        }
+                                    </Item>
+                                    <Item extra={
+                                        member_purchase_order.member_purchase_order_flow === "WAIT_PAY" ?
+                                            <Button style={{marginRight: '0.08rem'}}
+                                                    type="primary"
+                                                    size="small"
+                                                    inline
+                                                    onClick={this.handlePay.bind(this, member_purchase_order.member_purchase_order_id)}>
+                                                立即付款
+                                            </Button>
+                                            :
+                                            ''
                                     }
+                                    >
+                                    </Item>
                                 </List>
                             </div>
                         );
                     })
                 }
                 <WhiteSpace size="lg"/>
+                <div style={{height: '100px'}}></div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

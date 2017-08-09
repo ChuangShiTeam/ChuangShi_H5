@@ -38,6 +38,7 @@ import MemberDeliveryOrderIndex from './view/member_delivery_order/MemberDeliver
 import MemberDeliveryOrderDetail from './view/member_delivery_order/MemberDeliveryOrderDetail';
 import MemberDeliveryOrderWarehouseReplaceDeliver from './view/member_delivery_order/MemberDeliveryOrderWarehouseReplaceDeliver';
 import MemberDeliveryOrderSelfDeliver from './view/member_delivery_order/MemberDeliveryOrderSelfDeliver';
+import MemberDeliveryOrderSelfDeliverForOrder from './view/member_delivery_order/MemberDeliveryOrderSelfDeliverForOrder';
 import TradeCheck from './view/trade/TradeCheck';
 import TradeIndex from './view/trade/TradeIndex';
 import TradeDetail from './view/trade/TradeDetail';
@@ -119,6 +120,7 @@ function RouterConfig({history}) {
                 <Route path="/member/delivery/order/edit/:member_delivery_order_id" component={MemberDeliveryOrderDetail}/>
                 <Route path="/member/delivery/order/warehouse/replace/deliver" component={MemberDeliveryOrderWarehouseReplaceDeliver}/>
                 <Route path="/member/delivery/order/self/deliver" component={MemberDeliveryOrderSelfDeliver}/>
+                <Route path="/member/delivery/order/self/deliver/for/order/:member_delivery_order_id" component={MemberDeliveryOrderSelfDeliverForOrder}/>
                 <Route path="/trade/check" component={TradeCheck}/>
                 <Route path="/trade/index/:trade_flow" component={TradeIndex}/>
                 <Route path="/trade/edit/:trade_id" component={TradeDetail}/>

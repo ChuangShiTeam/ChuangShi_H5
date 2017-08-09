@@ -40,7 +40,7 @@ class ExpressIndex extends Component {
                     express: data
                 });
 
-                if (data.express_traces_list !== null) {
+                if (typeof (data.express_traces_list) !== 'undefined') {
                     var express_traces_list = data.express_traces_list;
                     var temp = [];
                     for (let i = 0; i < express_traces_list.length; i++) {

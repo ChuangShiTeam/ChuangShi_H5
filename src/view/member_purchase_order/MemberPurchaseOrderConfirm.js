@@ -15,7 +15,7 @@ class MemberPurchaseOrderConfirm extends Component {
             result: 'confirm',
             is_pay: false,
             is_error: false,
-            member_purchase_order_total_amount: 0
+            member_purchase_order_amount: 0
         }
     }
 
@@ -44,7 +44,7 @@ class MemberPurchaseOrderConfirm extends Component {
                 if (data.member_purchase_order_is_pay) {
                     this.setState({
                         result: 'success',
-                        member_purchase_order_total_amount: data.member_purchase_order_total_amount
+                        member_purchase_order_amount: data.member_purchase_order_amount
                     });
                 } else if (this.state.count < 2) {
                     this.setState({
@@ -115,7 +115,7 @@ class MemberPurchaseOrderConfirm extends Component {
                                         lineHeight: 1,
                                     }}
                                 >
-                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.member_purchase_order_total_amount).toFixed(2)}
+                                    <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.member_purchase_order_amount).toFixed(2)}
                                 </div>
                             </div>}
                         />
@@ -133,11 +133,11 @@ class MemberPurchaseOrderConfirm extends Component {
                         ''
                 }
                 <div style={{ margin: '100px 10px 0px 10px' }}>
-                    <Button type="primary" onClick={this.handleIndex.bind(this)}>返回首页</Button>
+                    <Button type="primary" onClick={this.handleMemberPurchaseOrder.bind(this)}>查看进货</Button>
                 </div>
                 <WhiteSpace size="lg"/>
                 <div style={{ margin: '0px 10px 0px 10px' }}>
-                    <Button onClick={this.handleMemberPurchaseOrder().bind(this)}>查看进货</Button>
+                    <Button onClick={this.handleIndex.bind(this)}>返回首页</Button>
                 </div>
             </div>
         );
