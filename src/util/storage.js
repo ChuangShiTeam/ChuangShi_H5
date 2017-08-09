@@ -30,7 +30,8 @@ function getToken() {
         if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
             // token = 'gygLszl85cPD1c1AlprNZ/yZdlQtt3pF+BdCDPMzM9fPGHmzIsQ6dIzlS2wsn8lJfebepk0PIxJGZXWWcSiCPRE3uCVSOrsqQynDzzuuCH8=';
             // token = 'jrm+riL6g6CN+wYxFfeuOqof7FRyU9UPU9BupigvBENYS+cAJweOLwOKsfC3NtrA/0yKhg3ARlxntdZeK6jJcYslLxfUHluhCWZPXozYBLc=';
-            token = 'nFxzCTlV1fxElyp3FIozxYrXQzjt2PDgdsL9TyOf2eLAQbXeWTjoS1ssJaGnGm9L/0yKhg3ARlxntdZeK6jJcXuOgWQ+lxYFgxubIzOMbpo=';
+            // token = 'nFxzCTlV1fxElyp3FIozxYrXQzjt2PDgdsL9TyOf2eLAQbXeWTjoS1ssJaGnGm9L/0yKhg3ARlxntdZeK6jJcXuOgWQ+lxYFgxubIzOMbpo=';
+            token = 'RWzhq4xTwjksOwclm+nOg6dp3n/8mCbZ9c7OolUXYaYLkIec0V6ZXZrV2Izavob1febepk0PIxJGZXWWcSiCPfXeh4XW7B3fYM10OdcyYkQ=';
         } else {
             // token = 'eGxQXLg8tF6pnkrWKDZtQYx66pZZVT7coqSE1UnwrdFaSxYn7vSUK0gatjD0XDdAfebepk0PIxJGZXWWcSiCPTEW98BsEe3j8pce1qW012o=';
             // token = 'EglfmyoSgHXR35+iLGQRZCplzzJlPGVSzoBIrlBSR0au3n2ga4z5NC3zl7rhN4Pafebepk0PIxJGZXWWcSiCPS0ZRoDJqbk6DTHKn+l/SWE=';

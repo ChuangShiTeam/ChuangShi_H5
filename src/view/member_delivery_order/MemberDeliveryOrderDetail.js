@@ -30,7 +30,7 @@ class MemberDeliveryOrderDetail extends Component {
             member_purchase_order_flow: '',
             system_create_time: '',
             member_purchase_order_product_sku_list: [],
-            express_list: []
+            member_purchase_order_express_list: []
         };
     }
 
@@ -69,7 +69,7 @@ class MemberDeliveryOrderDetail extends Component {
                     member_purchase_order_flow: data.member_purchase_order_flow,
                     system_create_time: data.system_create_time,
                     member_purchase_order_product_sku_list: data.member_purchase_order_product_sku_list,
-                    express_list: data.express_list
+                    member_purchase_order_express_list: data.member_purchase_order_express_list
                 });
             }.bind(this),
             complete: function () {
@@ -155,10 +155,10 @@ class MemberDeliveryOrderDetail extends Component {
                             {this.state.member_purchase_order_flow === "WAIT_RECEIVE" || this.state.member_purchase_order_flow === "COMPLETE" ?
                                 <div>
                                     <WhiteSpace size="lg"/>
-                                    {this.state.express_list.length > 0 ?
+                                    {this.state.member_purchase_order_express_list.length > 0 ?
                                         <List>
                                             {
-                                                this.state.express_list.map((item, index) => {
+                                                this.state.member_purchase_order_express_list.map((item, index) => {
                                                     return (
                                                         <Item
                                                             key={index}

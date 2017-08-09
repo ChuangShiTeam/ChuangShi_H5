@@ -74,9 +74,10 @@ class ExpressIndex extends Component {
             <div>
                 <List>
                     <Item wrap multipleLine>
-                        <img className="express-traces-image" src={constant.host + this.state.express.product_image}
-                             alt={this.state.express.product_name}/>
-                        <div className="express-traces-text">
+                        {/*<img className="express-traces-image" src={constant.host + this.state.express.product_image}*/}
+                             {/*alt={this.state.express.product_name}/>*/}
+                        {/*<div className="express-traces-text">*/}
+                        <div className="">
                             <Brief>物流状态：{this.state.express.express_flow}</Brief>
                             <Brief>承运来源：{this.state.express.express_shipper_code}</Brief>
                             <Brief>运单编号：{this.state.express.express_no}</Brief>
