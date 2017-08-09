@@ -15,6 +15,7 @@ class CertificateIndex extends Component {
         this.state = {
             is_load: false,
             certificate: {},
+            certificateImageList: [],
             certificateImageWXList: [],
             certificateImageOtherList: [],
             is_pay: false,
@@ -43,6 +44,7 @@ class CertificateIndex extends Component {
             success: function (data) {
                 this.setState({
                     certificate: data.certificate,
+                    certificateImageList: data.certificateImageList,
                     certificateImageWXList: data.certificateImageWXList,
                     certificateImageOtherList: data.certificateImageOtherList,
                     total_fee: data.total_fee
@@ -175,105 +177,42 @@ class CertificateIndex extends Component {
                 {
                     this.state.is_pay ?
                         <div>
-                            <Tabs activeKey={this.state.tab} animated={false} onTabClick={this.handleTab.bind(this)}>
-                                <TabPane
-                                    tab={<span>微信平台<Badge text={WXListLength === 0 ? "" : WXListLength}/></span>}
-                                    key="WX">
-                                </TabPane>
-                                <TabPane
-                                    tab={<span>其他平台<Badge text={OtherListLength === 0 ? "" : OtherListLength}/></span>}
-                                    key="OTHER">
-                                </TabPane>
-                            </Tabs>
                             {
-                                this.state.tab === "WX" ?
-                                    <div>
-                                        {
-                                            this.state.is_load && this.state.certificateImageWXList.length === 0 ?
-                                                <div>
-                                                    <img src={require('../../assets/svg/empty.svg')}
-                                                         className="empty-image"
-                                                         alt=""/>
-                                                    <div className="empty-text">没有数据</div>
-                                                </div>
-                                                :
-                                                ''
-                                        }
-                                        {
-                                            this.state.certificateImageWXList.map((item, index) => {
-                                                return (
-                                                    <img key={index}
-                                                         style={{
-                                                             width: document.documentElement.clientWidth + 'px',
-                                                             paddingBottom: '30px'
-                                                         }}
-                                                         src={constant.host + item.file_original_path} alt=""
-                                                    />
-                                                );
-                                            })
-                                        }
-                                    </div>
-                                    :
-                                    ''
+                                this.state.certificateImageList.map((item, index) => {
+                                    return (
+                                        <img key={index}
+                                             style={{
+                                                 width: document.documentElement.clientWidth + 'px',
+                                                 paddingBottom: '30px'
+                                             }}
+                                             src={constant.host + item.file_original_path} alt=""
+                                        />
+                                    );
+                                })
                             }
-                            {
-                                this.state.tab === "OTHER" ?
-                                    <div>
-                                        {
-                                            this.state.is_load && this.state.certificateImageOtherList.length === 0 ?
-                                                <div>
-                                                    <img src={require('../../assets/svg/empty.svg')}
-                                                         className="empty-image"
-                                                         alt=""/>
-                                                    <div className="empty-text">没有数据</div>
-                                                </div>
-                                                :
-                                                ''
-                                        }
-                                        {
-                                            this.state.certificateImageOtherList.map((item, index) => {
-                                                return (
-                                                    <img key={index}
-                                                         style={{
-                                                             width: document.documentElement.clientWidth + 'px',
-                                                             paddingBottom: '30px'
-                                                         }}
-                                                         src={constant.host + item.file_original_path} alt=""
-                                                    />
-                                                );
-                                            })
-                                        }
-                                    </div>
-                                    :
-                                    ''
-                            }
+                            <WhiteSpace size="lg"/>
+                            <div style={{height: '100px'}}></div>
                             <div className="footer">
-                                <Flex>
-                                    {
-                                        this.state.certificateImageWXList.length === 0 ?
-                                            <Flex.Item style={{backgroundColor: '#c81623'}}
-                                                       className="footer-buttom"
-                                                       onClick={this.handleWeChatAdd.bind(this)}>
+                                {
+                                    this.state.certificateImageWXList.length === 0 ?
+                                        <div>
+                                            <div className="footer-buttom certificateIndex-add-button"
+                                                 onClick={this.handleWeChatAdd.bind(this)}>
                                                 微信授权书
-                                            </Flex.Item>
-                                            :
-                                            ""
-                                    }
-                                    <Flex.Item style={{backgroundColor: '#c81623'}} className="footer-buttom"
-                                               onClick={this.handleOtherAdd.bind(this)}>其它平台授权书</Flex.Item>
-                                </Flex>
+                                            </div>
+                                            <div className="footer-buttom certificateIndex-add-button certificateIndex-add-button-left"
+                                                 onClick={this.handleOtherAdd.bind(this)}>其它平台授权书</div>
+                                        </div>
+                                        :
+                                        <div className="footer-buttom"
+                                             onClick={this.handleOtherAdd.bind(this)}>
+                                            其它平台授权书
+                                        </div>
+                                }
                             </div>
                         </div>
                         :
-
                         <div>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
-                            <WhiteSpace size="lg"/>
                             <div style={{padding: '0.3rem 0.3rem'}}>
                                 <WhiteSpace size="lg"/>
                                 <WingBlank>
@@ -301,7 +240,7 @@ class CertificateIndex extends Component {
                                 <WhiteSpace size="lg"/>
                                 <WingBlank>
                                     {
-                                        this.state.is_agree?
+                                        this.state.is_agree ?
                                             <div
                                                 style={{backgroundColor: '#1AAD19'}}
                                                 className="footer-buttom"
@@ -327,7 +266,14 @@ class CertificateIndex extends Component {
                                 </WingBlank>
                                 <WingBlank>
                                     <div className="certificate-agreement">
-                                        本站仅提供相关的网络服务，除此之外与相关网络服务有关的设备(如个人电脑、手机、及其他与接入互联网或移动网有关的装置)及所需的费用(如为接入互联网而支付的电话费及上网费、为使用移动网而支付的手机费)均应由用户自行负担
+                                        <p>V+Lab经销商控价承诺：</p>
+                                        <p>为规范V+Lab市场秩序，本人郑重作出以下承诺：</p>
+                                        <p>1、不利用公司名义从事非法活动，不利用公司从事未授权的活动；</p>
+                                        <p>2、不销售非从公司采购的该品牌产品，不销售假货；</p>
+                                        <p>3、无论在任何平台，不私自降价销售所有V+Lab产品；</p>
+                                        <p>4、不损毫消费者合法权益并造成消费者损失；</p>
+                                        <p>5、不参与任何不正当竞争活动。</p>
+                                        <p>如本人有以上行为，本人许可公司罚没控价保证金，并取消本人的V+Lab代理资格，一切损失由本人自行承担。</p>
                                     </div>
                                 </WingBlank>
                             </div>

@@ -640,14 +640,16 @@ body, html {
 
 .certificate-agreement {
     color: #888;
-    font-size: 0.3rem;
-    line-height: 1.5;
-    margin-top: 0.12rem;
+    margin-left: 20px;
     width: auto;
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     /*white-space: nowrap;*/
+}
+
+.certificate-agreement p {
+    font-size: 24px;
 }
 
 .launch {
@@ -683,4 +685,18 @@ body, html {
     font-size: 26px;
     background-color: #c81623;
     color: #ffffff;
+}
+.certificateIndex-add-button {
+    background-color: #c81623;
+    width: 50%;
+    float: left;
+}
+
+.certificateIndex-add-button-left:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    border-left: 2px solid #ffffff;
 }

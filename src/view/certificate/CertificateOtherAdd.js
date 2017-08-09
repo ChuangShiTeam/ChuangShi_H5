@@ -52,7 +52,7 @@ class CertificateOtherAdd extends Component {
                     success: function (data) {
                         Toast.hide();
 
-                        this.handleBack();
+                        // this.handleBack();
                     }.bind(this),
                     complete() {
 
