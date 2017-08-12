@@ -36,6 +36,12 @@ class CertificateOtherAdd extends Component {
         this.props.form.validateFields((errors, values) => {
             if (!errors) {
 
+                if (values.certificate_type.length === 0) {
+                    Toast.fail('请选择授权平台', constant.duration);
+
+                    return;
+                }
+
                 if (!validate.isMobile(values.certificate_people_mobile)) {
                     Toast.fail('手机号码格式不对', constant.duration);
 
@@ -52,7 +58,7 @@ class CertificateOtherAdd extends Component {
                     success: function (data) {
                         Toast.hide();
 
-                        // this.handleBack();
+                        this.handleBack();
                     }.bind(this),
                     complete() {
 
@@ -90,7 +96,12 @@ class CertificateOtherAdd extends Component {
         return (
             <div>
                 <List>
-                    <Picker data={district} cols={1} {...getFieldProps('certificate_type')} className="forss">
+                    <Picker
+                        cols={1}
+                        data={district} {...getFieldProps('certificate_type', {
+                        initialValue: [],
+                    })}
+                    >
                         <List.Item arrow="horizontal">授权平台</List.Item>
                     </Picker>
                     <InputItem
