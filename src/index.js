@@ -14,10 +14,18 @@ import product_detail from './model/product_detail';
 import article_index from './model/article_index';
 import cart from './model/cart';
 import my from './model/my';
+import story from './model/story';
+import science from './model/science';
 
 import wechat from './util/wechat';
 
-let result = wechat.auth();
+let result = true;
+
+if (document.location.href.indexOf('/story/') > -1 || document.location.href.indexOf('/science/') > -1) {
+
+} else {
+    result = wechat.auth();
+}
 
 if (result) {
 
@@ -35,6 +43,8 @@ if (result) {
     app.model(article_index);
     app.model(cart);
     app.model(my);
+    app.model(story);
+    app.model(science);
 
     app.router(Router);
 

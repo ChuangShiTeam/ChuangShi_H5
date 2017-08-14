@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd-mobile": "^1.4.2",
+    "antd-mobile": "^1.6.2",
     "dva": "^1.2.1",
     "fastclick": "^1.0.6",
     "rc-form": "^1.4.3",

@@ -3,6 +3,7 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {ActivityIndicator, WhiteSpace, List, Badge} from 'antd-mobile';
 
+import constant from '../../util/constant';
 import http from '../../util/http';
 
 const Item = List.Item;
@@ -36,6 +37,10 @@ class TeamIndex extends Component {
             document.title = '直属代理';
         } else {
             document.title = '我的代理';
+        }
+
+        if (constant.app_id === 'df2078d6c9eb46babb0df957127273ab') {
+            document.title = '个人中心';
         }
 
         this.setState({

@@ -53,6 +53,10 @@ import EnchashmentIndex from './view/enchashment/EnchashmentIndex';
 import EnchashmentDetail from './view/enchashment/EnchashmentDetail';
 import EnchashmentResult from './view/enchashment/EnchashmentResult';
 import MemberChildrenAddressIndex from './view/member/MemberChildrenAddressIndex';
+import StoryIndex from './view/story/StoryIndex';
+import StoryDetail from './view/story/StoryDetail';
+import ScienceIndex from './view/science/ScienceIndex';
+import ScienceDetail from './view/science/ScienceDetail';
 
 import constant from './util/constant';
 import notification from './util/notification';
@@ -135,6 +139,10 @@ function RouterConfig({history}) {
                 <Route path="/enchashment/add" component={EnchashmentDetail}/>
                 <Route path="/enchashment/edit/:enchashment_id" component={EnchashmentDetail}/>
                 <Route path="/enchashment/result" component={EnchashmentResult}/>
+                <Route path="/story/index" component={StoryIndex}/>
+                <Route path="/story/detail/:article_id" component={StoryDetail} />
+                <Route path="/science/index" component={ScienceIndex}/>
+                <Route path="/science/detail/:article_id" component={ScienceDetail} />
             </Route>
         </Router>
     );

@@ -138,7 +138,7 @@ class My extends Component {
                         thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
                         onClick={this.handleTeam.bind(this)}
                     >
-                        我的团队
+                        个人中心
                     </Item>
                     <Item
                         thumb={require('../assets/svg/location.svg')} arrow="horizontal"

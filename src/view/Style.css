@@ -700,3 +700,41 @@ body, html {
     bottom: 0px;
     border-left: 2px solid #ffffff;
 }
+
+.article-image {
+    width: 120px;
+    height: 120px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.article-name {
+    position: absolute;
+    top: 25px;
+    left: 140px;
+    width: 120px;
+    height: 50px;
+    font-size: 28px;
+}
+
+.article-summary {
+    position: absolute;
+    top: 73px;
+    left: 140px;
+    right: 70px;
+    height: 50px;
+    font-size: 24px;
+    overflow: hidden;
+    white-space: normal;
+    height: 3em;
+    text-overflow: ellipsis;
+    color: #999999;
+}
+
+.article-content {
+    margin: 20px;
+}
+
+.article-content img {
+    width: 100%;
+}
