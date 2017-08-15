@@ -87,7 +87,7 @@ class MemberDeliveryOrderIndex extends Component {
         let member_delivery_order_list = [];
 
         for (let i = 0; i < this.state.list.length; i++) {
-            if (this.state.list[i].member_delivery_order_flow === member_delivery_order_flow || member_delivery_order_flow === 'ALL') {
+            if (this.state.list[i].member_delivery_order_flow === member_delivery_order_flow || member_delivery_order_flow === 'ALL' || (member_delivery_order_flow === 'WAIT_SEND' && this.state.list[i].member_delivery_order_flow === 'WAIT_WAREHOUSE_SEND')) {
                 member_delivery_order_list.push(this.state.list[i]);
             }
         }
@@ -168,8 +168,8 @@ class MemberDeliveryOrderIndex extends Component {
                     </TabPane>
                     <TabPane tab="待发货" key="WAIT_SEND">
                     </TabPane>
-                    <TabPane tab="待总仓库发货" key="WAIT_WAREHOUSE_SEND">
-                    </TabPane>
+                    {/*<TabPane tab="待总仓库发货" key="WAIT_WAREHOUSE_SEND">*/}
+                    {/*</TabPane>*/}
                     <TabPane tab="待收货" key="WAIT_RECEIVE">
                     </TabPane>
                     <TabPane tab="已完成" key="COMPLETE">

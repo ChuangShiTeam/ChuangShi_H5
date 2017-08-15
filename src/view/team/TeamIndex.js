@@ -164,7 +164,7 @@ class TeamIndex extends Component {
                                 <div className="list-item-button"
                                      style={{paddingTop: '40px'}}
                                      onClick={this.handleButton.bind(this, item.member_id)}>
-                                    <Badge text={item.children.length}>
+                                    <Badge overflowCount={999} text={item.children.length}>
                                         <span className="list-item-button-number">{item.is_show ? '-' : '+'}</span>
                                     </Badge>
                                 </div>
