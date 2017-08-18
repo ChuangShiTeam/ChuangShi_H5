@@ -23,15 +23,18 @@ class MemberDeliveryOrderIndex extends Component {
     componentDidMount() {
         document.title = '我的发货';
 
-        document.body.scrollTop = 0;
-
         this.handleStockLoad();
 
         this.handleLoad();
     }
 
     componentWillUnmount() {
-
+        this.props.dispatch({
+            type: 'member_delivery_order/fetch',
+            data: {
+                scroll_top: document.body.scrollTop
+            },
+        });
     }
 
     handleStockLoad() {
@@ -79,6 +82,8 @@ class MemberDeliveryOrderIndex extends Component {
                 this.setState({
                     is_load: true
                 });
+
+                document.body.scrollTop = this.props.member_delivery_order.scroll_top;
             }.bind(this)
         });
     }
@@ -149,7 +154,7 @@ class MemberDeliveryOrderIndex extends Component {
     render() {
         const Item = List.Item;
         const TabPane = Tabs.TabPane;
-        console.log(this.state.member_delivery_order_list);
+
         return (
             <div>
                 <WhiteSpace size="lg"/>
@@ -289,4 +294,4 @@ class MemberDeliveryOrderIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(MemberDeliveryOrderIndex);
+export default connect(({member_delivery_order}) => ({member_delivery_order}))(MemberDeliveryOrderIndex);

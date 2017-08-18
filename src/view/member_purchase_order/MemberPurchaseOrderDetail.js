@@ -69,7 +69,7 @@ class MemberPurchaseOrderDetail extends Component {
                     member_purchase_order_flow: data.member_purchase_order_flow,
                     system_create_time: data.system_create_time,
                     member_purchase_order_product_sku_list: data.member_purchase_order_product_sku_list,
-                    express_list: data.express_list
+                    express_list: data.member_purchase_order_express_list
                 });
             }.bind(this),
             complete: function () {

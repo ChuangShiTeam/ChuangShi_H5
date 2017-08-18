@@ -159,18 +159,23 @@ class Manage extends Component {
                             <div className="manage-item-text">发货管理</div>
                         </div>
                     </Item>
-                    <Item multipleLine>
-                        <div className="manage-item" onClick={this.handleTeam.bind(this)}>
-                            <Badge text={this.props.my.member_wait_pay}>
-                                <img src={require('../assets/svg/friend_normal.svg')} alt=""/>
-                            </Badge>
-                            <div className="manage-item-text">我的代理</div>
-                        </div>
-                        <div className="manage-item manage-item-left" onClick={this.handleCertificate.bind(this)}>
-                            <img src={require('../assets/svg/medal.svg')} alt=""/>
-                            <div className="manage-item-text">我的授权书</div>
-                        </div>
-                    </Item>
+                    {
+                        this.props.my.member_status ?
+                            <Item multipleLine>
+                                <div className="manage-item" onClick={this.handleTeam.bind(this)}>
+                                    <Badge text={this.props.my.member_wait_pay}>
+                                        <img src={require('../assets/svg/friend_normal.svg')} alt=""/>
+                                    </Badge>
+                                    <div className="manage-item-text">我的代理</div>
+                                </div>
+                                <div className="manage-item manage-item-left" onClick={this.handleCertificate.bind(this)}>
+                                    <img src={require('../assets/svg/medal.svg')} alt=""/>
+                                    <div className="manage-item-text">我的授权书</div>
+                                </div>
+                            </Item>
+                            :
+                            ''
+                    }
                 </List>
                 <WhiteSpace size="lg"/>
                 <List>
@@ -180,12 +185,17 @@ class Manage extends Component {
                     >
                         收货地址
                     </Item>
-                    <Item
-                        thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
-                        onClick={this.handleFirstTeam.bind(this)}
-                    >
-                        直属代理
-                    </Item>
+                    {
+                        this.props.my.member_status ?
+                            <Item
+                                thumb={require('../assets/svg/friend_normal.svg')} arrow="horizontal"
+                                onClick={this.handleFirstTeam.bind(this)}
+                            >
+                                直属代理
+                            </Item>
+                            :
+                            ''
+                    }
                     {
                         this.props.my.member_status ?
                             <Item

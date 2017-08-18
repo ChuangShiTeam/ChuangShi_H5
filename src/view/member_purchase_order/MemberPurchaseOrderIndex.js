@@ -21,13 +21,16 @@ class MemberPurchaseOrderIndex extends Component {
     componentDidMount() {
         document.title = '我的进货';
 
-        document.body.scrollTop = 0;
-
         this.handleLoad();
     }
 
     componentWillUnmount() {
-
+        this.props.dispatch({
+            type: 'member_purchase_order/fetch',
+            data: {
+                scroll_top: document.body.scrollTop
+            },
+        });
     }
 
     handleLoad() {
@@ -58,6 +61,8 @@ class MemberPurchaseOrderIndex extends Component {
                 this.setState({
                     is_load: true
                 });
+
+                document.body.scrollTop = this.props.member_purchase_order.scroll_top;
             }.bind(this)
         });
     }
@@ -264,4 +269,4 @@ class MemberPurchaseOrderIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(MemberPurchaseOrderIndex);
+export default connect(({member_purchase_order}) => ({member_purchase_order}))(MemberPurchaseOrderIndex);
