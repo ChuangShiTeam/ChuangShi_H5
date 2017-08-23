@@ -155,18 +155,18 @@ class ProductDetail extends Component {
                             <Item>
                                 {this.props.product_detail.is_first_purchase ? '首次' : ''}进货数量：{this.props.product_detail.product_sku_quantity}个
                             </Item>
-                            <Item extra={
-                                <Stepper
-                                    style={{width: '100%', minWidth: '2rem'}}
-                                    showNumber={true}
-                                    max={99999}
-                                    min={1}
-                                    value={this.props.product_detail.product_sku_quantity}
-                                    onChange={this.handleChange.bind(this)}
-                                />}
-                            >
-                                购买数量
-                            </Item>
+                            {/*<Item extra={*/}
+                                {/*<Stepper*/}
+                                    {/*style={{width: '100%', minWidth: '2rem'}}*/}
+                                    {/*showNumber={true}*/}
+                                    {/*max={99999}*/}
+                                    {/*min={1}*/}
+                                    {/*value={this.props.product_detail.product_sku_quantity}*/}
+                                    {/*onChange={this.handleChange.bind(this)}*/}
+                                {/*/>}*/}
+                            {/*>*/}
+                                {/*购买数量*/}
+                            {/*</Item>*/}
                         </List>
                         :
                         <List>
