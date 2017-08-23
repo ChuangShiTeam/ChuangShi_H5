@@ -147,7 +147,7 @@ class My extends Component {
                         我的地址
                     </Item>
                     {
-                        this.props.my.member_status ?
+                        this.props.my.member_status && this.props.my.member_level_sort < 4 ?
                             <Item
                                 thumb={require('../assets/svg/qr_code.svg')} arrow="horizontal"
                                 onClick={this.handleQrcode.bind(this)}

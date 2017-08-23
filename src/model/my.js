@@ -7,7 +7,7 @@ export default {
         user_avatar: '',
         member_level_id: '',
         member_level_name: '',
-        member_level_value: 999,
+        member_level_sort: 999,
         member_commission_amount: 0,
         member_order_amount: 0,
         member_wait_pay: 0,
