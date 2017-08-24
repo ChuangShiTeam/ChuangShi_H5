@@ -166,6 +166,14 @@ class MemberDeliveryOrderIndex extends Component {
                         我的总仓库存
                     </Item>
                 </List>
+                <Flex>
+                    {/*<Flex.Item>
+                        <div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>
+                    </Flex.Item>*/}
+                    <Flex.Item>
+                        <div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>
+                    </Flex.Item>
+                </Flex>
                 <WhiteSpace size="lg"/>
                 <Tabs activeKey={this.state.member_delivery_order_flow} animated={false}
                       onTabClick={this.handleTab.bind(this)}>
@@ -196,13 +204,17 @@ class MemberDeliveryOrderIndex extends Component {
                                                             member_delivery_order.member_delivery_order_flow === "COMPLETE" ? "已完成" : ""}
                                             </div>
                                         }>
-                                        <div>
-                                            <img style={{width: "60px", height: "60px"}}
-                                                 src={member_delivery_order.user_avatar} alt=""/>
+                                        {
+                                            member_delivery_order.user_name?
+                                                <div>
+                                                    <img style={{width: "60px", height: "60px"}}
+                                                         src={member_delivery_order.user_avatar} alt=""/>
                                             <span style={{fontSize: '28px', marginLeft: '20px'}}>
                                                      {member_delivery_order.user_name}
                                                     </span>
-                                        </div>
+                                                </div>: null
+                                        }
+
                                     </Item>
                                     {
                                         member_delivery_order.member_delivery_order_product_sku_list.map((product_sku) => {
@@ -275,17 +287,6 @@ class MemberDeliveryOrderIndex extends Component {
                 }
                 <WhiteSpace size="lg"/>
                 <div style={{height: '100px'}}></div>
-                {/*<div className="footer">*/}
-                    {/*<Flex>*/}
-                        {/*<Flex.Item>*/}
-                            {/*<div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>*/}
-                        {/*</Flex.Item>*/}
-                        {/*<Flex.Item>*/}
-                            {/*<div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>*/}
-                        {/*</Flex.Item>*/}
-                    {/*</Flex>*/}
-
-                {/*</div>*/}
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>

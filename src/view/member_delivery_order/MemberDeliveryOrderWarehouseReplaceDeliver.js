@@ -15,6 +15,7 @@ class MemberDeliveryOrderWarehouseReplaceDeliver extends Component {
 
         this.state = {
             is_load: false,
+            moneyfocused: false,
             action: 'save',
             product_sku_id: '',
             member_address: {}
@@ -154,12 +155,49 @@ class MemberDeliveryOrderWarehouseReplaceDeliver extends Component {
                                 required: true,
                                 message: '请输入爆水丸数量',
                             }],
+                            normalize: (v) => {
+                                if (v && (v.charAt(0) === '0' || v.indexOf('.') >= 0)) {
+                                    return v.replace(/^0*(\d*).*$/, '$1');
+                                }
+                                return v;
+                            },
                             initialValue: '',
                         })}
+                        type="money"
                         error={!!getFieldError('product_sku_quantity')}
                         clear
                         placeholder="请输入爆水丸数量"
+                        onFocus={() => {
+                          this.setState({
+                            moneyfocused: false,
+                          });
+                        }}
+                        focused={this.state.moneyfocused}
                     >爆水丸数量:</InputItem>
+                    <InputItem
+                        {...getFieldProps('member_delivery_order_amount', {
+                            normalize: (v, prev) => {
+                                if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
+                                    if (v === '.') {
+                                        return '0.';
+                                    }
+                                    return prev;
+                                }
+                                return v;
+                            },
+                            initialValue: '',
+                        })}
+                        type="money"
+                        error={!!getFieldError('member_delivery_order_amount')}
+                        clear
+                        placeholder="请输入发货金额"
+                        onFocus={() => {
+                          this.setState({
+                            moneyfocused: false,
+                          });
+                        }}
+                        focused={this.state.moneyfocused}
+                    >发货金额:</InputItem>
                     <Picker
                         data={[
                             {
@@ -174,7 +212,7 @@ class MemberDeliveryOrderWarehouseReplaceDeliver extends Component {
                         initialValue: [],
                     })}
                     >
-                        <Item arrow="horizontal">支付方式:</Item>
+                        <Item arrow="horizontal">快递支付方式:</Item>
                     </Picker>
                 </List>
                 <WhiteSpace size="lg"/>

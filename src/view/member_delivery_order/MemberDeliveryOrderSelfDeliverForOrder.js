@@ -5,7 +5,7 @@ import {createForm} from "rc-form";
 import {ActivityIndicator, WhiteSpace, WingBlank, List, InputItem, Button, Picker, Toast} from 'antd-mobile';
 
 import constant from "../../util/constant";
-import validate from "../../util/validate";
+import express_code from "../../util/express_code";
 import http from "../../util/http";
 import storage from '../../util/storage';
 
@@ -172,32 +172,8 @@ class MemberDeliveryOrderSelfDeliverForOrder extends Component {
                                 <List>
                                     <Picker
                                         cols={1}
-                                        data={[
-                                            {
-                                                label: '顺丰快递',
-                                                value: 'SF',
-                                            },
-                                            {
-                                                label: '天天快递',
-                                                value: 'HHTT',
-                                            },
-                                            {
-                                                label: '申通快递',
-                                                value: 'STO',
-                                            },
-                                            {
-                                                label: '韵达快递',
-                                                value: 'YD',
-                                            },
-                                            {
-                                                label: '圆通速递',
-                                                value: 'YTO',
-                                            },
-                                            {
-                                                label: '中通速递',
-                                                value: 'ZTO',
-                                            },
-                                        ]} {...getFieldProps('express_shipper_code_' + item.express_id, {
+                                        data={express_code}
+                                        {...getFieldProps('express_shipper_code_' + item.express_id, {
                                         initialValue: [],
                                     })}
                                     >
