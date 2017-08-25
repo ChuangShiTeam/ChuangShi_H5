@@ -11,6 +11,7 @@ class MemberIndex extends Component {
 
         this.state = {
             is_load: false,
+            app_pattern: '',
             user_name: '',
             user_avatar: '',
             member_level_name: '',
@@ -46,6 +47,7 @@ class MemberIndex extends Component {
             },
             success: function (data) {
                 this.setState({
+                    app_pattern: data.app_pattern,
                     user_name: data.user_name,
                     user_avatar: data.user_avatar,
                     member_level_name: data.member_level_name,
@@ -61,9 +63,16 @@ class MemberIndex extends Component {
         });
     }
 
-    handleMemberTrade() {
+    handleMemberPurchaseOrder() {
         this.props.dispatch(routerRedux.push({
             pathname: '/member/children/purchase/order/index/' + this.props.params.member_id,
+            query: {}
+        }));
+    }
+
+    handleMemberTrade() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/member/children/trade/index/' + this.props.params.member_id,
             query: {}
         }));
     }
@@ -125,9 +134,17 @@ class MemberIndex extends Component {
                             :
                             ''
                     }
-                    <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
-                        进货订单
-                    </Item>
+                    {
+                        this.state.app_pattern === 'TRADE'?
+                            <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
+                                订单
+                            </Item>:
+                        this.state.app_pattern === 'MEMBER_PURCHASE_ORDER'?
+                            <Item arrow="horizontal" onClick={this.handleMemberPurchaseOrder.bind(this)}>
+                                进货订单
+                            </Item>:null
+                    }
+
                     {/*<Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>*/}
                         {/*TA的账单流水*/}
                     {/*</Item>*/}

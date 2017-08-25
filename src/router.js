@@ -29,6 +29,7 @@ import MemberBillIndex from './view/member/MemberBillIndex';
 import MemberLevel from './view/member/MemberLevel';
 import MemberAddressIndex from './view/member/MemberAddressIndex';
 import MemberAddressDetail from './view/member/MemberAddressDetail';
+import MemberChildrenTradeIndex from './view/member/MemberChildrenTradeIndex';
 import MemberPurchaseOrderCheck from './view/member_purchase_order/MemberPurchaseOrderCheck';
 import MemberPurchaseOrderIndex from './view/member_purchase_order/MemberPurchaseOrderIndex';
 import MemberChildrenPurchaseOrderIndex from './view/member_purchase_order/MemberChildrenPurchaseOrderIndex';
@@ -107,6 +108,7 @@ function RouterConfig({history}) {
                     <Route path="/member/purchase/order/index/:member_purchase_order_flow" component={MemberPurchaseOrderIndex}/>
                     <Route path="/member/children/purchase/order/index/:member_id" component={MemberChildrenPurchaseOrderIndex}/>
                     <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
+                    <Route path="/member/children/trade/index/:member_id" component={MemberChildrenTradeIndex}/>
                 </Route>
                 <Route path="/launch" component={Launch}/>
                 <Route path="/product/detail/:product_id" component={ProductDetail}/>
