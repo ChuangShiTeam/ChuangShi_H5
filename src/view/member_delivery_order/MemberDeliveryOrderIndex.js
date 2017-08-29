@@ -160,20 +160,13 @@ class MemberDeliveryOrderIndex extends Component {
                 <WhiteSpace size="lg"/>
                 <List>
                     <Item multipleLine
-                          extra={this.state.stock_quantity}
+                          extra={<div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>}
                           thumb={require('../../assets/svg/safe.svg')}
                     >
-                        我的总仓库存
+                        我的总仓库存: {this.state.stock_quantity}
                     </Item>
                 </List>
-                <Flex>
-                    {/*<Flex.Item>
-                        <div className="footer-buttom" onClick={this.handleSlefDeliverAdd.bind(this)}>自己发货</div>
-                    </Flex.Item>*/}
-                    <Flex.Item>
-                        <div className="footer-buttom" onClick={this.handleWarehouseReplaceDeliverAdd.bind(this)}>总仓库代发</div>
-                    </Flex.Item>
-                </Flex>
+
                 <WhiteSpace size="lg"/>
                 <Tabs activeKey={this.state.member_delivery_order_flow} animated={false}
                       onTabClick={this.handleTab.bind(this)}>
