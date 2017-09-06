@@ -135,9 +135,9 @@ ansi-styles@^3.0.0:
   dependencies:
     color-convert "^1.0.0"
 
-antd-mobile@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-1.6.2.tgz#3e9f9e5d8c58650d3c8e631425486e01f5998c6b"
+antd-mobile@^1.6.5:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-1.6.5.tgz#5d44f1d57a46e6517ecc306692223641b583e6f1"
   dependencies:
     array-tree-filter "~1.0.0"
     babel-runtime "6.x"
@@ -155,21 +155,21 @@ antd-mobile@^1.6.2:
     rc-notification "~2.0.0"
     rc-slider "~8.2.0"
     rc-steps "~2.5.1"
-    rc-swipeout "~1.3.0"
+    rc-swipeout "~1.4.6"
     rc-table "~5.4.0"
     rc-tabs "~9.1.0"
     rc-tooltip "~3.4.3"
     rc-touchable "~1.2.2"
-    react-native-camera-roll-picker "~1.1.6"
+    react-native-camera-roll-picker "~1.2.0"
     react-native-collapsible "^0.8.0"
     react-native-drawer-layout "~1.3.0"
     react-native-menu "~0.21.0"
     react-native-scrollable-tab-view "^0.7.2"
-    rmc-cascader "^4.1.1"
-    rmc-date-picker "^5.3.1"
-    rmc-list-view "^0.8.4"
-    rmc-nuka-carousel "^2.2.0"
-    rmc-picker "^3.8.0"
+    rmc-cascader "~4.3.4"
+    rmc-date-picker "~5.5.0"
+    rmc-list-view "~0.8.4"
+    rmc-nuka-carousel "~2.2.0"
+    rmc-picker "~4.0.1"
     rn-topview "~0.1.0"
     warning "^3.0.0"
 
@@ -4404,7 +4404,7 @@ object-keys@^1.0.8:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
 
-object.omit@^2.0.0, object.omit@~2.0.0:
+object.omit@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/object.omit/-/object.omit-2.0.1.tgz#1a9c744829f39dbb858c76ca3579ae2a54ebd1fa"
   dependencies:
@@ -4415,7 +4415,7 @@ obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.1.tgz#104124b6c602c6796881a042541d36db43a5264e"
 
-omit.js@~1.0.0:
+omit.js@^1.0.0, omit.js@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/omit.js/-/omit.js-1.0.0.tgz#e013cb86a7517b9cf6f7cfb0ddb4297256a99288"
   dependencies:
@@ -5233,12 +5233,13 @@ rc-steps@~2.5.1:
     lodash.debounce "^4.0.8"
     prop-types "^15.5.7"
 
-rc-swipeout@~1.3.0:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/rc-swipeout/-/rc-swipeout-1.3.6.tgz#e5f1e7036e2b140b3d9218e3b22efb0eacc7f252"
+rc-swipeout@~1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/rc-swipeout/-/rc-swipeout-1.4.6.tgz#774c08e78b0da61dc2cce50a766207293ce1572b"
   dependencies:
     babel-runtime "6.x"
-    object.omit "~2.0.0"
+    classnames "^2.2.5"
+    omit.js "^1.0.0"
     rc-hammerjs "^0.6.6"
     react-native-swipeout "~2.1.1"
 
@@ -5358,9 +5359,9 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
-react-native-camera-roll-picker@~1.1.6:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.1.9.tgz#99bad3a9c117ad79e67044c420ce463ee18f29d3"
+react-native-camera-roll-picker@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-camera-roll-picker/-/react-native-camera-roll-picker-1.2.0.tgz#f479ad27e5b0962b9049bd16669de9b59f91df5c"
 
 react-native-collapsible@^0.8.0:
   version "0.8.0"
@@ -5752,25 +5753,25 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^2.0.0"
     inherits "^2.0.1"
 
-rmc-cascader@^4.1.1:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/rmc-cascader/-/rmc-cascader-4.2.2.tgz#6f8c308ee16b0354f1681d09b6b48c2558a0a27f"
+rmc-cascader@~4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/rmc-cascader/-/rmc-cascader-4.3.4.tgz#643ce891f692ad61f8ee04bc5be484f5ea7373a6"
   dependencies:
     array-tree-filter "1.0.x"
     babel-runtime "6.x"
-    rmc-picker "^3.9.3"
+    rmc-picker "^4.0.1"
 
-rmc-date-picker@^5.3.1:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/rmc-date-picker/-/rmc-date-picker-5.4.0.tgz#366deb90e26842b4b976a00aa0de9baf57c160f6"
+rmc-date-picker@~5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/rmc-date-picker/-/rmc-date-picker-5.5.0.tgz#00d16317eebba368c81524fcb23d9e05ac77dd89"
   dependencies:
     babel-runtime "6.x"
     moment "2.x"
-    rmc-picker "^3.8.0"
+    rmc-picker "^4.0.1"
 
-rmc-list-view@^0.8.4:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/rmc-list-view/-/rmc-list-view-0.8.4.tgz#b277adeb1d8574e449d41bbf3570d87ab03e47e6"
+rmc-list-view@~0.8.4:
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/rmc-list-view/-/rmc-list-view-0.8.6.tgz#ba65833a2592fff980277610d373557a2d15c23e"
   dependencies:
     autobind-decorator "^1.3.3"
     babel-runtime "6.x"
@@ -5783,7 +5784,7 @@ rmc-list-view@^0.8.4:
     react-timer-mixin "^0.13.3"
     zscroller "~0.3.0"
 
-rmc-nuka-carousel@^2.2.0:
+rmc-nuka-carousel@~2.2.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/rmc-nuka-carousel/-/rmc-nuka-carousel-2.2.1.tgz#c4238193a298be128a2f13ecb5c26fd77ad00ccd"
   dependencies:
@@ -5792,16 +5793,15 @@ rmc-nuka-carousel@^2.2.0:
     kw-react-tween-state "^0.1.5"
     object-assign "^4.1.0"
 
-rmc-picker@^3.8.0, rmc-picker@^3.9.3:
-  version "3.10.5"
-  resolved "https://registry.yarnpkg.com/rmc-picker/-/rmc-picker-3.10.5.tgz#3195975ba762bed22e18a51dd11f33868ea611f0"
+rmc-picker@^4.0.1, rmc-picker@~4.0.1:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/rmc-picker/-/rmc-picker-4.0.4.tgz#d77627f98be0497b022925314344f262f5ce8008"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
-    object-assign "4.x"
+    create-react-class "15.x"
     rc-dialog "^6.4.0"
     rc-touchable "^1.0.2"
-    react-mixin "^3.0.5"
     zscroller "~0.3.0"
 
 rn-topview@~0.1.0:

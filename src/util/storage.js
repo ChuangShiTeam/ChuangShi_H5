@@ -1,12 +1,13 @@
 import constant from './constant';
 
-const open_id_key = ('open_id_' + constant.version);
-const token_key = ('token_' + constant.version);
-const product_sku_list_key = ('product_sku_list_' + constant.version);
-const member_address_key = ('member_address_' + constant.version);
-const trade_flow_key = ('trade_flow_' + constant.version);
-const member_purchase_order_flow_key = ('member_purchase_order_flow_' + constant.version);
-const member_delivery_order_flow_key = ('member_delivery_order_flow_' + constant.version);
+const open_id_key = 'open_id_' + constant.version;
+const token_key = 'token_' + constant.version;
+const product_sku_list_key = 'product_sku_list_' + constant.version;
+const cart_key = 'cart_' + constant.version;
+const member_address_key = 'member_address_' + constant.version;
+const trade_flow_key = 'trade_flow_' + constant.version;
+const member_purchase_order_flow_key = 'member_purchase_order_flow_' + constant.version;
+const member_delivery_order_flow_key = 'member_delivery_order_flow_' + constant.version;
 
 function getOpenId() {
     if (constant.is_test) {
@@ -35,13 +36,16 @@ function getToken() {
             // token = 'RWzhq4xTwjksOwclm+nOg6dp3n/8mCbZ9c7OolUXYaYLkIec0V6ZXZrV2Izavob1febepk0PIxJGZXWWcSiCPfXeh4XW7B3fYM10OdcyYkQ=';
             // token = 'Py/GFsyNdHVuLPSXgmHtvW4yScYlgT0f7idl0PPTC3CUTsuGQsiVBzbV5G4sEgOCKtEuDb5qbUHFuI3SOyq8hAGiEFe8C+e8mviebHJgfWI=';
             // token = 'KQcW4/AnvfpjgNWWAeYfG8ENfiadTcC9P6qYKVNXilVJwwafaHodFtvadr2OkXsaKtEuDb5qbUHFuI3SOyq8hMp1yQ0m2WE0SuAJKmzIuQk=';
-            token = 'MiLWWS++tIWN5zCF253Ho8pDx6c39/KMTYuKJQeV7VndoFVSqq+Ou0czrhKu2ObhKtEuDb5qbUHFuI3SOyq8hLhIWUilDjJTo0v9rOnobCg=';
+            // token = 'MiLWWS++tIWN5zCF253Ho8pDx6c39/KMTYuKJQeV7VndoFVSqq+Ou0czrhKu2ObhKtEuDb5qbUHFuI3SOyq8hLhIWUilDjJTo0v9rOnobCg=';
+            // token = '5fHp/RdSwmIPZA4T6iKFXCpZM4oNxfNTeE/O7t3tfYbfCpYQ62pPDnSPA9IdHBhNKtEuDb5qbUHFuI3SOyq8hM0BIWnFH+F8W+PjWWV5vDI=';
+            token = '/DCme6edgQGx6UuR4g03Sr7ISPxqJBg3TDj1kNX+gits7zJgUQ2DhQ6OzCGxFTIdd4S17fx0doHGAM9ekTj1OlyxlXWOuPSc/nj8G0CIFrg=';
         } else {
             // token = 'eGxQXLg8tF6pnkrWKDZtQYx66pZZVT7coqSE1UnwrdFaSxYn7vSUK0gatjD0XDdAfebepk0PIxJGZXWWcSiCPTEW98BsEe3j8pce1qW012o=';
             // token = 'EglfmyoSgHXR35+iLGQRZCplzzJlPGVSzoBIrlBSR0au3n2ga4z5NC3zl7rhN4Pafebepk0PIxJGZXWWcSiCPS0ZRoDJqbk6DTHKn+l/SWE=';
             // token = 'qo/dW5e3iwB0g+CmSJdAgPzazkmeUyIF9UZxj3vu2B2OZI64/+qOkj63ggR0bA7Ffebepk0PIxJGZXWWcSiCPagrz+Ffgk1F3MSEhHHrcFg=';
             // token = 'lix+goOvFaVxAyzwvo4jwz9eEYXlr6wKOpZuYHcxuGPMCxBwXL8VIEpDgZxhfvrQfebepk0PIxJGZXWWcSiCPbSf6zzJ7AE8kk6PS8VEqqU=';
-            token = 'azG3VW20EKR3+bgOJMZYizsKkMqA10GJJmdQRPrJYwGMZAqeRdBL0aMVabZy2sCHfebepk0PIxJGZXWWcSiCPeNGSMqVl1UlPVa6H9vbSts=';
+            // token = 'azG3VW20EKR3+bgOJMZYizsKkMqA10GJJmdQRPrJYwGMZAqeRdBL0aMVabZy2sCHfebepk0PIxJGZXWWcSiCPeNGSMqVl1UlPVa6H9vbSts=';
+            token = 'ujZ5LbWo3CcDW2Nzzf4W/WZnhV4dWs7WtVS2L4M8HRQnhKI+ZS2+xx22K9PzVfA1ciyFtzYixml/u7aG6UXOXMO9f82dyOMp5y5webx7i2c=';
         }
     }
 
@@ -74,6 +78,50 @@ function setProductSkuList(product_sku_list) {
 
 function removeProductSkuList() {
     localStorage.removeItem(product_sku_list_key);
+}
+
+function getCart() {
+    var cart = localStorage.getItem(cart_key);
+
+    if (cart == null) {
+        return [];
+    }
+
+    return JSON.parse(cart);
+}
+
+function setCart(cart) {
+    localStorage.setItem(cart_key, JSON.stringify(cart));
+}
+
+function addCart(product) {
+    var cartList = getCart();
+    var isNotExit = true;
+
+    for (var i = 0; i < cartList.length; i++) {
+        var cart = cartList[i];
+
+        if (cart.product_id == product.product_id) {
+            isNotExit = false;
+
+            cart.product_id = product.product_id;
+            cart.product_name = product.product_name;
+            cart.product_image = product.product_image;
+            cart.product_sku_id = product.product_sku_id;
+            cart.product_sku_price = product.product_sku_price;
+            cart.product_sku_quantity = product.product_sku_quantity + cart.product_sku_quantity;
+        }
+    }
+
+    if (isNotExit) {
+        cartList.push(product);
+    }
+
+    localStorage.setItem(cart_key, JSON.stringify(cartList));
+}
+
+function removeCart() {
+    localStorage.removeItem(cart_key);
 }
 
 function getMemberAddress() {
@@ -145,6 +193,10 @@ export default {
     getProductSkuList: getProductSkuList,
     setProductSkuList: setProductSkuList,
     removeProductSkuList: removeProductSkuList,
+    getCart: getCart,
+    setCart: setCart,
+    addCart: addCart,
+    removeCart: removeCart,
     getMemberAddress: getMemberAddress,
     setMemberAddress: setMemberAddress,
     removeMemberAddress: removeMemberAddress,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Stepper} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Stepper, Badge, Toast} from 'antd-mobile';
 
 import constant from '../util/constant';
 import storage from '../util/storage';
@@ -12,7 +12,8 @@ class ProductDetail extends Component {
         super(props);
 
         this.state = {
-            is_load: this.props.product_detail.is_load
+            is_load: this.props.product_detail.is_load,
+            cart_total: storage.getCart().length,
         }
     }
 
@@ -108,6 +109,34 @@ class ProductDetail extends Component {
         }));
     }
 
+    handleIm() {
+        window.location.href = "https://qiyukf.com/client?k=9027773b8177dd19b8a5d5c9bd84a9f8&u=kwtejaxwgf5s2kodhs9g&uuid=8rw3bkmeaiux2sm9rta9&gid=0&sid=0&qtype=0&dvctimer=0&robotShuntSwitch=0&hc=0&t=%25E5%2595%2586%25E5%2593%2581%25E8%25AF%25A6%25E6%2583%2585";
+    }
+
+    handleCart() {
+        this.props.dispatch(routerRedux.push({
+            pathname: '/cart/index',
+            query: {}
+        }));
+    }
+
+    handleAddCart() {
+        storage.addCart({
+            product_id: this.props.product_detail.product_id,
+            product_name: this.props.product_detail.product_name,
+            product_image: this.props.product_detail.product_image,
+            product_sku_id: this.props.product_detail.product_sku_id,
+            product_sku_price: this.props.product_detail.product_sku_price,
+            product_sku_quantity: this.props.product_detail.product_sku_quantity,
+        });
+
+        this.setState({
+            cart_total: storage.getCart().length
+        });
+
+        Toast.info("加入购物车成功", 1.5);
+    }
+
     handleBuy() {
         storage.setProductSkuList([{
             product_sku_id: this.props.product_detail.product_sku_id,
@@ -200,22 +229,37 @@ class ProductDetail extends Component {
                         :
                         <div style={{height: '100px'}}></div>
                 }
-                <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
-                    <div className="footer-total">
-                        <span
+                {
+                    constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                        <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
+                            <div className="footer-total">
+                            <span
                             className="footer-total-text">总金额: ￥{this.props.product_detail.product_sku_total_price.toFixed(2)}</span>
-                    </div>
-                    {
-                        constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279' ?
+                            </div>
                             <div className="footer-buy" onClick={this.handleMemberPurchaseOrder.bind(this)}>
                                 立即进货
                             </div>
-                            :
+                        </div>
+                        :
+                        <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
+                            <div className="footer-im" onClick={this.handleIm.bind(this)}>
+                                <img className="footer-cart-icon" src={require('../assets/svg/wang.svg')} />
+                                <div className="footer-cart-text">客服</div>
+                            </div>
+                            <div className="footer-cart" onClick={this.handleCart.bind(this)}>
+                                <Badge text={this.state.cart_total} style={{marginLeft: 20, marginTop: 15}}>
+                                    <img className="footer-cart-icon" src={require('../assets/svg/cart.svg')} />
+                                    <div className="footer-cart-text">购物车</div>
+                                </Badge>
+                            </div>
+                            <div className="footer-add-cart" onClick={this.handleAddCart.bind(this)}>
+                                加入购物车
+                            </div>
                             <div className="footer-buy" onClick={this.handleBuy.bind(this)}>
                                 立即购买
                             </div>
-                    }
-                </div>
+                        </div>
+                }
                 {
                     this.state.is_load ?
                         ''

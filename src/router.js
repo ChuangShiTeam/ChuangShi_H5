@@ -110,6 +110,7 @@ function RouterConfig({history}) {
                     <Route path="/member/delivery/order/index" component={MemberDeliveryOrderIndex}/>
                     <Route path="/member/children/trade/index/:member_id" component={MemberChildrenTradeIndex}/>
                 </Route>
+                <Route path="/cart/index" component={Cart}/>
                 <Route path="/launch" component={Launch}/>
                 <Route path="/product/detail/:product_id" component={ProductDetail}/>
                 <Route path="/category/:category_id" component={Category}/>
