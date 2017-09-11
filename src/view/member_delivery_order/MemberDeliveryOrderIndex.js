@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List, Flex, Tabs, Button} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, Tabs, Button} from 'antd-mobile';
 
 import http from '../../util/http';
 import storage from "../../util/storage";
@@ -243,7 +243,7 @@ class MemberDeliveryOrderIndex extends Component {
                                         <span style={{fontSize: '28px'}}>
                                             {member_delivery_order.member_delivery_order_receiver_name}
 
-                                            {member_delivery_order.member_delivery_order_receiver_mobile != "" ?
+                                            {member_delivery_order.member_delivery_order_receiver_mobile !== "" ?
                                                 (member_delivery_order.member_delivery_order_receiver_mobile)
                                                 :
                                                 ""

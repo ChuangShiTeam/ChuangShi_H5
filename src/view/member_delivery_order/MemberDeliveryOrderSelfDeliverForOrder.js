@@ -55,7 +55,7 @@ class MemberDeliveryOrderSelfDeliverForOrder extends Component {
                     let express_no = this.props.form.getFieldValue('express_no_' + this.state.express_list[i].express_id);
                     let express_cost = this.props.form.getFieldValue('express_cost_' + this.state.express_list[i].express_id);
 
-                    if (express_shipper_code.length == 0) {
+                    if (express_shipper_code.length === 0) {
                         is_express_shipper_code = true;
                     }
 
@@ -158,7 +158,6 @@ class MemberDeliveryOrderSelfDeliverForOrder extends Component {
 
     render() {
         const Item = List.Item;
-        const Brief = Item.Brief;
 
         const {getFieldProps, getFieldError} = this.props.form;
 

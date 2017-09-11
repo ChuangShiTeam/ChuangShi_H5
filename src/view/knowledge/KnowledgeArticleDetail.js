@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
-import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace} from 'antd-mobile';
 
-import constant from '../../util/constant';
 import http from '../../util/http';
 
 class KnowledgeArticleDetail extends Component {

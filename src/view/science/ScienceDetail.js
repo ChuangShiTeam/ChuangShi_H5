@@ -4,7 +4,6 @@ import {routerRedux} from 'dva/router';
 import {ActivityIndicator} from 'antd-mobile';
 
 import http from '../../util/http';
-import wechat from '../../util/wechat';
 
 class ScienceDetail extends Component {
     constructor(props) {
@@ -46,7 +45,7 @@ class ScienceDetail extends Component {
             }.bind(this),
             complete: function () {
 
-            }.bind(this),
+            },
         });
     }
 

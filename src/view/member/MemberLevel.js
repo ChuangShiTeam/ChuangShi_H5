@@ -31,7 +31,7 @@ class MemberLevel extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/team/member/level/list',
+            url: '/mobile/member/level/member/list',
             data: {
                 member_id: this.props.params.member_id
             },

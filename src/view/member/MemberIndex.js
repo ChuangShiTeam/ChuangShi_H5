@@ -4,6 +4,7 @@ import {routerRedux} from 'dva/router';
 import {ActivityIndicator, WhiteSpace, List} from 'antd-mobile';
 
 import http from '../../util/http';
+import constant from "../../util/constant";
 
 class MemberIndex extends Component {
     constructor(props) {
@@ -11,7 +12,6 @@ class MemberIndex extends Component {
 
         this.state = {
             is_load: false,
-            app_pattern: '',
             user_name: '',
             user_avatar: '',
             member_level_name: '',
@@ -23,8 +23,6 @@ class MemberIndex extends Component {
 
     componentDidMount() {
         document.title = '代理信息';
-
-        console.log(this.props.routes[1].path)
 
         this.setState({
             is_first: this.props.routes[1].path === '/member/first/index/:member_id'
@@ -41,13 +39,12 @@ class MemberIndex extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/team/find',
+            url: '/mobile/member/team/find',
             data: {
                 member_id: this.props.params.member_id
             },
             success: function (data) {
                 this.setState({
-                    app_pattern: data.app_pattern,
                     user_name: data.user_name,
                     user_avatar: data.user_avatar,
                     member_level_name: data.member_level_name,
@@ -135,14 +132,20 @@ class MemberIndex extends Component {
                             ''
                     }
                     {
-                        this.state.app_pattern === 'TRADE'?
+                        constant.app_id === 'df2078d6c9eb46babb0df957127273ab'?
                             <Item arrow="horizontal" onClick={this.handleMemberTrade.bind(this)}>
                                 订单
-                            </Item>:
-                        this.state.app_pattern === 'MEMBER_PURCHASE_ORDER'?
+                            </Item>
+                            :
+                            ''
+                    }
+                    {
+                        constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279'?
                             <Item arrow="horizontal" onClick={this.handleMemberPurchaseOrder.bind(this)}>
                                 进货订单
-                            </Item>:null
+                            </Item>
+                            :
+                            ''
                     }
 
                     {/*<Item arrow="horizontal" onClick={this.handleMemberBill.bind(this)}>*/}

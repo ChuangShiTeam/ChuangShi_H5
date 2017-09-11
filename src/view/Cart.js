@@ -46,7 +46,7 @@ class Cart extends Component {
         var cart_list = this.state.cart_list;
 
         for (var i = 0; i < cart_list.length; i++) {
-            if (cart_list[i].product_id == product.product_id) {
+            if (cart_list[i].product_id === product.product_id) {
                 cart_list[i].is_check = !cart_list[i].is_check;
             }
 
@@ -146,6 +146,7 @@ class Cart extends Component {
                                             <img
                                                 className="cart-list-image"
                                                 src={constant.host + item.product_image}
+                                                alt=""
                                             />
                                             <span className="cart-list-text">{item.product_name}</span>
                                             <span className="cart-list-price">{item.product_sku_price.toFixed(2)}</span>
@@ -159,7 +160,7 @@ class Cart extends Component {
                         ''
                 }
                 {
-                    this.state.cart_list.length == 0 ?
+                    this.state.cart_list.length === 0 ?
                         ''
                         :
                         <div className={this.props.route.path.indexOf('/index') > -1 ? 'footer' : 'footer2'}>

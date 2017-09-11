@@ -243,12 +243,12 @@ class ProductDetail extends Component {
                         :
                         <div className={this.props.route.path.indexOf('/detail/') > -1 ? 'footer' : 'footer2'}>
                             <div className="footer-im" onClick={this.handleIm.bind(this)}>
-                                <img className="footer-cart-icon" src={require('../assets/svg/wang.svg')} />
+                                <img className="footer-cart-icon" src={require('../assets/svg/wang.svg')} alt=""/>
                                 <div className="footer-cart-text">客服</div>
                             </div>
                             <div className="footer-cart" onClick={this.handleCart.bind(this)}>
                                 <Badge text={this.state.cart_total} style={{marginLeft: 20, marginTop: 15}}>
-                                    <img className="footer-cart-icon" src={require('../assets/svg/cart.svg')} />
+                                    <img className="footer-cart-icon" src={require('../assets/svg/cart.svg')} alt=""/>
                                     <div className="footer-cart-text">购物车</div>
                                 </Badge>
                             </div>

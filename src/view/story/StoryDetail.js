@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 
-import constant from '../../util/constant';
 import http from '../../util/http';
-import wechat from '../../util/wechat';
 
 class StoryDetail extends Component {
     constructor(props) {
@@ -42,7 +40,7 @@ class StoryDetail extends Component {
             }.bind(this),
             complete: function () {
 
-            }.bind(this),
+            },
         });
     }
 

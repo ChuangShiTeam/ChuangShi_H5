@@ -38,7 +38,7 @@ function getToken() {
             // token = 'KQcW4/AnvfpjgNWWAeYfG8ENfiadTcC9P6qYKVNXilVJwwafaHodFtvadr2OkXsaKtEuDb5qbUHFuI3SOyq8hMp1yQ0m2WE0SuAJKmzIuQk=';
             // token = 'MiLWWS++tIWN5zCF253Ho8pDx6c39/KMTYuKJQeV7VndoFVSqq+Ou0czrhKu2ObhKtEuDb5qbUHFuI3SOyq8hLhIWUilDjJTo0v9rOnobCg=';
             // token = '5fHp/RdSwmIPZA4T6iKFXCpZM4oNxfNTeE/O7t3tfYbfCpYQ62pPDnSPA9IdHBhNKtEuDb5qbUHFuI3SOyq8hM0BIWnFH+F8W+PjWWV5vDI=';
-            token = '/DCme6edgQGx6UuR4g03Sr7ISPxqJBg3TDj1kNX+gits7zJgUQ2DhQ6OzCGxFTIdd4S17fx0doHGAM9ekTj1OlyxlXWOuPSc/nj8G0CIFrg=';
+            token = '8sJgFZkMMgLUPfF9dvJB0kqou5YYz7OBpHBnSIz7y/fMLJQYUAbBFzXE9GlYFHOo/0yKhg3ARlxntdZeK6jJcReT7cqlJ1bmRxZ56PFGm7s=';
         } else {
             // token = 'eGxQXLg8tF6pnkrWKDZtQYx66pZZVT7coqSE1UnwrdFaSxYn7vSUK0gatjD0XDdAfebepk0PIxJGZXWWcSiCPTEW98BsEe3j8pce1qW012o=';
             // token = 'EglfmyoSgHXR35+iLGQRZCplzzJlPGVSzoBIrlBSR0au3n2ga4z5NC3zl7rhN4Pafebepk0PIxJGZXWWcSiCPS0ZRoDJqbk6DTHKn+l/SWE=';
@@ -101,7 +101,7 @@ function addCart(product) {
     for (var i = 0; i < cartList.length; i++) {
         var cart = cartList[i];
 
-        if (cart.product_id == product.product_id) {
+        if (cart.product_id === product.product_id) {
             isNotExit = false;
 
             cart.product_id = product.product_id;

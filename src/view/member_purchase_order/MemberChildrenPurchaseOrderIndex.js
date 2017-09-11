@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "dva";
-import {routerRedux} from "dva/router";
-import {ActivityIndicator, WhiteSpace, List, Tabs, Button, Toast} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, Tabs} from "antd-mobile";
 import constant from "../../util/constant";
 import storage from "../../util/storage";
 import http from "../../util/http";
@@ -32,7 +31,7 @@ class MemberChildrenPurchaseOrderIndex extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/purchase/order/list',
+            url: '/mobile/member/purchase/order/children/list',
             data: {
                 member_id: this.props.params.member_id
             },
@@ -120,7 +119,7 @@ class MemberChildrenPurchaseOrderIndex extends Component {
                                                 <span style={{fontSize: '28px'}}>
                                                     {member_purchase_order.member_purchase_order_receiver_name}
 
-                                                        {member_purchase_order.member_purchase_order_receiver_mobile != "" ?
+                                                        {member_purchase_order.member_purchase_order_receiver_mobile !== "" ?
                                                             "  电话："+member_purchase_order.member_purchase_order_receiver_mobile
                                                             :
                                                             ""

@@ -45,7 +45,7 @@ class ScienceIndex extends Component {
             }.bind(this),
             complete: function () {
 
-            }.bind(this),
+            },
         });
     }
 
@@ -72,7 +72,7 @@ class ScienceIndex extends Component {
                                         arrow="horizontal"
                                     >
                                         <div className="article-image">
-                                            <img src={constant.host + item.article_image} style={{width: '100%', height: '100%'}}/>
+                                            <img src={constant.host + item.article_image} style={{width: '100%', height: '100%'}} alt=""/>
                                         </div>
                                         <div className="article-name">{item.article_name}</div>
                                         <div className="article-summary">{item.article_summary}</div>

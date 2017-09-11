@@ -35,7 +35,7 @@ class MemberPurchaseOrderIndex extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/purchase/order/list',
+            url: '/mobile/member/purchase/order/list',
             data: {},
             success: function (data) {
                 let member_purchase_order_list = [];
@@ -232,7 +232,7 @@ class MemberPurchaseOrderIndex extends Component {
                                                 <span style={{fontSize: '28px'}}>
                                                     {member_purchase_order.member_purchase_order_receiver_name}
 
-                                                    {member_purchase_order.member_purchase_order_receiver_mobile != "" ?
+                                                    {member_purchase_order.member_purchase_order_receiver_mobile !== "" ?
                                                         "  电话："+member_purchase_order.member_purchase_order_receiver_mobile
                                                         :
                                                         ""

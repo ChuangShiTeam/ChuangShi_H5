@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
-import {ActivityIndicator, Card, WhiteSpace, WingBlank} from 'antd-mobile';
+import {WhiteSpace} from 'antd-mobile';
 
 class KnowledgeActivityDetail extends Component {
     constructor(props) {

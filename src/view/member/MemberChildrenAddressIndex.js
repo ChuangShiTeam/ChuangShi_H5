@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
-import {routerRedux} from 'dva/router';
 import {ActivityIndicator, List, WhiteSpace} from 'antd-mobile';
 
 import http from '../../util/http';
 
-class MemberTeamAddressIndex extends Component {
+class MemberChildrenAddressIndex extends Component {
     constructor(props) {
         super(props);
 
@@ -105,4 +104,4 @@ class MemberTeamAddressIndex extends Component {
     }
 }
 
-export default connect(() => ({}))(MemberTeamAddressIndex);
+export default connect(() => ({}))(MemberChildrenAddressIndex);

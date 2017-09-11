@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "dva";
 import {routerRedux} from "dva/router";
-import {createForm} from "rc-form";
-import {ActivityIndicator, WhiteSpace, List, Result, Icon, Button} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, Result, Icon, Button} from "antd-mobile";
 
 class EnchashmentResult extends Component {
     constructor(props) {
@@ -36,8 +35,6 @@ class EnchashmentResult extends Component {
     }
 
     render() {
-        const Item = List.Item;
-
         return (
             <div>
                 <WhiteSpace size="lg"/>

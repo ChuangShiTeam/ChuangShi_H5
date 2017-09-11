@@ -3,7 +3,6 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {ActivityIndicator, WhiteSpace, List, Steps} from 'antd-mobile';
 
-import constant from "../util/constant";
 import http from "../util/http";
 
 class ExpressIndex extends Component {

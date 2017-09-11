@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "dva";
 import {routerRedux} from "dva/router";
 
-import {ActivityIndicator, Toast, Flex, Tabs, Badge, WingBlank, WhiteSpace, Checkbox} from 'antd-mobile';
+import {ActivityIndicator, Toast, WingBlank, WhiteSpace, Checkbox} from 'antd-mobile';
 
 import constant from '../../util/constant';
 import storage from '../../util/storage';
@@ -167,9 +167,6 @@ class CertificateIndex extends Component {
     }
 
     render() {
-        const TabPane = Tabs.TabPane;
-        const WXListLength = this.state.certificateImageWXList.length;
-        const OtherListLength = this.state.certificateImageOtherList.length;
         const AgreeItem = Checkbox.AgreeItem;
 
         return (

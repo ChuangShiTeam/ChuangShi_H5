@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "dva";
-import {routerRedux} from "dva/router";
-import {ActivityIndicator, WhiteSpace, List, Tabs, Button, Toast} from "antd-mobile";
+import {ActivityIndicator, WhiteSpace, List, Tabs} from "antd-mobile";
 import constant from "../../util/constant";
 import storage from "../../util/storage";
 import http from "../../util/http";

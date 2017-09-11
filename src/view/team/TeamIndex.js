@@ -63,7 +63,7 @@ class TeamIndex extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/team/list',
+            url: '/mobile/member/team/list',
             data: {},
             success: function (data) {
                 this.props.dispatch({
