@@ -25,6 +25,13 @@ export default {
         icon: 'brand.svg',
         selected_icon: 'brand_active.svg'
     }, {
+        key: 'shop',
+        title: '积分',
+        url: '/shop',
+        path: '/shop',
+        icon: 'selection.svg',
+        selected_icon: 'selection_active.svg'
+    }, {
         key: 'knowledge',
         title: '商学院',
         url: '/knowledge/index',
@@ -38,5 +45,36 @@ export default {
         path: '/manage',
         icon: 'my.svg',
         selected_icon: 'my_active.svg'
+    }],
+    category: [{
+        category_id: '0',
+        category_name: '所有商品',
+        category_color: '#fd666b',
+        category_image: 'apps.svg',
+    }, {
+        category_id: '146474b15ba545d9b9717cf8b5a6c3f5',
+        category_name: '分类一',
+        category_color: '#73b4ef',
+        category_image: 'discover.svg',
+    }, {
+        category_id: '9ed6cb3551fb4bfaabfeee89cc63f9b4',
+        category_name: '分类二',
+        category_color: '#e78ab0',
+        category_image: 'ticket.svg',
+    }, {
+        category_id: '34fb354194e0409e8a80a4382a7fa18d',
+        category_name: '分类三',
+        category_color: '#7acfa6',
+        category_image: 'present.svg',
+    }, {
+        category_id: '26ef74aa1bb242479df5305478f31b08',
+        category_name: '分类四',
+        category_color: '#ffcb63',
+        category_image: 'punch.svg',
+    }, {
+        category_id: '45ac41e5c3334439a6ac45abdea31a30',
+        category_name: '分类五',
+        category_color: '#9f8bea',
+        category_image: 'taoxiaopu.svg',
     }]
 };

@@ -18,6 +18,7 @@ import story from './model/story';
 import science from './model/science';
 import member_delivery_order from './model/member_delivery_order';
 import member_purchase_order from './model/member_purchase_order';
+import shop from './model/shop';
 
 import wechat from './util/wechat';
 
@@ -49,6 +50,7 @@ if (result) {
     app.model(science);
     app.model(member_delivery_order);
     app.model(member_purchase_order);
+    app.model(shop);
 
     app.router(Router);
 

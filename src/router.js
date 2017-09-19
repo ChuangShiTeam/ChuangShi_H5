@@ -58,6 +58,7 @@ import StoryIndex from './view/story/StoryIndex';
 import StoryDetail from './view/story/StoryDetail';
 import ScienceIndex from './view/science/ScienceIndex';
 import ScienceDetail from './view/science/ScienceDetail';
+import Shop from './view/Shop';
 
 import constant from './util/constant';
 import notification from './util/notification';
@@ -90,6 +91,7 @@ function RouterConfig({history}) {
                     <Route path="/knowledge/index" component={KnowledgeIndex}/>
                     <Route path="/my" component={My}/>
                     <Route path="/manage" component={Manage}/>
+                    <Route path="/shop" component={Shop}/>
 
                     <Route path="/member/index/:member_id" component={MemberIndex}/>
                     <Route path="/member/children/address/:member_id" component={MemberChildrenAddressIndex}/>
