@@ -31,7 +31,7 @@ function getToken() {
         if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
 
         } else {
-            
+
         }
     }
 

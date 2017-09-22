@@ -28,7 +28,7 @@ class My extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/my/find',
+            url: '/mobile/member/my/find',
             data: {},
             success: function (data) {
                 this.props.dispatch({
