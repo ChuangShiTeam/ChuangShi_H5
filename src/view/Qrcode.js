@@ -29,7 +29,7 @@ class Qrcode extends Component {
 
     handleLoad() {
         http.request({
-            url: '/member/qrcode/find',
+            url: '/mobile/member/qrcode/find',
             data: {},
             success: function (data) {
                 this.setState({
