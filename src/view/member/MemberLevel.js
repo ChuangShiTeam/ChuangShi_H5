@@ -75,7 +75,7 @@ class MemberLevel extends Component {
         }
 
         http.request({
-            url: '/member/team/member/level/update',
+            url: '/mobile/member/level/children/update',
             data: {
                 member_id: this.props.params.member_id,
                 member_level_id: this.state.member_level_id
