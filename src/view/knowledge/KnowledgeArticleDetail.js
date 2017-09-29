@@ -3,6 +3,7 @@ import {connect} from 'dva';
 import {ActivityIndicator, WhiteSpace} from 'antd-mobile';
 
 import http from '../../util/http';
+import validate from '../../util/validate';
 
 class KnowledgeArticleDetail extends Component {
     constructor(props) {
@@ -39,6 +40,8 @@ class KnowledgeArticleDetail extends Component {
                 article_id: this.props.params.article_id
             },
             success: function (data) {
+                data.article_content = validate.unescapeHtml(data.article_content);
+
                 document.title = data.article_name;
 
                 this.setState({
@@ -67,7 +70,7 @@ class KnowledgeArticleDetail extends Component {
                              dangerouslySetInnerHTML={{__html: this.state.article.article_content}}></div>
                 }
                 <WhiteSpace size="lg"/>
-                <WhiteSpace size="lg"/>
+                <div style={{height: '100px'}}></div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>
                     <div className="loading"><ActivityIndicator/></div>
                 </div>
