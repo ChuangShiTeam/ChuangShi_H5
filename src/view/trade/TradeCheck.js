@@ -256,7 +256,7 @@ class TradeCheck extends Component {
                             商品金额
                         </Item>
                         <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
-                            运费
+                            运费{this.state.trade_product_amount < 100?<span style={{color: 'red'}}>(满100免邮)</span>:null}
                         </Item>
                     </List>
 

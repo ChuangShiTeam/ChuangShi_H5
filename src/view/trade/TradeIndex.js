@@ -183,7 +183,7 @@ class TradeIndex extends Component {
                                     }
                                     <Item>
                                         <span style={{fontSize: '28px'}}>
-                                            共{trade.trade_product_quantity}件商品，合计：￥{trade.trade_product_amount}
+                                            共{trade.trade_product_quantity}件商品，{trade.trade_express_amount > 0?`快递费：￥${trade.trade_express_amount}，`:null}合计：￥{trade.trade_total_amount}
                                         </span>
                                     </Item>
                                     {(trade.trade_flow === "WAIT_PAY") ?
