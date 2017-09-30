@@ -61,6 +61,6 @@ export default {
         category_id: '45ac41e5c3334439a6ac45abdea31a30',
         category_name: '补血系列',
         category_color: '#9f8bea',
-        category_image: 'taoxiaopu.svg',
+        category_image: 'taoxiaopu.svg'
     }]
 };
