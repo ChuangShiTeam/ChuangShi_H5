@@ -153,6 +153,7 @@ class TradeCheck extends Component {
                 trade_receiver_address: this.state.member_address.member_address_address,
                 trade_message: this.props.form.getFieldValue('trade_message'),
                 trade_pay_type: 'WECHAT',
+                trade_deliver_pattern: 'CASH_BEFORE_DELIVERY',
                 product_sku_list: product_sku_list,
                 open_id: storage.getOpenId(),
                 pay_type: 'H5',
