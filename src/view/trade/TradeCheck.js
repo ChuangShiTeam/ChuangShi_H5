@@ -3,7 +3,7 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from 'rc-form';
 
-import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast, Switch} from 'antd-mobile';
 
 import constant from '../../util/constant';
 import storage from '../../util/storage';
@@ -141,7 +141,7 @@ class TradeCheck extends Component {
         }
 
         Toast.loading('加载中..', 0);
-
+        console.log('trade_deliver_pattern', this.props.form.getFieldValue('trade_deliver_pattern'));
         http.request({
             url: '/trade/save',
             data: {
@@ -153,7 +153,7 @@ class TradeCheck extends Component {
                 trade_receiver_address: this.state.member_address.member_address_address,
                 trade_message: this.props.form.getFieldValue('trade_message'),
                 trade_pay_type: 'WECHAT',
-                trade_deliver_pattern: 'CASH_BEFORE_DELIVERY',
+                trade_deliver_pattern: this.props.form.getFieldValue('trade_deliver_pattern')?'CASH_ON_DELIVERY':'CASH_BEFORE_DELIVERY',
                 product_sku_list: product_sku_list,
                 open_id: storage.getOpenId(),
                 pay_type: 'H5',
@@ -259,6 +259,14 @@ class TradeCheck extends Component {
                         <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
                             运费{this.state.trade_product_amount < 100?<span style={{color: 'red'}}>(满100免邮)</span>:null}
                         </Item>
+                        <Item
+                            extra={<Switch
+                                {...getFieldProps('trade_deliver_pattern', {
+                                    initialValue: false,
+                                    valuePropName: 'checked',
+                                })}
+                            />}
+                        >货到付款</Item>
                     </List>
 
                     <WhiteSpace size="lg"/>
