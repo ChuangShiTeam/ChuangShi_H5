@@ -6,6 +6,7 @@ import {ActivityIndicator, WhiteSpace, List, Stepper, Badge, Toast} from 'antd-m
 import constant from '../util/constant';
 import storage from '../util/storage';
 import http from '../util/http';
+import validate from '../util/validate';
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -59,6 +60,8 @@ class ProductDetail extends Component {
                 product_id: this.props.params.product_id,
             },
             success: function (data) {
+                data.product_content = validate.unescapeHtml(data.product_content);
+
                 this.props.dispatch({
                     type: 'product_detail/fetch',
                     data: {

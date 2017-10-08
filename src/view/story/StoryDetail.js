@@ -3,6 +3,7 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 
 import http from '../../util/http';
+import validate from '../../util/validate';
 
 class StoryDetail extends Component {
     constructor(props) {
@@ -31,6 +32,8 @@ class StoryDetail extends Component {
             },
             success: function (data) {
                 document.title = data.article_name;
+
+                data.article_content = validate.unescapeHtml(data.article_content);
 
                 this.setState({
                     article: data

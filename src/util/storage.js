@@ -28,11 +28,7 @@ function getToken() {
     let token = localStorage.getItem(token_key);
 
     if (constant.is_test) {
-        if (constant.app_id === 'c1af3f1ae00e4e0da9b20f5bd41b4279') {
-            token == '8sJgFZkMMgLUPfF9dvJB0kqou5YYz7OBpHBnSIz7y/fMLJQYUAbBFzXE9GlYFHOo/0yKhg3ARlxntdZeK6jJcReT7cqlJ1bmRxZ56PFGm7s=';
-        } else {
-
-        }
+        token = 'RWzhq4xTwjksOwclm+nOg6dp3n/8mCbZ9c7OolUXYaYLkIec0V6ZXZrV2Izavob1zLnplk9tPZfeyDoie029gxWfkl7PNWdwd12liR7i55o=';
     }
 
     if (token === null) {
