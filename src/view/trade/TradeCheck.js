@@ -141,7 +141,6 @@ class TradeCheck extends Component {
         }
 
         Toast.loading('加载中..', 0);
-        console.log('trade_deliver_pattern', this.props.form.getFieldValue('trade_deliver_pattern'));
         http.request({
             url: '/trade/save',
             data: {
@@ -153,46 +152,54 @@ class TradeCheck extends Component {
                 trade_receiver_address: this.state.member_address.member_address_address,
                 trade_message: this.props.form.getFieldValue('trade_message'),
                 trade_pay_type: 'WECHAT',
-                trade_deliver_pattern: this.props.form.getFieldValue('trade_deliver_pattern')?'CASH_ON_DELIVERY':'CASH_BEFORE_DELIVERY',
+                trade_deliver_pattern: 'CASH_BEFORE_DELIVERY',
                 product_sku_list: product_sku_list,
                 open_id: storage.getOpenId(),
                 pay_type: 'H5',
             },
             success: function (data) {
-                window.wx.chooseWXPay({
-                    timestamp: data.timeStamp,
-                    nonceStr: data.nonceStr,
-                    package: data.package,
-                    signType: data.signType,
-                    paySign: data.paySign,
-                    success: function (res) {
-                        if (res.errMsg === "chooseWXPay:ok") {
-                            //支付成功
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/trade/confirm/' + data.trade_id,
-                                query: {},
-                            }));
-                        } else {
-                            //支付失败
+                if (this.props.form.getFieldValue('trade_deliver_pattern')) {
+                    this.props.dispatch(routerRedux.push({
+                        pathname: '/trade/confirm/' + data.trade_id,
+                        query: {},
+                    }));
+                } else {
+                    window.wx.chooseWXPay({
+                        timestamp: data.timeStamp,
+                        nonceStr: data.nonceStr,
+                        package: data.package,
+                        signType: data.signType,
+                        paySign: data.paySign,
+                        success: function (res) {
+                            if (res.errMsg === "chooseWXPay:ok") {
+                                //支付成功
+                                this.props.dispatch(routerRedux.push({
+                                    pathname: '/trade/confirm/' + data.trade_id,
+                                    query: {},
+                                }));
+                            } else {
+                                //支付失败
+                                this.props.dispatch(routerRedux.push({
+                                    pathname: '/trade/index/ALL',
+                                    query: {},
+                                }));
+                            }
+                        }.bind(this),
+                        fail: function (res) {
                             this.props.dispatch(routerRedux.push({
                                 pathname: '/trade/index/ALL',
                                 query: {},
                             }));
-                        }
-                    }.bind(this),
-                    fail: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: '/trade/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this),
-                    cancel: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: '/trade/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this)
-                });
+                        }.bind(this),
+                        cancel: function (res) {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/trade/index/ALL',
+                                query: {},
+                            }));
+                        }.bind(this)
+                    });
+                }
+
 
                 Toast.hide();
             }.bind(this),
@@ -259,14 +266,14 @@ class TradeCheck extends Component {
                         <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
                             运费{this.state.trade_product_amount < 100?<span style={{color: 'red'}}>(满100免邮)</span>:null}
                         </Item>
-                        <Item
+                        {/*<Item
                             extra={<Switch
                                 {...getFieldProps('trade_deliver_pattern', {
                                     initialValue: false,
                                     valuePropName: 'checked',
                                 })}
                             />}
-                        >货到付款</Item>
+                        >货到付款</Item>*/}
                     </List>
 
                     <WhiteSpace size="lg"/>

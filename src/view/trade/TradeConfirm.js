@@ -41,23 +41,30 @@ class TradeConfirm extends Component {
                 trade_id: trade_id
             },
             success: function (data) {
-                if (data.trade_is_pay) {
+                if (data.trade_deliver_pattern && data.trade_deliver_pattern === 'CASH_ON_DELIVERY') {
                     this.setState({
                         result: 'success',
                         trade_total_amount: data.trade_total_amount
                     });
-                } else if (this.state.count < 2) {
-                    this.setState({
-                        count: this.state.count + 1
-                    });
-
-                    setTimeout(() => {
-                        this.handleLoad();
-                    }, 1500);
                 } else {
-                    this.setState({
-                        result: 'error',
-                    });
+                    if (data.trade_is_pay) {
+                        this.setState({
+                            result: 'success',
+                            trade_total_amount: data.trade_total_amount
+                        });
+                    } else if (this.state.count < 2) {
+                        this.setState({
+                            count: this.state.count + 1
+                        });
+
+                        setTimeout(() => {
+                            this.handleLoad();
+                        }, 1500);
+                    } else {
+                        this.setState({
+                            result: 'error',
+                        });
+                    }
                 }
 
                 Toast.hide();
