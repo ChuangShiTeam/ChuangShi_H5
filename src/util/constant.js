@@ -1,8 +1,8 @@
 export default {
     // host: 'http://localhost:8080',
-    is_test: true,
+    // is_test: true,
     host: 'http://api.chuangshi.nowui.com',
-    // is_test: false,
+    is_test: false,
     platform: 'H5',
     version: '9.9.8',
     name: '星创会',

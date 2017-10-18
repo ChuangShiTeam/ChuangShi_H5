@@ -28,7 +28,7 @@ function getToken() {
     let token = localStorage.getItem(token_key);
 
     if (constant.is_test) {
-        token = '';
+        token = '8sJgFZkMMgLUPfF9dvJB0kqou5YYz7OBpHBnSIz7y/fMLJQYUAbBFzXE9GlYFHOo/0yKhg3ARlxntdZeK6jJcReT7cqlJ1bmRxZ56PFGm7s=';
     }
 
     if (token === null) {
