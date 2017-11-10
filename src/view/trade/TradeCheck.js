@@ -282,9 +282,9 @@ class TradeCheck extends Component {
                         <Item extra={'￥' + this.state.trade_express_amount.toFixed(2)}>
                             运费{this.state.trade_product_amount < 100?<span style={{color: 'red'}}>(满100免邮)</span>:null}
                         </Item>
-                        <Item
+                        {/*<Item
                             extra={<Switch checked={this.state.is_cash_on_deliver} onChange={this.handleChangePayPattern.bind(this)}/>}
-                        >货到付款</Item>
+                        >货到付款</Item>*/}
                     </List>
 
                     <WhiteSpace size="lg"/>
