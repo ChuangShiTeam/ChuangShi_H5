@@ -62,7 +62,7 @@ class TradeConfirm extends Component {
                         }, 1500);
                     } else {
                         this.setState({
-                            result: 'error',
+                            result: 'error'
                         });
                     }
                 }
@@ -80,14 +80,14 @@ class TradeConfirm extends Component {
     handleIndex() {
         this.props.dispatch(routerRedux.push({
             pathname: constant.index,
-            query: {},
+            query: {}
         }));
     }
 
     handleTrade() {
         this.props.dispatch(routerRedux.push({
             pathname: '/trade/index/ALL',
-            query: {},
+            query: {}
         }));
     }
 
@@ -100,7 +100,7 @@ class TradeConfirm extends Component {
                         <Result
                             img={<img src={require('../../assets/svg/waiting.svg')} style={{ width: '1.2rem', height: '1.2rem' }} alt=""/>}
                             title="等待确认"
-                            message="已支付成功，等待平台确认"
+                            message="已操作成功，等待平台确认"
                         />
                         :
                         ''
@@ -119,7 +119,7 @@ class TradeConfirm extends Component {
                                     style={{
                                         fontSize: '0.73rem',
                                         color: '#000',
-                                        lineHeight: 1,
+                                        lineHeight: 1
                                     }}
                                 >
                                     <span style={{ fontSize: '0.64rem' }}>￥</span>{Number(this.state.trade_total_amount).toFixed(2)}

@@ -24,6 +24,7 @@ class TradeCheck extends Component {
             trade_product_amount: 0,
             trade_express_amount: 0,
             trade_amount: 0,
+            is_cash_on_deliver: false
         };
     }
 
@@ -43,7 +44,7 @@ class TradeCheck extends Component {
         http.request({
             url: '/trade/check',
             data: {
-                product_sku_list: storage.getProductSkuList(),
+                product_sku_list: storage.getProductSkuList()
             },
             success: function (data) {
                 let is_pay = true;
@@ -61,17 +62,17 @@ class TradeCheck extends Component {
                             text: '取消',
                             onPress() {
 
-                            },
+                            }
                         },
                         {
                             text: '确定',
                             onPress: function () {
                                 this.props.dispatch(routerRedux.push({
                                     pathname: '/member/address/index/select',
-                                    query: {},
+                                    query: {}
                                 }));
-                            }.bind(this),
-                        },
+                            }.bind(this)
+                        }
                     ]);
                 } else {
                     is_address = true;
@@ -127,90 +128,105 @@ class TradeCheck extends Component {
             return;
         }
 
-        const product_sku_list = [];
-
-        for (let i = 0; i < this.state.product_sku_list.length; i++) {
-            product_sku_list.push({
-                product_sku_id: this.state.product_sku_list[i].product_sku_id,
-                product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity,
-            });
-        }
-
-        if (product_sku_list.length === 0) {
+        if (this.state.product_sku_list.length === 0) {
             Toast.fail('请选购商品', constant.duration);
         }
+        alert('用户须知', '产品非质量问题，不支持退款退货！', [
+            {
+                text: '取消',
+                onPress() {
 
-        Toast.loading('加载中..', 0);
-        http.request({
-            url: '/trade/save',
-            data: {
-                trade_receiver_name: this.state.member_address.member_address_name,
-                trade_receiver_mobile: this.state.member_address.member_address_mobile,
-                trade_receiver_province: this.state.member_address.member_address_province,
-                trade_receiver_city: this.state.member_address.member_address_city,
-                trade_receiver_area: this.state.member_address.member_address_area,
-                trade_receiver_address: this.state.member_address.member_address_address,
-                trade_message: this.props.form.getFieldValue('trade_message'),
-                trade_pay_type: 'WECHAT',
-                trade_deliver_pattern: 'CASH_BEFORE_DELIVERY',
-                product_sku_list: product_sku_list,
-                open_id: storage.getOpenId(),
-                pay_type: 'H5',
+                }
             },
-            success: function (data) {
-                if (this.props.form.getFieldValue('trade_deliver_pattern')) {
-                    this.props.dispatch(routerRedux.push({
-                        pathname: '/trade/confirm/' + data.trade_id,
-                        query: {},
-                    }));
-                } else {
-                    window.wx.chooseWXPay({
-                        timestamp: data.timeStamp,
-                        nonceStr: data.nonceStr,
-                        package: data.package,
-                        signType: data.signType,
-                        paySign: data.paySign,
-                        success: function (res) {
-                            if (res.errMsg === "chooseWXPay:ok") {
-                                //支付成功
+            {
+                text: '我知道了',
+                onPress: function () {
+                    const product_sku_list = [];
+
+                    for (let i = 0; i < this.state.product_sku_list.length; i++) {
+                        product_sku_list.push({
+                            product_sku_id: this.state.product_sku_list[i].product_sku_id,
+                            product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity
+                        });
+                    }
+                    Toast.loading('加载中..', 0);
+                    http.request({
+                        url: '/trade/save',
+                        data: {
+                            trade_receiver_name: this.state.member_address.member_address_name,
+                            trade_receiver_mobile: this.state.member_address.member_address_mobile,
+                            trade_receiver_province: this.state.member_address.member_address_province,
+                            trade_receiver_city: this.state.member_address.member_address_city,
+                            trade_receiver_area: this.state.member_address.member_address_area,
+                            trade_receiver_address: this.state.member_address.member_address_address,
+                            trade_message: this.props.form.getFieldValue('trade_message'),
+                            trade_pay_type: 'WECHAT',
+                            trade_deliver_pattern: this.state.is_cash_on_deliver?'CASH_ON_DELIVERY':'CASH_BEFORE_DELIVERY',
+                            product_sku_list: product_sku_list,
+                            open_id: storage.getOpenId(),
+                            pay_type: 'H5'
+                        },
+                        success: function (data) {
+                            if (this.state.is_cash_on_deliver) {
                                 this.props.dispatch(routerRedux.push({
                                     pathname: '/trade/confirm/' + data.trade_id,
-                                    query: {},
+                                    query: {}
                                 }));
                             } else {
-                                //支付失败
-                                this.props.dispatch(routerRedux.push({
-                                    pathname: '/trade/index/ALL',
-                                    query: {},
-                                }));
+                                window.wx.chooseWXPay({
+                                    timestamp: data.timeStamp,
+                                    nonceStr: data.nonceStr,
+                                    package: data.package,
+                                    signType: data.signType,
+                                    paySign: data.paySign,
+                                    success: function (res) {
+                                        if (res.errMsg === "chooseWXPay:ok") {
+                                            //支付成功
+                                            this.props.dispatch(routerRedux.push({
+                                                pathname: '/trade/confirm/' + data.trade_id,
+                                                query: {},
+                                            }));
+                                        } else {
+                                            //支付失败
+                                            this.props.dispatch(routerRedux.push({
+                                                pathname: '/trade/index/ALL',
+                                                query: {},
+                                            }));
+                                        }
+                                    }.bind(this),
+                                    fail: function (res) {
+                                        this.props.dispatch(routerRedux.push({
+                                            pathname: '/trade/index/ALL',
+                                            query: {},
+                                        }));
+                                    }.bind(this),
+                                    cancel: function (res) {
+                                        this.props.dispatch(routerRedux.push({
+                                            pathname: '/trade/index/ALL',
+                                            query: {},
+                                        }));
+                                    }.bind(this)
+                                });
                             }
+                            Toast.hide();
                         }.bind(this),
-                        fail: function (res) {
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/trade/index/ALL',
-                                query: {},
-                            }));
-                        }.bind(this),
-                        cancel: function (res) {
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/trade/index/ALL',
-                                query: {},
-                            }));
-                        }.bind(this)
+                        complete() {
+
+                        }
                     });
-                }
-
-
-                Toast.hide();
-            }.bind(this),
-            complete() {
-
-            },
-        });
+                }.bind(this)
+            }
+        ]);
     }
 
     handleBack() {
         this.props.dispatch(routerRedux.goBack());
+    }
+
+    handleChangePayPattern () {
+        this.setState({
+            is_cash_on_deliver: !this.state.is_cash_on_deliver
+        })
     }
 
     render() {
@@ -267,12 +283,7 @@ class TradeCheck extends Component {
                             运费{this.state.trade_product_amount < 100?<span style={{color: 'red'}}>(满100免邮)</span>:null}
                         </Item>
                         {/*<Item
-                            extra={<Switch
-                                {...getFieldProps('trade_deliver_pattern', {
-                                    initialValue: false,
-                                    valuePropName: 'checked',
-                                })}
-                            />}
+                            extra={<Switch checked={this.state.is_cash_on_deliver} onChange={this.handleChangePayPattern.bind(this)}/>}
                         >货到付款</Item>*/}
                     </List>
 
@@ -294,7 +305,7 @@ class TradeCheck extends Component {
                     </div>
                     <div
                         className="footer-buy" style={{backgroundColor: this.state.is_pay ? '#1AAD19' : '#dddddd'}}
-                        onClick={this.handlePay.bind(this)}>立刻支付
+                        onClick={this.handlePay.bind(this)}>立刻{this.state.is_cash_on_deliver?'下单':'支付'}
                     </div>
                 </div>
                 <div className={'loading-mask ' + (this.state.is_load ? 'loading-mask-hide' : '')}>

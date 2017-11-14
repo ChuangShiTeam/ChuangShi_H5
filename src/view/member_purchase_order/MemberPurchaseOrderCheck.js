@@ -131,7 +131,6 @@ class MemberPurchaseOrderCheck extends Component {
             }
         }
 
-
         const product_sku_list = [];
 
         for (let i = 0; i < this.state.product_sku_list.length; i++) {
@@ -146,7 +145,6 @@ class MemberPurchaseOrderCheck extends Component {
         }
 
         Toast.loading('加载中..', 0);
-
         http.request({
             url: '/member/purchase/order/save',
             data: {
@@ -162,41 +160,115 @@ class MemberPurchaseOrderCheck extends Component {
                 open_id: storage.getOpenId()
             },
             success: function (data) {
-                window.wx.chooseWXPay({
-                    timestamp: data.timeStamp,
-                    nonceStr: data.nonceStr,
-                    package: data.package,
-                    signType: data.signType,
-                    paySign: data.paySign,
-                    success: function (res) {
-                        if (res.errMsg === "chooseWXPay:ok") {
-                            //支付成功
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/confirm/' + data.trade_id,
-                                query: {},
-                            }));
-                        } else {
-                            //支付失败
+
+                if(typeof(data.code) != undefined && data.code == 204)
+                {
+                    alert('提示', '是否拆单？', [
+                        {
+                            text: '取消',
+                            onPress() {
+
+                            },
+                        },
+                        {
+                            text: '确定',
+                            onPress:this.splitOrder.bind(this)
+                        }
+                    ]);
+                }else
+                {
+                    window.wx.chooseWXPay({
+                        timestamp: data.timeStamp,
+                        nonceStr: data.nonceStr,
+                        package: data.package,
+                        signType: data.signType,
+                        paySign: data.paySign,
+                        success: function (res) {
+                            if (res.errMsg === "chooseWXPay:ok") {
+                                //支付成功
+                                this.props.dispatch(routerRedux.push({
+                                    pathname: '/member/purchase/order/confirm/' + data.trade_id,
+                                    query: {},
+                                }));
+                            } else {
+                                //支付失败
+                                this.props.dispatch(routerRedux.push({
+                                    pathname: '/member/purchase/order/index/ALL',
+                                    query: {},
+                                }));
+                            }
+                        }.bind(this),
+                        fail: function (res) {
                             this.props.dispatch(routerRedux.push({
                                 pathname: '/member/purchase/order/index/ALL',
                                 query: {},
                             }));
-                        }
-                    }.bind(this),
-                    fail: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: '/member/purchase/order/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this),
-                    cancel: function (res) {
-                        this.props.dispatch(routerRedux.push({
-                            pathname: '/member/purchase/order/index/ALL',
-                            query: {},
-                        }));
-                    }.bind(this)
-                });
+                        }.bind(this),
+                        cancel: function (res) {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/member/purchase/order/index/ALL',
+                                query: {},
+                            }));
+                        }.bind(this)
+                    });
+                }
 
+                Toast.hide();
+            }.bind(this),
+            complete() {
+
+            },
+        });
+    }
+
+    //拆单
+    splitOrder() {
+        if (!this.state.is_pay) {
+            return;
+        }
+        let member_purchase_order_is_warehouse_receive = this.state.is_warehouse_receive;
+        //不是仓库代收必须填写收货地址
+        if (!member_purchase_order_is_warehouse_receive) {
+            if (typeof (this.state.member_address.member_address_name) === 'undefined') {
+                Toast.fail('请选择收货地址', constant.duration);
+
+                return;
+            }
+        }
+
+        const product_sku_list = [];
+
+        for (let i = 0; i < this.state.product_sku_list.length; i++) {
+            product_sku_list.push({
+                product_sku_id: this.state.product_sku_list[i].product_sku_id,
+                product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity,
+            });
+        }
+
+        if (product_sku_list.length === 0) {
+            Toast.fail('请选购商品', constant.duration);
+        }
+
+        Toast.loading('加载中..', 0);
+        http.request({
+            url: '/member/purchase/order/split',
+            data: {
+                member_purchase_order_is_warehouse_receive: member_purchase_order_is_warehouse_receive,
+                member_purchase_order_receiver_name: this.state.member_address.member_address_name,
+                member_purchase_order_receiver_mobile: this.state.member_address.member_address_mobile,
+                member_purchase_order_receiver_province: this.state.member_address.member_address_province,
+                member_purchase_order_receiver_city: this.state.member_address.member_address_city,
+                member_purchase_order_receiver_area: this.state.member_address.member_address_area,
+                member_purchase_order_receiver_address: this.state.member_address.member_address_address,
+                member_purchase_order_message: this.props.form.getFieldValue('member_purchase_order_message'),
+                product_sku_list: product_sku_list,
+                open_id: storage.getOpenId()
+            },
+            success: function (data) {
+                this.props.dispatch(routerRedux.push({
+                    pathname: '/member/purchase/order/index/ALL',
+                    query: {},
+                }));
                 Toast.hide();
             }.bind(this),
             complete() {
