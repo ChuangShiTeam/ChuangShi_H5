@@ -160,58 +160,31 @@ class MemberPurchaseOrderCheck extends Component {
                 open_id: storage.getOpenId()
             },
             success: function (data) {
-
-                if(typeof(data.code) != undefined && data.code == 204)
-                {
-                    alert('提示', '是否拆单？', [
-                        {
-                            text: '取消',
-                            onPress() {
-
-                            },
-                        },
-                        {
-                            text: '确定',
-                            onPress:this.splitOrder.bind(this)
+                window.wx.chooseWXPay({
+                    timestamp: data.timeStamp,
+                    nonceStr: data.nonceStr,
+                    package: data.package,
+                    signType: data.signType,
+                    paySign: data.paySign,
+                    success: function (res) {
+                        if (res.errMsg === "chooseWXPay:ok") {
+                            //支付成功
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/member/purchase/order/confirm/' + data.trade_id,
+                                query: {},
+                            }));
+                        } else {
+                            //支付失败
+                            this.handleConfirmSplitOrder(data.member_level_id);
                         }
-                    ]);
-                }else
-                {
-                    window.wx.chooseWXPay({
-                        timestamp: data.timeStamp,
-                        nonceStr: data.nonceStr,
-                        package: data.package,
-                        signType: data.signType,
-                        paySign: data.paySign,
-                        success: function (res) {
-                            if (res.errMsg === "chooseWXPay:ok") {
-                                //支付成功
-                                this.props.dispatch(routerRedux.push({
-                                    pathname: '/member/purchase/order/confirm/' + data.trade_id,
-                                    query: {},
-                                }));
-                            } else {
-                                //支付失败
-                                this.props.dispatch(routerRedux.push({
-                                    pathname: '/member/purchase/order/index/ALL',
-                                    query: {},
-                                }));
-                            }
-                        }.bind(this),
-                        fail: function (res) {
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/index/ALL',
-                                query: {},
-                            }));
-                        }.bind(this),
-                        cancel: function (res) {
-                            this.props.dispatch(routerRedux.push({
-                                pathname: '/member/purchase/order/index/ALL',
-                                query: {},
-                            }));
-                        }.bind(this)
-                    });
-                }
+                    }.bind(this),
+                    fail: function (res) {
+                        this.handleConfirmSplitOrder(data.member_level_id);
+                    }.bind(this),
+                    cancel: function (res) {
+                        this.handleConfirmSplitOrder(data.member_level_id);
+                    }.bind(this)
+                });
 
                 Toast.hide();
             }.bind(this),
@@ -221,8 +194,33 @@ class MemberPurchaseOrderCheck extends Component {
         });
     }
 
+    handleConfirmSplitOrder(member_level_id) {
+        if (member_level_id == '2b27adef1c594c209289cc9bb8a3764a') {
+            alert('提示', '因银行和微信支付限制了您的支付上限，您可能无法一次支付该订单，您可以选择拆分订单来完成支付！', [
+                {
+                    text: '取消',
+                    onPress() {
+                        this.props.dispatch(routerRedux.push({
+                            pathname: '/member/purchase/order/index/ALL',
+                            query: {},
+                        }));
+                    },
+                },
+                {
+                    text: '拆订单',
+                    onPress: this.handleSplitOrder.bind(this)
+                }
+            ]);
+        } else {
+            this.props.dispatch(routerRedux.push({
+                pathname: '/member/purchase/order/index/ALL',
+                query: {},
+            }));
+        }
+    }
+
     //拆单
-    splitOrder() {
+    handleSplitOrder() {
         if (!this.state.is_pay) {
             return;
         }
@@ -299,18 +297,18 @@ class MemberPurchaseOrderCheck extends Component {
                     <List>
                         <List.Item
                             extra={<Switch
-                              {...getFieldProps('member_purchase_order_is_warehouse_receive', {
-                                initialValue: false,
-                                valuePropName: 'checked'
-                              })}
-                              onClick={this.onChangeWarehouseReceive.bind(this)}
+                                {...getFieldProps('member_purchase_order_is_warehouse_receive', {
+                                    initialValue: false,
+                                    valuePropName: 'checked'
+                                })}
+                                onClick={this.onChangeWarehouseReceive.bind(this)}
                             />}
                         >是否仓库代收</List.Item>
                     </List>
                     {
-                        this.state.is_warehouse_receive?
+                        this.state.is_warehouse_receive ?
                             null
-                                :
+                            :
                             <span>
                                 <WhiteSpace size="lg"/>
                                 <List>
@@ -341,7 +339,8 @@ class MemberPurchaseOrderCheck extends Component {
                                         key={item.product_sku_id}
                                         extra={'￥' + (item.product_sku_price * item.product_sku_quantity).toFixed(2)}
                                     >
-                                        <img className="product-list-image" src={constant.host + item.product_image} alt=""/>
+                                        <img className="product-list-image" src={constant.host + item.product_image}
+                                             alt=""/>
                                         <div className="product-list-text">
                                             {item.product_name}
                                             <div>{item.product_sku_price.toFixed(2)} × {item.product_sku_quantity}</div>
@@ -357,9 +356,9 @@ class MemberPurchaseOrderCheck extends Component {
                             商品金额
                         </Item>
                         {
-                            this.state.is_warehouse_receive?
+                            this.state.is_warehouse_receive ?
                                 null
-                                    :
+                                :
                                 <Item extra={'￥' + this.state.member_purchase_order_express_amount.toFixed(2)}>
                                     运费
                                 </Item>
@@ -379,7 +378,8 @@ class MemberPurchaseOrderCheck extends Component {
                 </div>
                 <div className="footer">
                     <div className="footer-total">
-                        <span className="footer-total-text">总金额: ￥{this.state.member_purchase_order_amount.toFixed(2)}</span>
+                        <span
+                            className="footer-total-text">总金额: ￥{this.state.member_purchase_order_amount.toFixed(2)}</span>
                     </div>
                     <div
                         className="footer-buy" style={{backgroundColor: this.state.is_pay ? '#1AAD19' : '#dddddd'}}
