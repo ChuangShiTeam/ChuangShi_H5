@@ -3,7 +3,7 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {createForm} from 'rc-form';
 
-import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast, Switch} from 'antd-mobile';
+import {ActivityIndicator, WhiteSpace, List, TextareaItem, Modal, Toast} from 'antd-mobile';
 
 import constant from '../../util/constant';
 import storage from '../../util/storage';
@@ -131,92 +131,80 @@ class TradeCheck extends Component {
         if (this.state.product_sku_list.length === 0) {
             Toast.fail('请选购商品', constant.duration);
         }
-        alert('用户须知', '产品非质量问题，不支持退款退货！', [
-            {
-                text: '取消',
-                onPress() {
 
-                }
+        const product_sku_list = [];
+
+        for (let i = 0; i < this.state.product_sku_list.length; i++) {
+            product_sku_list.push({
+                product_sku_id: this.state.product_sku_list[i].product_sku_id,
+                product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity
+            });
+        }
+        Toast.loading('加载中..', 0);
+        http.request({
+            url: '/trade/save',
+            data: {
+                trade_receiver_name: this.state.member_address.member_address_name,
+                trade_receiver_mobile: this.state.member_address.member_address_mobile,
+                trade_receiver_province: this.state.member_address.member_address_province,
+                trade_receiver_city: this.state.member_address.member_address_city,
+                trade_receiver_area: this.state.member_address.member_address_area,
+                trade_receiver_address: this.state.member_address.member_address_address,
+                trade_message: this.props.form.getFieldValue('trade_message'),
+                trade_pay_type: 'WECHAT',
+                trade_deliver_pattern: this.state.is_cash_on_deliver?'CASH_ON_DELIVERY':'CASH_BEFORE_DELIVERY',
+                product_sku_list: product_sku_list,
+                open_id: storage.getOpenId(),
+                pay_type: 'H5'
             },
-            {
-                text: '我知道了',
-                onPress: function () {
-                    const product_sku_list = [];
-
-                    for (let i = 0; i < this.state.product_sku_list.length; i++) {
-                        product_sku_list.push({
-                            product_sku_id: this.state.product_sku_list[i].product_sku_id,
-                            product_sku_quantity: this.state.product_sku_list[i].product_sku_quantity
-                        });
-                    }
-                    Toast.loading('加载中..', 0);
-                    http.request({
-                        url: '/trade/save',
-                        data: {
-                            trade_receiver_name: this.state.member_address.member_address_name,
-                            trade_receiver_mobile: this.state.member_address.member_address_mobile,
-                            trade_receiver_province: this.state.member_address.member_address_province,
-                            trade_receiver_city: this.state.member_address.member_address_city,
-                            trade_receiver_area: this.state.member_address.member_address_area,
-                            trade_receiver_address: this.state.member_address.member_address_address,
-                            trade_message: this.props.form.getFieldValue('trade_message'),
-                            trade_pay_type: 'WECHAT',
-                            trade_deliver_pattern: this.state.is_cash_on_deliver?'CASH_ON_DELIVERY':'CASH_BEFORE_DELIVERY',
-                            product_sku_list: product_sku_list,
-                            open_id: storage.getOpenId(),
-                            pay_type: 'H5'
-                        },
-                        success: function (data) {
-                            if (this.state.is_cash_on_deliver) {
+            success: function (data) {
+                if (this.state.is_cash_on_deliver) {
+                    this.props.dispatch(routerRedux.push({
+                        pathname: '/trade/confirm/' + data.trade_id,
+                        query: {}
+                    }));
+                } else {
+                    window.wx.chooseWXPay({
+                        timestamp: data.timeStamp,
+                        nonceStr: data.nonceStr,
+                        package: data.package,
+                        signType: data.signType,
+                        paySign: data.paySign,
+                        success: function (res) {
+                            if (res.errMsg === "chooseWXPay:ok") {
+                                //支付成功
                                 this.props.dispatch(routerRedux.push({
                                     pathname: '/trade/confirm/' + data.trade_id,
-                                    query: {}
+                                    query: {},
                                 }));
                             } else {
-                                window.wx.chooseWXPay({
-                                    timestamp: data.timeStamp,
-                                    nonceStr: data.nonceStr,
-                                    package: data.package,
-                                    signType: data.signType,
-                                    paySign: data.paySign,
-                                    success: function (res) {
-                                        if (res.errMsg === "chooseWXPay:ok") {
-                                            //支付成功
-                                            this.props.dispatch(routerRedux.push({
-                                                pathname: '/trade/confirm/' + data.trade_id,
-                                                query: {},
-                                            }));
-                                        } else {
-                                            //支付失败
-                                            this.props.dispatch(routerRedux.push({
-                                                pathname: '/trade/index/ALL',
-                                                query: {},
-                                            }));
-                                        }
-                                    }.bind(this),
-                                    fail: function (res) {
-                                        this.props.dispatch(routerRedux.push({
-                                            pathname: '/trade/index/ALL',
-                                            query: {},
-                                        }));
-                                    }.bind(this),
-                                    cancel: function (res) {
-                                        this.props.dispatch(routerRedux.push({
-                                            pathname: '/trade/index/ALL',
-                                            query: {},
-                                        }));
-                                    }.bind(this)
-                                });
+                                //支付失败
+                                this.props.dispatch(routerRedux.push({
+                                    pathname: '/trade/index/ALL',
+                                    query: {},
+                                }));
                             }
-                            Toast.hide();
                         }.bind(this),
-                        complete() {
-
-                        }
+                        fail: function (res) {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/trade/index/ALL',
+                                query: {},
+                            }));
+                        }.bind(this),
+                        cancel: function (res) {
+                            this.props.dispatch(routerRedux.push({
+                                pathname: '/trade/index/ALL',
+                                query: {},
+                            }));
+                        }.bind(this)
                     });
-                }.bind(this)
+                }
+                Toast.hide();
+            }.bind(this),
+            complete() {
+
             }
-        ]);
+        });
     }
 
     handleBack() {
