@@ -11,8 +11,7 @@ class Index extends Component {
         super(props);
 
         this.state = {
-            is_load: this.props.index.is_load,
-            carousel_list: ['00', '01', '02', '03']
+            is_load: this.props.index.is_load
         }
     }
 
@@ -39,6 +38,10 @@ class Index extends Component {
 
             this.handleLoad();
         }
+
+        if (this.props.index.banner_list.length === 0) {
+            this.handleLoadBanner();
+        }
     }
 
     componentWillUnmount() {
@@ -46,7 +49,30 @@ class Index extends Component {
             type: 'index/fetch',
             data: {
                 scroll_top: document.body.scrollTop
-            },
+            }
+        });
+    }
+
+    handleLoadBanner() {
+        http.request({
+            url: '/mobile/advertisement/list',
+            data: {},
+            success: function (data) {
+                this.props.dispatch({
+                    type: 'index/fetch',
+                    data: {
+                        banner_list: data
+                    }
+                });
+            }.bind(this),
+            complete: function () {
+                this.props.dispatch({
+                    type: 'index/fetch',
+                    data: {
+                        is_load: true
+                    }
+                });
+            }.bind(this)
         });
     }
 
@@ -76,14 +102,14 @@ class Index extends Component {
     handleCategory(category_id) {
         this.props.dispatch(routerRedux.push({
             pathname: '/category/' + category_id,
-            query: {},
+            query: {}
         }));
     }
 
     handleProduct(product_id) {
         this.props.dispatch(routerRedux.push({
             pathname: '/product/detail/' + product_id,
-            query: {},
+            query: {}
         }));
     }
 
@@ -93,9 +119,9 @@ class Index extends Component {
                 <div style={{height: document.documentElement.clientWidth * 0.4 + 'px'}}>
                     <Carousel autoplay infinite>
                         {
-                            this.state.carousel_list.map((item, index) => {
+                            this.props.index.banner_list.map((item, index) => {
                                 return (
-                                    <img key={index} src={require('../assets/image/' + item + '.jpg')} style={{width: document.documentElement.clientWidth, height: document.documentElement.clientWidth * 0.4 + 'px'}} alt=""/>
+                                    <img key={index} src={constant.host + item.file_original_path} style={{width: document.documentElement.clientWidth, height: document.documentElement.clientWidth * 0.4 + 'px'}} alt=""/>
                                 );
                             })
                         }
