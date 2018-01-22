@@ -24,6 +24,13 @@ export default {
         path: '/product/brand/index',
         icon: 'brand.svg',
         selected_icon: 'brand_active.svg'
+    // }, {
+    //     key: 'shop',
+    //     title: '积分',
+    //     url: '/shop',
+    //     path: '/shop',
+    //     icon: 'selection.svg',
+    //     selected_icon: 'selection_active.svg'
     }, {
         key: 'knowledge',
         title: '商学院',
