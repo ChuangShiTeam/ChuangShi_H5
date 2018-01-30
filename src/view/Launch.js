@@ -22,6 +22,12 @@ class Launch extends Component {
         this.setState({
             is_load: true
         });
+
+        setTimeout(function() {
+            if (this.props.route.path.indexOf('/launch') > -1) {
+                this.handleStart();
+            }
+        }.bind(this), 5000);
     }
 
     componentWillUnmount() {
@@ -44,7 +50,7 @@ class Launch extends Component {
     render() {
         return (
             <div>
-                <div className="launch" style={{backgroundImage: 'url(' + require('../assets/image/launch.jpg') + ')'}}
+                <div className="launch" style={{backgroundImage: 'url(' + require('../assets/image/launch.png') + ')'}}
                      onClick={this.handleStart.bind(this)}>
                 </div>
                 {/*<div className="launch-start" style={{height: document.documentElement.clientHeight / 2}} ></div>*/}
