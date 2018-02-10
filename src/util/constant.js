@@ -5,7 +5,7 @@ export default {
     is_test: false,
     platform: 'H5',
     version: '9.9.8',
-    name: '星创会',
+    name: 'V+Lab薇嘉实验室',
     h5Host: 'http://h5.xingxiao.nowui.com/?#/',
     app_id: 'c1af3f1ae00e4e0da9b20f5bd41b4279',
     wechat_app_id: 'wx26c8db6f1987e4e0',
@@ -24,13 +24,13 @@ export default {
         path: '/product/brand/index',
         icon: 'brand.svg',
         selected_icon: 'brand_active.svg'
-    // }, {
-    //     key: 'shop',
-    //     title: '积分',
-    //     url: '/shop',
-    //     path: '/shop',
-    //     icon: 'selection.svg',
-    //     selected_icon: 'selection_active.svg'
+        // }, {
+        //     key: 'shop',
+        //     title: '积分',
+        //     url: '/shop',
+        //     path: '/shop',
+        //     icon: 'selection.svg',
+        //     selected_icon: 'selection_active.svg'
     }, {
         key: 'knowledge',
         title: '商学院',

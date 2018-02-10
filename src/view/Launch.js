@@ -3,6 +3,8 @@ import {connect} from 'dva';
 import {routerRedux} from 'dva/router';
 import {ActivityIndicator} from 'antd-mobile';
 
+import constant from '../util/constant';
+
 class Launch extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +17,7 @@ class Launch extends Component {
     }
 
     componentDidMount() {
-        document.title = '星创会';
+        document.title = constant.name;
 
         document.body.scrollTop = 0;
 
@@ -27,7 +29,7 @@ class Launch extends Component {
             if (this.props.route.path.indexOf('/launch') > -1) {
                 this.handleStart();
             }
-        }.bind(this), 5000);
+        }.bind(this), 1000);
     }
 
     componentWillUnmount() {
