@@ -4,7 +4,7 @@ export default {
     host: 'http://api.chuangshi.nowui.com',
     is_test: false,
     platform: 'H5',
-    version: '1.0.0',
+    version: '1.0.1',
     name: '济颐馆',
     h5Host: 'http://h5.jiyiguan.nowui.com/?#/',
     app_id: 'df2078d6c9eb46babb0df957127273ab',

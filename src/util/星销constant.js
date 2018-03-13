@@ -4,7 +4,7 @@ export default {
     host: 'http://api.chuangshi.nowui.com',
     is_test: false,
     platform: 'H5',
-    version: '9.9.8',
+    version: '9.9.7',
     name: 'V+Lab薇嘉实验室',
     h5Host: 'http://h5.xingxiao.nowui.com/?#/',
     app_id: 'c1af3f1ae00e4e0da9b20f5bd41b4279',
