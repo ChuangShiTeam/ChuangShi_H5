@@ -132,7 +132,7 @@ class TeamIndex extends Component {
                                 <img src={item.user_avatar} alt=""/>
                             </div>
                             <div className="list-item-text" style={{right: '125px'}}>
-                                {item.user_name}
+                                {item.user_name}({item.system_create_time.substring(0, 10)})
                             </div>
                             <div className="list-item-brief">
                                 {
